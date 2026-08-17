@@ -147,6 +147,8 @@ om te spelen wat je wilt.
 | `Tab` | Tussen kuiltjes bewegen, ook die van de computer |
 | `Ctrl+Z` | Je laatste zet ongedaan maken |
 | `Ctrl+N` | Een nieuw spel beginnen |
+| `L` | Leermodus aan- of uitzetten |
+| `S` | Aantal zaadjes tonen of verbergen |
 | `Esc` | Het bord verlaten |
 
 Elk kuiltje meldt zijn nummer en hoeveel zaadjes erin liggen, dus het hele bord

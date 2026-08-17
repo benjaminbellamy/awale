@@ -52,6 +52,8 @@ Houses are numbered 1 to 6 along your row, left to right.
 | `Tab` | Move between houses, including the computer's |
 | `Ctrl+Z` | Undo your last move |
 | `Ctrl+N` | Start a new game |
+| `L` | Turn learning mode on or off |
+| `S` | Show or hide the seed counts |
 | `Esc` | Step out of the board |
 
 The number keys work on the number pad as well as on the top row.

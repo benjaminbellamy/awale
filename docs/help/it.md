@@ -143,6 +143,8 @@ quello che vuoi.
 | `Tab` | Spostarsi tra le buche, comprese quelle del computer |
 | `Ctrl+Z` | Annulla la tua ultima mossa |
 | `Ctrl+N` | Inizia una nuova partita |
+| `L` | Attivare o disattivare la modalità apprendimento |
+| `S` | Mostrare o nascondere il numero di semi |
 | `Esc` | Uscire dal tavoliere |
 
 Ogni buca annuncia il proprio numero e quanti semi contiene, così l’intero

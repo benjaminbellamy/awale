@@ -144,6 +144,8 @@ quieras.
 | `Tab` | Moverse entre hoyos, incluidos los del ordenador |
 | `Ctrl+Z` | Deshacer tu última jugada |
 | `Ctrl+N` | Empezar una partida nueva |
+| `L` | Activar o desactivar el modo de aprendizaje |
+| `S` | Mostrar u ocultar el número de semillas |
 | `Esc` | Salir del tablero |
 
 Cada hoyo anuncia su número y cuántas semillas tiene, así que el tablero entero

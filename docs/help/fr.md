@@ -148,6 +148,8 @@ jouer ce que vous voulez.
 | `Tab` | Passer d’une case à l’autre, y compris celles de l’ordinateur |
 | `Ctrl+Z` | Annuler votre dernier coup |
 | `Ctrl+N` | Nouvelle partie |
+| `L` | Activer ou désactiver le mode apprentissage |
+| `S` | Afficher ou masquer le nombre de graines |
 | `Échap` | Sortir du plateau |
 
 Chaque case annonce son numéro et son nombre de graines : le plateau entier

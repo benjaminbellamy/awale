@@ -46,6 +46,12 @@ namespace Awale {
             set_action_accels (this, "win.undo", { "<Control>z" });
             set_action_accels (this, "win.cancel", { "Escape" });
 
+            // The two things a player turns on and off mid-game, on bare
+            // letters: nothing in this window takes typed text, so there is no
+            // entry for them to disappear into.
+            set_action_accels (this, "win.learning-mode", { "l" });
+            set_action_accels (this, "win.show-seed-counts", { "s" });
+
             // Keys 1 to 6 play the matching house of the player's own row,
             // from the number row and from the keypad alike: those are separate
             // keyvals, so both have to be bound.

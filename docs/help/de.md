@@ -148,6 +148,8 @@ davon ab, zu spielen was du willst.
 | `Tab` | Zwischen den Mulden wechseln, auch denen des Computers |
 | `Strg+Z` | Deinen letzten Zug zurücknehmen |
 | `Strg+N` | Neue Partie beginnen |
+| `L` | Lernmodus ein- oder ausschalten |
+| `S` | Samenanzahl ein- oder ausblenden |
 | `Esc` | Das Brett verlassen |
 
 Jede Mulde nennt ihre Nummer und ihren Inhalt, das ganze Brett lässt sich also
