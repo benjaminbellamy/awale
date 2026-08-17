@@ -135,6 +135,12 @@ at the computer's strongest setting, whatever level you have chosen.
 It is the computer's opinion, not the truth, and it never stops you playing
 whatever you like.
 
+The arrows are not an opinion. One is drawn from every house that would win
+seeds, on either row, following the way the seeds travel to the house the last
+one lands in, and the figure at its mouth is what it would take. The arrows on
+the computer's row are what it could take from you next, whether it is its turn
+or not.
+
 ## Playing with the keyboard
 
 | Key | What it does |

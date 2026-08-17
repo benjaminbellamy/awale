@@ -135,6 +135,12 @@ scelto.
 È l'opinione del computer, non la verità, e non ti impedisce mai di giocare
 quello che vuoi.
 
+Le frecce, invece, non sono un'opinione. Una freccia parte da ogni buca che
+farebbe guadagnare semi, in entrambe le file, e segue il percorso dei semi fino
+a quella in cui cade l'ultimo; il numero alla sua origine è quanto renderebbe la
+mossa. Le frecce sulla fila del computer mostrano ciò che potrebbe prenderti
+dopo, che sia il suo turno o no.
+
 ## Giocare con la tastiera
 
 | Tasto | Effetto |

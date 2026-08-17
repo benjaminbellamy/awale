@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-17 15:30+0200\n"
+"POT-Creation-Date: 2026-08-18 00:41+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: German\n"
@@ -63,93 +63,110 @@ msgstr "Drei Schwierigkeitsgrade, die mitten im Spiel geändert werden können"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:28
 msgid "A learning mode that stars the best move and explains it"
-msgstr "Ein Lernmodus, der den besten Zug mit einem Stern markiert und ihn erklärt"
+msgstr ""
+"Ein Lernmodus, der den besten Zug mit einem Stern markiert und ihn erklärt"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:29
+msgid "Arrows tracing what every house would capture, from either row"
+msgstr "Pfeile, die zeigen, was jede Mulde einbringen würde, in beiden Reihen"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:30
 msgid "Full keyboard play, with every house reachable and described aloud"
 msgstr "Vollständige Tastaturbedienung, jede Mulde erreichbar und vorgelesen"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:30
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:31
 msgid ""
 "Your game is kept when you close the window and restored when you return"
 msgstr ""
 "Dein Spiel wird beim Schließen des Fensters behalten und bei der Rückkehr "
 "wiederhergestellt"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:35
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:36
 msgid "Benjamin Bellamy"
 msgstr "Benjamin Bellamy"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:46
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:47
 msgid "The board at the start of a game"
 msgstr "Das Brett zu Beginn einer Partie"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:50
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:51
 msgid "Learning mode stars the best move and explains it"
 msgstr "Der Lernmodus markiert den besten Zug mit einem Stern und erklärt ihn"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:54
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:55
 msgid "A game in progress in the dark style"
 msgstr "Eine laufende Partie im dunklen Stil"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:58
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:59
 msgid "In a narrow window the board turns a quarter turn"
 msgstr "In einem schmalen Fenster dreht sich das Brett um eine Vierteldrehung"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:69
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:70
 msgid "oware"
 msgstr "oware"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:70
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:71
 msgid "awale"
 msgstr "awale"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:71
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:72
 msgid "wari"
 msgstr "wari"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:72
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:73
 msgid "mancala"
 msgstr "mancala"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:73
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:74
 msgid "board game"
 msgstr "Brettspiel"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:92
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
+msgid ""
+"The advice now reads above the board, and the two rows of houses stay in the "
+"middle of the window whether there is a message or not."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+msgid ""
+"Fixes the interface language in the Flatpak build, which stayed in English "
+"whichever language was chosen."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
 msgid "First release."
 msgstr "Erste Veröffentlichung."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:94
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 "Vollständige Awalé-Regeln, einschließlich Grand Slam und beider Zyklussperren"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:95
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:112
 msgid "Computer opponent at three strengths"
 msgstr "Computergegner in drei Stärken"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:96
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Lernmodus, der den besten Zug markiert, mit der Begründung dazu"
 
 #. / Short description shown in the About window.
-#: src/ui/application.vala:90
+#: src/ui/application.vala:96
 msgid "Play Awalé, a game of the mancala family, against the computer."
 msgstr "Spiele Awalé, ein Spiel aus der Mancala-Familie, gegen den Computer."
 
 #. / Name under the player's own store, and under the computer's.
-#: src/ui/board-view.vala:34
+#: src/ui/board-view.vala:41
 msgid "You"
 msgstr "Du"
 
-#: src/ui/board-view.vala:34
+#: src/ui/board-view.vala:41
 msgid "Computer"
 msgstr "Computer"
 
 #. / Accessibility label for the player's own store.
 #. / %d is how many seeds they have captured.
-#: src/ui/board-view.vala:82
+#: src/ui/board-view.vala:87
 #, c-format
 msgid "Your store, %d seed captured"
 msgid_plural "Your store, %d seeds captured"
@@ -158,7 +175,7 @@ msgstr[1] "Dein Speicher, %d Bohnen erobert"
 
 #. / Accessibility label for the computer's store.
 #. / %d is how many seeds it has captured.
-#: src/ui/board-view.vala:87
+#: src/ui/board-view.vala:92
 #, c-format
 msgid "The computer's store, %d seed captured"
 msgid_plural "The computer's store, %d seeds captured"
@@ -166,7 +183,7 @@ msgstr[0] "Der Speicher des Computers, %d Bohne erobert"
 msgstr[1] "Der Speicher des Computers, %d Bohnen erobert"
 
 #. / Spoken description of a house the advisor recommends.
-#: src/ui/board-view.vala:375
+#: src/ui/board-view.vala:406
 msgid "Recommended move."
 msgstr "Empfohlener Zug."
 
@@ -182,7 +199,7 @@ msgstr "Die Hilfeseite konnte nicht geladen werden."
 
 #. / Accessibility label. %1$d is the house number 1 to 6,
 #. / %2$d is how many seeds it holds.
-#: src/ui/house-button.vala:205
+#: src/ui/house-button.vala:192
 #, c-format
 msgid "Your house %1$d, %2$d seed, legal move"
 msgid_plural "Your house %1$d, %2$d seeds, legal move"
@@ -190,7 +207,7 @@ msgstr[0] "Deine Mulde %1$d, %2$d Bohne, gültiger Zug"
 msgstr[1] "Deine Mulde %1$d, %2$d Bohnen, gültiger Zug"
 
 #. / Accessibility label for a house the player cannot play.
-#: src/ui/house-button.vala:210
+#: src/ui/house-button.vala:197
 #, c-format
 msgid "Your house %1$d, %2$d seed"
 msgid_plural "Your house %1$d, %2$d seeds"
@@ -198,7 +215,7 @@ msgstr[0] "Deine Mulde %1$d, %2$d Bohne"
 msgstr[1] "Deine Mulde %1$d, %2$d Bohnen"
 
 #. / Accessibility label for one of the computer's houses.
-#: src/ui/house-button.vala:215
+#: src/ui/house-button.vala:202
 #, c-format
 msgid "Computer's house %1$d, %2$d seed"
 msgid_plural "Computer's house %1$d, %2$d seeds"
@@ -217,71 +234,71 @@ msgstr "Eine neue Partie beginnen"
 msgid "Main menu"
 msgstr "Hauptmenü"
 
-#: src/ui/window.blp:94
+#: src/ui/window.blp:87
 msgid "_New Game"
 msgstr "_Neues Spiel"
 
-#: src/ui/window.blp:101
+#: src/ui/window.blp:94
 msgid "_Learning Mode"
 msgstr "_Lernmodus"
 
-#: src/ui/window.blp:106
+#: src/ui/window.blp:99
 msgid "Show Seed _Counts"
 msgstr "Samen_anzahl anzeigen"
 
-#: src/ui/window.blp:111
+#: src/ui/window.blp:104
 msgid "_Difficulty"
 msgstr "_Schwierigkeit"
 
-#: src/ui/window.blp:114
+#: src/ui/window.blp:107
 msgid "_Easy"
 msgstr "_Leicht"
 
-#: src/ui/window.blp:120
+#: src/ui/window.blp:113
 msgid "_Medium"
 msgstr "_Mittel"
 
-#: src/ui/window.blp:126
+#: src/ui/window.blp:119
 msgid "_Hard"
 msgstr "_Schwer"
 
-#: src/ui/window.blp:133
+#: src/ui/window.blp:126
 msgid "_Language"
 msgstr "_Sprache"
 
-#: src/ui/window.blp:136
+#: src/ui/window.blp:129
 msgid "Use _System Language"
 msgstr "_Systemsprache verwenden"
 
-#: src/ui/window.blp:142
+#: src/ui/window.blp:135
 msgid "_English"
 msgstr "_Englisch"
 
-#: src/ui/window.blp:148
+#: src/ui/window.blp:141
 msgid "_French"
 msgstr "_Französisch"
 
-#: src/ui/window.blp:154
+#: src/ui/window.blp:147
 msgid "_German"
 msgstr "_Deutsch"
 
-#: src/ui/window.blp:160
+#: src/ui/window.blp:153
 msgid "_Italian"
 msgstr "_Italienisch"
 
-#: src/ui/window.blp:166
+#: src/ui/window.blp:159
 msgid "_Spanish"
 msgstr "_Spanisch"
 
-#: src/ui/window.blp:172
+#: src/ui/window.blp:165
 msgid "_Dutch"
 msgstr "_Niederländisch"
 
-#: src/ui/window.blp:181
+#: src/ui/window.blp:174
 msgid "_How to Play"
 msgstr "_Spielanleitung"
 
-#: src/ui/window.blp:186
+#: src/ui/window.blp:179
 msgid "_About Awalé"
 msgstr "_Info zu Awalé"
 
@@ -315,24 +332,24 @@ msgstr ""
 "Dieser Zug würde alle verbliebenen Bohnen des Computers erobern, was die "
 "Regeln nicht erlauben."
 
-#: src/ui/window.vala:412 src/ui/window.vala:552
+#: src/ui/window.vala:413 src/ui/window.vala:554
 msgid "The computer is thinking…"
 msgstr "Der Computer denkt nach…"
 
 #. / Said when the computer has chosen its move and is about to play
 #. / it. %d is the computer's house, numbered 1 to 6 along its row.
-#: src/ui/window.vala:427
+#: src/ui/window.vala:428
 #, c-format
 msgid "The computer plays house %d."
 msgstr "Der Computer spielt Mulde %d."
 
-#: src/ui/window.vala:550
+#: src/ui/window.vala:552
 msgid "Your turn."
 msgstr "Du bist am Zug."
 
 #. / Learning mode hint. %1$d is the recommended house, 1 to 6.
 #. / %2$d is how many seeds it captures.
-#: src/ui/window.vala:593
+#: src/ui/window.vala:619
 #, c-format
 msgid "Play house %1$d: it captures %2$d seed."
 msgid_plural "Play house %1$d: it captures %2$d seeds."
@@ -342,7 +359,7 @@ msgstr[1] "Spiele Mulde %1$d: sie erobert %2$d Bohnen."
 #. / Learning mode hint. %1$d is the recommended house and
 #. / %2$d one of your own houses, both numbered 1 to 6.
 #. / %3$d is how many seeds it keeps out of reach.
-#: src/ui/window.vala:600
+#: src/ui/window.vala:626
 #, c-format
 msgid ""
 "Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
@@ -358,7 +375,7 @@ msgstr[1] ""
 "von %3$d Bohnen."
 
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:605
+#: src/ui/window.vala:631
 #, c-format
 msgid ""
 "Play house %d: the computer is out of seeds and this feeds them, which the "
@@ -368,20 +385,20 @@ msgstr ""
 "ihn, wie es die Regeln verlangen."
 
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:608
+#: src/ui/window.vala:634
 #, c-format
 msgid "Play house %d: it is your only legal move."
 msgstr "Spiele Mulde %d: es ist dein einziger gültiger Zug."
 
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:611
+#: src/ui/window.vala:637
 #, c-format
 msgid "Play house %d: it leaves you the strongest position."
 msgstr "Spiele Mulde %d: sie lässt dir die beste Stellung."
 
 #. / Shown once the player has reached 25 seeds while the round
 #. / is still being played. %1$d is their seeds, %2$d the computer's.
-#: src/ui/window.vala:644
+#: src/ui/window.vala:670
 #, c-format
 msgid "You have won, %1$d seeds to %2$d. You can still finish the round."
 msgstr ""
@@ -390,7 +407,7 @@ msgstr ""
 
 #. / Shown once the computer has reached 25 seeds while the round is
 #. / still being played. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:648
+#: src/ui/window.vala:674
 #, c-format
 msgid ""
 "The computer has won, %1$d seeds to %2$d. You can still finish the round."
@@ -399,24 +416,24 @@ msgstr ""
 "zu Ende spielen."
 
 #. / Final result. %d is the number of seeds each player collected.
-#: src/ui/window.vala:659
+#: src/ui/window.vala:685
 #, c-format
 msgid "A draw, %d seeds each."
 msgstr "Unentschieden, %d Bohnen für jeden."
 
 #. / Final result. %1$d is the player's seeds, %2$d the computer's.
-#: src/ui/window.vala:664
+#: src/ui/window.vala:690
 #, c-format
 msgid "You win, %1$d seeds to %2$d."
 msgstr "Du gewinnst, %1$d Bohnen zu %2$d."
 
 #. / Final result. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:667
+#: src/ui/window.vala:693
 #, c-format
 msgid "The computer wins, %1$d seeds to %2$d."
 msgstr "Der Computer gewinnt, %1$d Bohnen zu %2$d."
 
-#: src/ui/window.vala:676
+#: src/ui/window.vala:702
 msgid ""
 "The same position came up three times, so each player took the seeds in "
 "their own row."
@@ -424,7 +441,7 @@ msgstr ""
 "Dieselbe Stellung kam dreimal vor, deshalb hat jeder Spieler die Bohnen "
 "seiner eigenen Reihe genommen."
 
-#: src/ui/window.vala:678
+#: src/ui/window.vala:704
 msgid ""
 "A hundred moves went by without a capture, so each player took the seeds in "
 "their own row."
@@ -432,21 +449,21 @@ msgstr ""
 "Hundert Züge vergingen ohne Eroberung, deshalb hat jeder Spieler die Bohnen "
 "seiner eigenen Reihe genommen."
 
-#: src/ui/window.vala:681
+#: src/ui/window.vala:707
 msgid ""
 "You could not feed the computer, so you took the seeds left on the board."
 msgstr ""
 "Du konntest den Computer nicht versorgen, deshalb bekommst du die restlichen "
 "Bohnen auf dem Brett."
 
-#: src/ui/window.vala:683
+#: src/ui/window.vala:709
 msgid ""
 "The computer could not feed you, so it took the seeds left on the board."
 msgstr ""
 "Der Computer konnte dich nicht versorgen, deshalb bekommt er die restlichen "
 "Bohnen auf dem Brett."
 
-#: src/ui/window.vala:685
+#: src/ui/window.vala:711
 msgid "There was no legal move left to play."
 msgstr "Es war kein gültiger Zug mehr übrig."
 

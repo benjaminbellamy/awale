@@ -160,6 +160,65 @@ private static void test_trace_never_names_the_house_of_origin () {
     assert_cmpint (trace.sown_houses[11], CompareOperator.EQ, 1);
 }
 
+/** The preview for one house, or a fatal failure if it was not offered. */
+private static CapturePreview preview_for (CapturePreview[] previews, int house) {
+    foreach (CapturePreview preview in previews) {
+        if (preview.house == house) {
+            return preview;
+        }
+    }
+    error ("no capture previewed for house %d", house);
+}
+
+/** Both rows are previewed, not just the row of the player to move. */
+private static void test_previews_cover_both_rows () {
+    Board board = position ("0,1,1,0,0,1 | 1,0,0,0,0,3 | S:20 N:21 | to_move=S");
+
+    CapturePreview[] previews = board.capture_previews ();
+
+    assert_cmpint (previews.length, CompareOperator.EQ, 2);
+
+    CapturePreview mine = preview_for (previews, 5);
+    assert_cmpint (mine.captured, CompareOperator.EQ, 2);
+    assert_cmpint (mine.last_house, CompareOperator.EQ, 6);
+    assert_cmpint (mine.seeds_sown, CompareOperator.EQ, 1);
+
+    // North is not to move, and this is still what North would take.
+    CapturePreview theirs = preview_for (previews, 11);
+    assert_cmpint (theirs.captured, CompareOperator.EQ, 4);
+    assert_cmpint (theirs.last_house, CompareOperator.EQ, 2);
+    assert_cmpint (theirs.seeds_sown, CompareOperator.EQ, 3);
+}
+
+/** Nothing is previewed from the opening position: no move there captures. */
+private static void test_no_previews_when_nothing_can_be_won () {
+    Board board = Board.initial ();
+
+    assert_cmpint (board.capture_previews ().length, CompareOperator.EQ, 0);
+}
+
+/** A grand slam wins nothing under the default policy, so it is not previewed. */
+private static void test_grand_slam_is_not_previewed () {
+    Board board = position ("0,0,0,0,0,1 | 1,0,0,0,0,0 | S:23 N:23 | to_move=S");
+
+    assert_cmpint (board.capture_previews ().length, CompareOperator.EQ, 0);
+}
+
+/** A sowing long enough to wrap past its own house reports every seed of it. */
+private static void test_preview_of_a_sowing_that_wraps () {
+    Board board = position ("17,0,0,0,0,0 | 0,0,0,0,0,0 | S:16 N:15 | to_move=S");
+
+    CapturePreview[] previews = board.capture_previews ();
+
+    assert_cmpint (previews.length, CompareOperator.EQ, 1);
+    CapturePreview preview = previews[0];
+    assert_cmpint (preview.house, CompareOperator.EQ, 0);
+    // Seventeen seeds go round the eleven other houses and on into the sixth.
+    assert_cmpint (preview.seeds_sown, CompareOperator.EQ, 17);
+    assert_cmpint (preview.last_house, CompareOperator.EQ, 6);
+    assert_cmpint (preview.captured, CompareOperator.EQ, 2);
+}
+
 public static int main (string[] args) {
     Test.init (ref args);
     Test.add_func ("/capture/opponent-house-to-two", test_last_seed_brings_opponent_house_to_two);
@@ -173,5 +232,9 @@ public static int main (string[] args) {
     Test.add_func ("/trace/reports-sowing-and-chain", test_trace_reports_the_sowing_and_the_chain);
     Test.add_func ("/trace/grand-slam-captures-nothing", test_trace_of_a_grand_slam_captures_nothing);
     Test.add_func ("/trace/never-names-house-of-origin", test_trace_never_names_the_house_of_origin);
+    Test.add_func ("/preview/covers-both-rows", test_previews_cover_both_rows);
+    Test.add_func ("/preview/none-when-nothing-can-be-won", test_no_previews_when_nothing_can_be_won);
+    Test.add_func ("/preview/grand-slam-not-previewed", test_grand_slam_is_not_previewed);
+    Test.add_func ("/preview/sowing-that-wraps", test_preview_of_a_sowing_that_wraps);
     return Test.run ();
 }

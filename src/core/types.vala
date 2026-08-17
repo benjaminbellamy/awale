@@ -131,6 +131,23 @@ namespace Awale {
         public bool grand_slam_suppressed;
     }
 
+    /**
+     * What one house would win for its owner if they played it. Learning mode
+     * shows these before they are played, and from both rows at once, so what
+     * a move would take is answered by the rules rather than read off the
+     * board by whoever draws it.
+     */
+    public struct CapturePreview {
+        /** House that would be played. */
+        public int house;
+        /** House the last seed would land in. */
+        public int last_house;
+        /** Seeds the house holds, which is how many houses the sowing visits. */
+        public int seeds_sown;
+        /** Seeds the move would win. Never zero. */
+        public int captured;
+    }
+
     /** Raised when a position string does not follow RULES.md 8. */
     public errordomain NotationError {
         MALFORMED,

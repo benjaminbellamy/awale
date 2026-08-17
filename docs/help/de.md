@@ -140,6 +140,12 @@ du auch gewählt hast.
 Es ist die Meinung des Computers, nicht die Wahrheit, und sie hält dich nie
 davon ab, zu spielen was du willst.
 
+Die Pfeile sind keine Meinung. Von jeder Mulde, die Samen einbringen würde,
+führt in beiden Reihen ein Pfeil den Weg der Samen entlang bis zu der Mulde, in
+die der letzte fällt; die Zahl an seinem Anfang ist das, was der Zug einbringen
+würde. Die Pfeile in der Reihe des Computers zeigen, was er dir als Nächstes
+nehmen könnte, ob er nun am Zug ist oder nicht.
+
 ## Mit der Tastatur spielen
 
 | Taste | Wirkung |

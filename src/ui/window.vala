@@ -392,6 +392,7 @@ namespace Awale {
             advice_generation++;
             refresh_controls ();
             board_view.clear_legal_moves ();
+            board_view.clear_captures ();
             set_advice (null);
 
             if (human_house != null) {
@@ -535,6 +536,7 @@ namespace Awale {
 
             if (game.outcome != Outcome.IN_PROGRESS) {
                 board_view.clear_legal_moves ();
+                board_view.clear_captures ();
                 board_view.clear_advice ();
                 status_label.label = describe_outcome ();
                 show_detail (describe_end_reason ());
@@ -550,6 +552,14 @@ namespace Awale {
                 status_label.label = _("Your turn.");
             } else {
                 status_label.label = _("The computer is thinking…");
+            }
+
+            // Both rows, whoever is to move: what the computer could take from
+            // you next is worth seeing while you still have a move to choose.
+            if (learning_mode) {
+                board_view.show_captures (board.capture_previews (game.grand_slam_policy));
+            } else {
+                board_view.clear_captures ();
             }
 
             if (board.to_move == human) {

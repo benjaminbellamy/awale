@@ -126,6 +126,8 @@ namespace Awale {
         private HouseButton[] houses = new HouseButton[HOUSE_COUNT];
         private StoreView south_store;
         private StoreView north_store;
+        private CaptureArrows arrows;
+        private Graphene.Point[] house_centres = new Graphene.Point[HOUSE_COUNT];
         private int applied_side = 0;
 
         construct {
@@ -146,6 +148,10 @@ namespace Awale {
             south_store.set_parent (this);
             north_store.set_parent (this);
 
+            // Last child, so its arcs are drawn over every pit.
+            arrows = new CaptureArrows ();
+            arrows.set_parent (this);
+
             notify["compact"].connect (() => queue_resize ());
         }
 
@@ -155,6 +161,7 @@ namespace Awale {
             }
             south_store.unparent ();
             north_store.unparent ();
+            arrows.unparent ();
             base.dispose ();
         }
 
@@ -200,6 +207,12 @@ namespace Awale {
             } else {
                 allocate_flat (side, left, top);
             }
+
+            // Told where the pits ended up before it is given its own room:
+            // the arrows are drawn and their bubbles placed against the pits,
+            // so the pits have to be settled first.
+            arrows.set_board (house_centres, side);
+            place (arrows, 0, 0, width, height);
         }
 
         /** Six houses across, two rows, a store at each end. */
@@ -210,9 +223,9 @@ namespace Awale {
             for (int i = 0; i < ROW_SIZE; i++) {
                 // North's row reads right to left, which is the direction
                 // sowing travels along the top of the board.
-                place (houses[HOUSE_COUNT - 1 - i], left + (i + 1) * step, top, side, row_height);
-                place (houses[i], left + (i + 1) * step, top + row_height + SPACING,
-                       side, row_height);
+                place_house (HOUSE_COUNT - 1 - i, left + (i + 1) * step, top, side, row_height);
+                place_house (i, left + (i + 1) * step, top + row_height + SPACING,
+                             side, row_height);
             }
 
             int store_height = side + north_store.extra_height ();
@@ -233,12 +246,25 @@ namespace Awale {
             for (int i = 0; i < ROW_SIZE; i++) {
                 // Left column runs 11 down to 6, right column 0 up to 5, so
                 // that 5 -> 6 and 11 -> 0 still meet at the ends.
-                place (houses[HOUSE_COUNT - 1 - i], left, y, side, row_height);
-                place (houses[i], left + side + SPACING, y, side, row_height);
+                place_house (HOUSE_COUNT - 1 - i, left, y, side, row_height);
+                place_house (i, left + side + SPACING, y, side, row_height);
                 y += row_height + SPACING;
             }
 
             place (south_store, left, y, board, store_height);
+        }
+
+        /**
+         * Places a house and remembers where its pit landed. The pit is the
+         * square at the top of the allocation, which is the whole of it while
+         * nothing is written underneath.
+         */
+        private void place_house (int house, int x, int y, int side, int height) {
+            place (houses[house], x, y, side, height);
+            house_centres[house] = Graphene.Point () {
+                x = (float) (x + side / 2.0),
+                y = (float) (y + side / 2.0),
+            };
         }
 
         private void place (Gtk.Widget child, int x, int y, int width, int height) {
@@ -386,6 +412,18 @@ namespace Awale {
             foreach (HouseButton button in houses) {
                 button.set_best (false, null);
             }
+        }
+
+        /**
+         * Draws what every house would win for its owner, both rows at once.
+         * The board is handed the answers and never works them out.
+         */
+        public void show_captures (CapturePreview[] previews) {
+            arrows.set_previews (previews);
+        }
+
+        public void clear_captures () {
+            arrows.clear ();
         }
 
 

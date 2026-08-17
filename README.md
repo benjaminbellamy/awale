@@ -34,6 +34,8 @@ the ones used in competition.
 - Three difficulty levels, which can be changed in the middle of a game.
 - A learning mode that stars the best move and explains it, without ever
   forcing your hand.
+- Arrows over the board, in the same mode, tracing what every house would
+  capture from either row, and what the computer could take from you next.
 - Seed counts you can show or hide, independently of the difficulty.
 - Full keyboard play, with every house reachable and described aloud.
 - An adaptive board: side by side in a wide window, turned a quarter turn in a

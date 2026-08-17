@@ -136,6 +136,12 @@ con el ajuste más fuerte del ordenador, sea cual sea el nivel que hayas elegido
 Es la opinión del ordenador, no la verdad, y nunca te impide jugar lo que
 quieras.
 
+Las flechas, en cambio, no son una opinión. Sale una flecha de cada casa que
+ganaría semillas, en ambas filas, y sigue el camino de las semillas hasta
+aquella donde cae la última; el número en su origen es lo que ganaría la jugada.
+Las flechas de la fila del ordenador muestran lo que podría quitarte después,
+sea su turno o no.
+
 ## Jugar con el teclado
 
 | Tecla | Qué hace |

@@ -139,6 +139,12 @@ ook hebt gekozen.
 Het is de mening van de computer, niet de waarheid, en hij houdt je nooit tegen
 om te spelen wat je wilt.
 
+De pijlen zijn geen mening. Vanuit elk huisje dat zaadjes zou opleveren loopt in
+beide rijen een pijl langs de weg van de zaadjes naar het huisje waar de laatste
+valt; het getal bij het begin is wat de zet zou opleveren. De pijlen op de rij
+van de computer laten zien wat hij daarna van je zou kunnen afpakken, of hij nu
+aan zet is of niet.
+
 ## Met het toetsenbord spelen
 
 | Toets | Wat het doet |

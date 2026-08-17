@@ -77,6 +77,31 @@
 }
 
 /*
+ * Learning mode. The arrows tracing what each house would capture are drawn
+ * over the board, and take their colour from here like everything else: the
+ * layer that draws them reads this one property and uses it for the arcs, the
+ * heads and the figures alike.
+ */
+.capture-arrow {
+  color: @accent_color;
+}
+
+/*
+ * What the move would win, in a bubble on the mouth of its own arrow. The two
+ * accent colours are the pair Adwaita means to be used together, so the figure
+ * reads white on the accent for every accent the user can pick, instead of
+ * being white against one that happens to be pale.
+ */
+.capture-total {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+  font-size: 0.95em;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/*
  * Learning mode. The recommended move wears a star in the accent colour and
  * nothing else is marked at all, so the eye goes straight to what is worth
  * playing instead of decoding a table of figures.

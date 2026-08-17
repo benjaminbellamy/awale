@@ -26,6 +26,7 @@
     <ul>
       <li>Three difficulty levels, which can be changed in the middle of a game</li>
       <li>A learning mode that stars the best move and explains it</li>
+      <li>Arrows tracing what every house would capture, from either row</li>
       <li>Full keyboard play, with every house reachable and described aloud</li>
       <li>Your game is kept when you close the window and restored when you return</li>
     </ul>

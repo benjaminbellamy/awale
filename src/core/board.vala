@@ -204,6 +204,42 @@ namespace Awale {
         }
 
         /**
+         * Every house that would win seeds for its owner, from both rows at
+         * once and whichever side is to move: what the opponent could take
+         * next is worth seeing before choosing, not after. Moves that win
+         * nothing are left out, and so is a grand slam whenever the policy
+         * makes it capture nothing.
+         */
+        public CapturePreview[] capture_previews (GrandSlamPolicy policy = GrandSlamPolicy.LEGAL_NO_CAPTURE) {
+            CapturePreview[] previews = {};
+            Player[] both = { Player.SOUTH, Player.NORTH };
+
+            foreach (Player player in both) {
+                // Asking what a player would take when it is not their turn is
+                // the whole point, so the question goes to a board that says it
+                // is: their legal moves, and the feeding obligation, are the
+                // ones that would apply on their turn.
+                Board probe = copy ();
+                probe.to_move = player;
+
+                foreach (int house in probe.legal_moves (policy)) {
+                    MoveTrace trace = probe.trace_move (house, policy);
+                    if (trace.captured == 0) {
+                        continue;
+                    }
+
+                    CapturePreview preview = CapturePreview ();
+                    preview.house = house;
+                    preview.last_house = trace.sown_houses[trace.sown_houses.length - 1];
+                    preview.seeds_sown = trace.sown_houses.length;
+                    preview.captured = trace.captured;
+                    previews += preview;
+                }
+            }
+            return previews;
+        }
+
+        /**
          * Plays {@link house} and returns what it did. The move must be legal
          * under {@link policy}.
          */

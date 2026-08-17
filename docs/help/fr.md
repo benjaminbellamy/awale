@@ -140,6 +140,12 @@ choisi.
 C'est l'avis de l'ordinateur, pas la vérité, et il ne vous empêche jamais de
 jouer ce que vous voulez.
 
+Les flèches, elles, ne sont pas un avis. Une flèche part de chaque case qui
+rapporterait des graines, dans les deux rangées, et suit le chemin des graines
+jusqu'à celle où tombe la dernière ; le nombre à son départ est ce qu'elle
+rapporterait. Les flèches de la rangée de l'ordinateur montrent ce qu'il
+pourrait vous prendre ensuite, que ce soit son tour ou non.
+
 ## Jouer au clavier
 
 | Touche | Effet |

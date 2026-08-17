@@ -27,6 +27,7 @@ ui_sources = files(
   'application.vala',
   'window.vala',
   'board-view.vala',
+  'capture-arrows.vala',
   'house-button.vala',
   'help-dialog.vala',
   'seed-field.vala',
