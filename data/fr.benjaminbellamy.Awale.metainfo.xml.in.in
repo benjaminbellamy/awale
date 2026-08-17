@@ -87,6 +87,14 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="1.0.1" date="2026-08-17">
+      <description>
+        <p>
+          Fixes the interface language in the Flatpak build, which stayed in
+          English whichever language was chosen.
+        </p>
+      </description>
+    </release>
     <release version="1.0.0" date="2026-08-17">
       <description>
         <p>First release.</p>

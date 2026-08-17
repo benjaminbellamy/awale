@@ -14,6 +14,13 @@ runtime-version: '50'
 sdk: org.gnome.Sdk
 command: awale
 
+# The message catalogues stay in the application itself. Split out by default,
+# they land in a .Locale extension that flatpak fills according to the host's
+# languages, and that a single file bundle does not carry at all: the game is
+# distributed as one .flatpak, so anything in an extension never reaches the
+# player and every language falls back to English.
+separate-locales: false
+
 # The minimum a windowed game needs, and nothing else. There is deliberately
 # no network permission of any kind: the game is entirely offline and must
 # stay that way.
