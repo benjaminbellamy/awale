@@ -88,6 +88,16 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="1.1.0" date="2026-08-18">
+      <description>
+        <p>
+          Learning mode now draws an arrow from every house that would win
+          seeds to the house its last seed lands in, on both rows, with the
+          total beside it. The keys L and S turn learning mode and the seed
+          counts on and off.
+        </p>
+      </description>
+    </release>
     <release version="1.0.2" date="2026-08-17">
       <description>
         <p>

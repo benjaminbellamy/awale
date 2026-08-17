@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 00:41+0200\n"
+"POT-Creation-Date: 2026-08-18 00:46+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: Spanish\n"
@@ -126,13 +126,24 @@ msgstr "juego de tablero"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode now draws an arrow from every house that would win seeds to "
+"the house its last seed lands in, on both rows, with the total beside it. "
+"The keys L and S turn learning mode and the seed counts on and off."
+msgstr ""
+"El modo de aprendizaje traza ahora una flecha desde cada casa que ganaría "
+"semillas hasta aquella donde cae su última semilla, en ambas filas, con el "
+"total al lado. Las teclas L y S activan y desactivan el modo de aprendizaje "
+"y el número de semillas."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:103
+msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
 "El consejo se lee ahora encima del tablero, y las dos filas de casas se "
 "quedan en el centro de la ventana, haya mensaje o no."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
@@ -140,21 +151,21 @@ msgstr ""
 "Corrige el idioma de la interfaz en la versión Flatpak, que se quedaba en "
 "inglés fuera cual fuera el idioma elegido."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:119
 msgid "First release."
 msgstr "Primera versión."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 "Reglas completas del awalé, incluido el gran slam y los dos límites contra "
 "los ciclos"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:112
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:122
 msgid "Computer opponent at three strengths"
 msgstr "Oponente informático con tres niveles de fuerza"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:123
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Modo de aprendizaje que marca la mejor jugada, con su razón"
 

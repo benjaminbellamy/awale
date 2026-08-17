@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 00:41+0200\n"
+"POT-Creation-Date: 2026-08-18 00:46+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: German\n"
@@ -123,13 +123,24 @@ msgstr "Brettspiel"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode now draws an arrow from every house that would win seeds to "
+"the house its last seed lands in, on both rows, with the total beside it. "
+"The keys L and S turn learning mode and the seed counts on and off."
+msgstr ""
+"Der Lernmodus zeichnet jetzt von jeder Mulde, die Samen einbringen würde, "
+"einen Pfeil bis zu der Mulde, in die ihr letzter Samen fällt, in beiden "
+"Reihen, mit der Summe daneben. Die Tasten L und S schalten den Lernmodus und "
+"die Samenanzahl ein und aus."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:103
+msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
 "Der Hinweis steht jetzt über dem Brett, und die beiden Muldenreihen bleiben "
 "in der Mitte des Fensters, ob eine Meldung da ist oder nicht."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
@@ -137,20 +148,20 @@ msgstr ""
 "Behebt die Sprache der Oberfläche im Flatpak-Build, die auf Englisch blieb, "
 "welche Sprache auch gewählt war."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:119
 msgid "First release."
 msgstr "Erste Veröffentlichung."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 "Vollständige Awalé-Regeln, einschließlich Grand Slam und beider Zyklussperren"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:112
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:122
 msgid "Computer opponent at three strengths"
 msgstr "Computergegner in drei Stärken"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:123
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Lernmodus, der den besten Zug markiert, mit der Begründung dazu"
 

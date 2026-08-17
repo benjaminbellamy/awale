@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 00:41+0200\n"
+"POT-Creation-Date: 2026-08-18 00:46+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: Dutch\n"
@@ -123,13 +123,24 @@ msgstr "bordspel"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode now draws an arrow from every house that would win seeds to "
+"the house its last seed lands in, on both rows, with the total beside it. "
+"The keys L and S turn learning mode and the seed counts on and off."
+msgstr ""
+"De leermodus tekent nu vanuit elk huisje dat zaadjes zou opleveren een pijl "
+"naar het huisje waar het laatste zaadje valt, in beide rijen, met het totaal "
+"ernaast. De toetsen L en S zetten de leermodus en het aantal zaadjes aan en "
+"uit."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:103
+msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
 "De hint staat nu boven het bord, en de twee rijen huisjes blijven in het "
 "midden van het venster, of er nu een bericht is of niet."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
@@ -137,19 +148,19 @@ msgstr ""
 "Herstelt de taal van de interface in de Flatpak-build, die in het Engels "
 "bleef welke taal er ook gekozen was."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:119
 msgid "First release."
 msgstr "Eerste uitgave."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr "Volledige awalé-regels, inclusief de grand slam en beide cyclusgrenzen"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:112
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:122
 msgid "Computer opponent at three strengths"
 msgstr "Computertegenstander met drie sterktes"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:123
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Leermodus die de beste zet markeert, met de reden erbij"
 

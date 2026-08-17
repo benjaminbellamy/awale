@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 00:41+0200\n"
+"POT-Creation-Date: 2026-08-18 00:46+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: French\n"
@@ -69,7 +69,8 @@ msgstr ""
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:29
 msgid "Arrows tracing what every house would capture, from either row"
-msgstr "Des flèches montrant ce que chaque case rapporterait, dans les deux rangées"
+msgstr ""
+"Des flèches montrant ce que chaque case rapporterait, dans les deux rangées"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:30
 msgid "Full keyboard play, with every house reachable and described aloud"
@@ -127,13 +128,24 @@ msgstr "jeu de plateau"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode now draws an arrow from every house that would win seeds to "
+"the house its last seed lands in, on both rows, with the total beside it. "
+"The keys L and S turn learning mode and the seed counts on and off."
+msgstr ""
+"Le mode apprentissage trace maintenant une flèche de chaque case qui "
+"rapporterait des graines jusqu'à celle où tombe sa dernière graine, dans les "
+"deux rangées, avec le total à côté. Les touches L et S activent le mode "
+"apprentissage et le nombre de graines."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:103
+msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
 "Le conseil s'affiche maintenant au-dessus du plateau, et les deux rangées de "
 "cases restent au milieu de la fenêtre, qu'il y ait un message ou non."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
@@ -141,21 +153,21 @@ msgstr ""
 "Corrige la langue de l'interface dans la version Flatpak, qui restait en "
 "anglais quelle que soit la langue choisie."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:119
 msgid "First release."
 msgstr "Première version."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:111
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 "Règles complètes de l’awalé, y compris le grand chelem et les deux garde-"
 "fous contre les cycles"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:112
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:122
 msgid "Computer opponent at three strengths"
 msgstr "Adversaire informatique à trois niveaux"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:123
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Mode apprentissage signalant le meilleur coup, avec sa raison"
 
