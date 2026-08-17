@@ -110,13 +110,14 @@
 }
 
 /*
- * The two messages, one above the board and one below it, each hold this
- * height whether or not there is anything to say. Reserving the same space on
- * both sides is what holds the pits in the middle of the window, and it means
- * the board never jumps when a message appears or goes. Two lines of the
- * smaller face fit, which is as long as either message is allowed to run.
+ * The two messages, the advice above the board and whose turn it is below it,
+ * each hold this height whether or not there is anything to say. Reserving the
+ * same space on both sides is what holds the pits in the middle of the window,
+ * and it means the board never jumps when a message appears or goes. Two lines
+ * of the advice fit, which is as long as it is allowed to run.
  */
-.tips {
+.status,
+.detail {
   min-height: 40px;
 }
 
