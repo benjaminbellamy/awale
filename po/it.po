@@ -65,8 +65,7 @@ msgstr "Tre livelli di difficoltà, modificabili nel mezzo di una partita"
 msgid "A learning mode that stars the best move and explains it"
 msgstr ""
 "Una modalità apprendimento che segna con una stella la mossa migliore e la "
-"spiegaUna modalità apprendimento che classifica le tue mosse e spiega la "
-"migliore"
+"spiega"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:29
 msgid "Arrows tracing what every house would capture, from either row"
@@ -157,10 +156,7 @@ msgstr "Avversario informatico con tre livelli di forza"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
 msgid "Learning mode marking the best move, with the reason for it"
-msgstr ""
-"Modalità apprendimento che segna la mossa migliore, con la sua "
-"ragioneModalità apprendimento con mosse classificate e una spiegazione della "
-"migliore"
+msgstr "Modalità apprendimento che segna la mossa migliore, con la sua ragione"
 
 #. / Short description shown in the About window.
 #: src/ui/application.vala:96

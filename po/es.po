@@ -156,9 +156,7 @@ msgstr "Oponente informático con tres niveles de fuerza"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:113
 msgid "Learning mode marking the best move, with the reason for it"
-msgstr ""
-"Modo de aprendizaje que marca la mejor jugada, con su razónModo de "
-"aprendizaje con jugadas clasificadas y una explicación de la mejor"
+msgstr "Modo de aprendizaje que marca la mejor jugada, con su razón"
 
 #. / Short description shown in the About window.
 #: src/ui/application.vala:96
