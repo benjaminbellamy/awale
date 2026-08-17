@@ -46,43 +46,40 @@ template $AwaleWindow: Adw.ApplicationWindow {
         "game-area",
       ]
 
+      // The advice sits above the board and whose turn it is below it. Each
+      // reserves the same height whether it holds anything or not, which is
+      // what keeps the pits in the middle of the window: they never move as
+      // messages come, go or wrap onto a second line. The height is on the
+      // labels themselves, so a shorter message stays centred in its band
+      // rather than riding along the top of it.
+      Label detail_label {
+        accessible-role: status;
+        wrap: true;
+        justify: center;
+        lines: 2;
+
+        styles [
+          "tips",
+          "detail",
+          "dim-label",
+        ]
+      }
+
       Box board_container {
         orientation: vertical;
         vexpand: true;
         valign: center;
       }
 
-      // Fixed height, so the board never shifts when a message comes or goes.
-      Box tips_area {
-        orientation: vertical;
-        spacing: 2;
-        valign: center;
+      Label status_label {
+        accessible-role: status;
+        wrap: true;
+        justify: center;
 
         styles [
           "tips",
+          "status",
         ]
-
-        Label status_label {
-          accessible-role: status;
-          wrap: true;
-          justify: center;
-
-          styles [
-            "status",
-          ]
-        }
-
-        Label detail_label {
-          accessible-role: status;
-          wrap: true;
-          justify: center;
-          lines: 2;
-
-          styles [
-            "detail",
-            "dim-label",
-          ]
-        }
       }
     };
   };

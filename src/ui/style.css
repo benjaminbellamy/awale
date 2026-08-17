@@ -110,11 +110,14 @@
 }
 
 /*
- * The message area keeps its height whether or not there is anything to say,
- * so the board never jumps when a tip appears or goes.
+ * The two messages, one above the board and one below it, each hold this
+ * height whether or not there is anything to say. Reserving the same space on
+ * both sides is what holds the pits in the middle of the window, and it means
+ * the board never jumps when a message appears or goes. Two lines of the
+ * smaller face fit, which is as long as either message is allowed to run.
  */
 .tips {
-  min-height: 58px;
+  min-height: 40px;
 }
 
 .status {

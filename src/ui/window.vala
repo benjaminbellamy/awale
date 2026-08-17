@@ -557,7 +557,10 @@ namespace Awale {
                 if (learning_mode && !busy) {
                     offer_advice.begin ();
                 } else {
+                    // The star and the sentence explaining it go together, so
+                    // turning learning mode off clears both there and then.
                     board_view.clear_advice ();
+                    show_detail (null);
                 }
             } else {
                 board_view.clear_legal_moves ();
