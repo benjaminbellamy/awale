@@ -392,7 +392,7 @@ namespace Awale {
             advice_generation++;
             refresh_controls ();
             board_view.clear_legal_moves ();
-            board_view.clear_advice ();
+            set_advice (null);
 
             if (human_house != null) {
                 yield apply_move (human_house);
@@ -557,10 +557,7 @@ namespace Awale {
                 if (learning_mode && !busy) {
                     offer_advice.begin ();
                 } else {
-                    // The star and the sentence explaining it go together, so
-                    // turning learning mode off clears both there and then.
-                    board_view.clear_advice ();
-                    show_detail (null);
+                    set_advice (null);
                 }
             } else {
                 board_view.clear_legal_moves ();
@@ -583,6 +580,22 @@ namespace Awale {
                 return;
             }
 
+            set_advice (advice);
+        }
+
+        /**
+         * The star on the board and the sentence explaining it are one piece of
+         * advice, so they are put up and taken down together. Other messages
+         * borrow the same line without touching the star: an illegal move or
+         * the reason a game ended replaces the sentence and leaves the
+         * recommendation standing.
+         */
+        private void set_advice (Advice? advice) {
+            if (advice == null) {
+                board_view.clear_advice ();
+                show_detail (null);
+                return;
+            }
             board_view.show_advice (advice);
             show_detail (describe_advice (advice));
         }
@@ -625,9 +638,9 @@ namespace Awale {
         }
 
         /**
-         * The message area is a fixed height, so a message is put in and taken
-         * out by changing the text, never by hiding the label. Hiding it would
-         * move the board.
+         * A message is put in and taken out by changing the text, never by
+         * hiding the label: the height it reserves is what holds the board in
+         * the middle of the window, and hiding it would move the board.
          */
         private void show_detail (string? text) {
             detail_label.label = text ?? "";
