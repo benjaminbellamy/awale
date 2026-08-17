@@ -1,0 +1,419 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the awale package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: awale\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-17 15:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:4
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:11 src/ui/window.blp:8
+msgid "Awalé"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:5
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:12
+msgid "Play Awalé against the computer"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:7
+msgid "oware;awale;awele;wari;mancala;board;"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:15
+msgid ""
+"Awalé is a board game of the mancala family, played across West Africa and "
+"the Caribbean. Two players face each other over twelve houses holding forty "
+"eight seeds, sowing them one at a time around the board and capturing the "
+"ones that fall the right way."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:21
+msgid ""
+"It follows the rules used in competition. You play against the computer on "
+"your own machine, with no network of any kind."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:25
+msgid "Features:"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:27
+msgid "Three difficulty levels, which can be changed in the middle of a game"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:28
+msgid "A learning mode that stars the best move and explains it"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:29
+msgid "Full keyboard play, with every house reachable and described aloud"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:30
+msgid ""
+"Your game is kept when you close the window and restored when you return"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:35
+msgid "Benjamin Bellamy"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:46
+msgid "The board at the start of a game"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:50
+msgid "Learning mode stars the best move and explains it"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:54
+msgid "A game in progress in the dark style"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:58
+msgid "In a narrow window the board turns a quarter turn"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:69
+msgid "oware"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:70
+msgid "awale"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:71
+msgid "wari"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:72
+msgid "mancala"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:73
+msgid "board game"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:92
+msgid "First release."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:94
+msgid "Complete Awalé rules, including the grand slam and both cycle guards"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:95
+msgid "Computer opponent at three strengths"
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:96
+msgid "Learning mode marking the best move, with the reason for it"
+msgstr ""
+
+#. / Short description shown in the About window.
+#: src/ui/application.vala:90
+msgid "Play Awalé, a game of the mancala family, against the computer."
+msgstr ""
+
+#. / Name under the player's own store, and under the computer's.
+#: src/ui/board-view.vala:34
+msgid "You"
+msgstr ""
+
+#: src/ui/board-view.vala:34
+msgid "Computer"
+msgstr ""
+
+#. / Accessibility label for the player's own store.
+#. / %d is how many seeds they have captured.
+#: src/ui/board-view.vala:82
+#, c-format
+msgid "Your store, %d seed captured"
+msgid_plural "Your store, %d seeds captured"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Accessibility label for the computer's store.
+#. / %d is how many seeds it has captured.
+#: src/ui/board-view.vala:87
+#, c-format
+msgid "The computer's store, %d seed captured"
+msgid_plural "The computer's store, %d seeds captured"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Spoken description of a house the advisor recommends.
+#: src/ui/board-view.vala:375
+msgid "Recommended move."
+msgstr ""
+
+#. / Title of the window that explains the rules.
+#: src/ui/help-dialog.vala:26
+msgid "How to Play"
+msgstr ""
+
+#. / Shown when the help page is missing, which should not happen.
+#: src/ui/help-dialog.vala:82
+msgid "The help page could not be loaded."
+msgstr ""
+
+#. / Accessibility label. %1$d is the house number 1 to 6,
+#. / %2$d is how many seeds it holds.
+#: src/ui/house-button.vala:205
+#, c-format
+msgid "Your house %1$d, %2$d seed, legal move"
+msgid_plural "Your house %1$d, %2$d seeds, legal move"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Accessibility label for a house the player cannot play.
+#: src/ui/house-button.vala:210
+#, c-format
+msgid "Your house %1$d, %2$d seed"
+msgid_plural "Your house %1$d, %2$d seeds"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Accessibility label for one of the computer's houses.
+#: src/ui/house-button.vala:215
+#, c-format
+msgid "Computer's house %1$d, %2$d seed"
+msgid_plural "Computer's house %1$d, %2$d seeds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ui/window.blp:21
+msgid "Take back your last move"
+msgstr ""
+
+#: src/ui/window.blp:28
+msgid "Start a new game"
+msgstr ""
+
+#: src/ui/window.blp:36
+msgid "Main menu"
+msgstr ""
+
+#: src/ui/window.blp:94
+msgid "_New Game"
+msgstr ""
+
+#: src/ui/window.blp:101
+msgid "_Learning Mode"
+msgstr ""
+
+#: src/ui/window.blp:106
+msgid "Show Seed _Counts"
+msgstr ""
+
+#: src/ui/window.blp:111
+msgid "_Difficulty"
+msgstr ""
+
+#: src/ui/window.blp:114
+msgid "_Easy"
+msgstr ""
+
+#: src/ui/window.blp:120
+msgid "_Medium"
+msgstr ""
+
+#: src/ui/window.blp:126
+msgid "_Hard"
+msgstr ""
+
+#: src/ui/window.blp:133
+msgid "_Language"
+msgstr ""
+
+#: src/ui/window.blp:136
+msgid "Use _System Language"
+msgstr ""
+
+#: src/ui/window.blp:142
+msgid "_English"
+msgstr ""
+
+#: src/ui/window.blp:148
+msgid "_French"
+msgstr ""
+
+#: src/ui/window.blp:154
+msgid "_German"
+msgstr ""
+
+#: src/ui/window.blp:160
+msgid "_Italian"
+msgstr ""
+
+#: src/ui/window.blp:166
+msgid "_Spanish"
+msgstr ""
+
+#: src/ui/window.blp:172
+msgid "_Dutch"
+msgstr ""
+
+#: src/ui/window.blp:181
+msgid "_How to Play"
+msgstr ""
+
+#: src/ui/window.blp:186
+msgid "_About Awalé"
+msgstr ""
+
+#. gettext picks its catalogue up once, before any of this
+#. window exists, so a new language has to wait for a restart.
+#: src/ui/window.vala:146
+msgid "The new language will be used the next time Awalé is started."
+msgstr ""
+
+#: src/ui/window.vala:358
+msgid "That house belongs to the computer."
+msgstr ""
+
+#: src/ui/window.vala:361
+msgid "That house is empty."
+msgstr ""
+
+#: src/ui/window.vala:364
+msgid ""
+"The computer has no seeds left, so you must play a house whose seeds reach "
+"their row."
+msgstr ""
+
+#: src/ui/window.vala:367
+msgid ""
+"That move would capture every seed the computer has left, which the rules do "
+"not allow."
+msgstr ""
+
+#: src/ui/window.vala:412 src/ui/window.vala:552
+msgid "The computer is thinking…"
+msgstr ""
+
+#. / Said when the computer has chosen its move and is about to play
+#. / it. %d is the computer's house, numbered 1 to 6 along its row.
+#: src/ui/window.vala:427
+#, c-format
+msgid "The computer plays house %d."
+msgstr ""
+
+#: src/ui/window.vala:550
+msgid "Your turn."
+msgstr ""
+
+#. / Learning mode hint. %1$d is the recommended house, 1 to 6.
+#. / %2$d is how many seeds it captures.
+#: src/ui/window.vala:593
+#, c-format
+msgid "Play house %1$d: it captures %2$d seed."
+msgid_plural "Play house %1$d: it captures %2$d seeds."
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Learning mode hint. %1$d is the recommended house and
+#. / %2$d one of your own houses, both numbered 1 to 6.
+#. / %3$d is how many seeds it keeps out of reach.
+#: src/ui/window.vala:600
+#, c-format
+msgid ""
+"Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
+"seed."
+msgid_plural ""
+"Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
+"seeds."
+msgstr[0] ""
+msgstr[1] ""
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:605
+#, c-format
+msgid ""
+"Play house %d: the computer is out of seeds and this feeds them, which the "
+"rules require."
+msgstr ""
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:608
+#, c-format
+msgid "Play house %d: it is your only legal move."
+msgstr ""
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:611
+#, c-format
+msgid "Play house %d: it leaves you the strongest position."
+msgstr ""
+
+#. / Shown once the player has reached 25 seeds while the round
+#. / is still being played. %1$d is their seeds, %2$d the computer's.
+#: src/ui/window.vala:644
+#, c-format
+msgid "You have won, %1$d seeds to %2$d. You can still finish the round."
+msgstr ""
+
+#. / Shown once the computer has reached 25 seeds while the round is
+#. / still being played. %1$d is the computer's seeds, %2$d the player's.
+#: src/ui/window.vala:648
+#, c-format
+msgid ""
+"The computer has won, %1$d seeds to %2$d. You can still finish the round."
+msgstr ""
+
+#. / Final result. %d is the number of seeds each player collected.
+#: src/ui/window.vala:659
+#, c-format
+msgid "A draw, %d seeds each."
+msgstr ""
+
+#. / Final result. %1$d is the player's seeds, %2$d the computer's.
+#: src/ui/window.vala:664
+#, c-format
+msgid "You win, %1$d seeds to %2$d."
+msgstr ""
+
+#. / Final result. %1$d is the computer's seeds, %2$d the player's.
+#: src/ui/window.vala:667
+#, c-format
+msgid "The computer wins, %1$d seeds to %2$d."
+msgstr ""
+
+#: src/ui/window.vala:676
+msgid ""
+"The same position came up three times, so each player took the seeds in "
+"their own row."
+msgstr ""
+
+#: src/ui/window.vala:678
+msgid ""
+"A hundred moves went by without a capture, so each player took the seeds in "
+"their own row."
+msgstr ""
+
+#: src/ui/window.vala:681
+msgid ""
+"You could not feed the computer, so you took the seeds left on the board."
+msgstr ""
+
+#: src/ui/window.vala:683
+msgid ""
+"The computer could not feed you, so it took the seeds left on the board."
+msgstr ""
+
+#: src/ui/window.vala:685
+msgid "There was no legal move left to play."
+msgstr ""

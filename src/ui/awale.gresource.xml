@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+  SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<gresources>
+  <gresource prefix="/fr/benjaminbellamy/Awale">
+    <file>window.ui</file>
+    <file>style.css</file>
+  </gresource>
+
+  <!-- The help pages travel with the binary, so they work uninstalled and
+       without a network. -->
+  <gresource prefix="/fr/benjaminbellamy/Awale/help">
+    <file alias="en.md">help/en.md</file>
+    <file alias="fr.md">help/fr.md</file>
+    <file alias="es.md">help/es.md</file>
+    <file alias="de.md">help/de.md</file>
+    <file alias="it.md">help/it.md</file>
+    <file alias="nl.md">help/nl.md</file>
+  </gresource>
+
+  <!-- Registered with the icon theme so the About window shows the logo even
+       when the application has not been installed. -->
+  <gresource prefix="/fr/benjaminbellamy/Awale/icons/scalable/apps">
+    <file alias="fr.benjaminbellamy.Awale.svg">icons/hicolor/scalable/apps/fr.benjaminbellamy.Awale.svg</file>
+  </gresource>
+
+  <!-- The star that marks the recommended move. Kept with the application
+       rather than installed into the icon theme: nothing else has any use
+       for it. -->
+  <gresource prefix="/fr/benjaminbellamy/Awale/icons/scalable/actions">
+    <file alias="awale-best-move-symbolic.svg">icons/hicolor/symbolic/actions/awale-best-move-symbolic.svg</file>
+  </gresource>
+</gresources>

@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+[Desktop Entry]
+Name=Awalé
+Comment=Play Awalé against the computer
+Categories=Game;BoardGame;GTK;
+Keywords=oware;awale;awele;wari;mancala;board;
+Exec=awale
+Icon=@app_id@
+Terminal=false
+Type=Application
+StartupNotify=true

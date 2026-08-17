@@ -1,0 +1,461 @@
+# Spanish translation of Awalé.
+# SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# WARNING: these strings were machine generated and have NOT been reviewed
+# by a native speaker. Every one of them should be treated as a draft.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: awale\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-17 15:30+0200\n"
+"PO-Revision-Date: 2026-08-16 00:00+0000\n"
+"Last-Translator: machine generated, unreviewed\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:4
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:11 src/ui/window.blp:8
+msgid "Awalé"
+msgstr "Awalé"
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:5
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:12
+msgid "Play Awalé against the computer"
+msgstr "Juega al awalé contra el ordenador"
+
+#: data/fr.benjaminbellamy.Awale.desktop.in.in:7
+msgid "oware;awale;awele;wari;mancala;board;"
+msgstr "oware;awale;awalé;wari;mancala;tablero;"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:15
+msgid ""
+"Awalé is a board game of the mancala family, played across West Africa and "
+"the Caribbean. Two players face each other over twelve houses holding forty "
+"eight seeds, sowing them one at a time around the board and capturing the "
+"ones that fall the right way."
+msgstr ""
+"El awalé es un juego de tablero de la familia del mancala, practicado en "
+"África Occidental y el Caribe con muchos nombres: oware, awélé, wari. Dos "
+"jugadores se enfrentan sobre doce casas que contienen cuarenta y ocho "
+"semillas, sembrándolas una a una por el tablero y capturando las que caen "
+"como es debido."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:21
+msgid ""
+"It follows the rules used in competition. You play against the computer on "
+"your own machine, with no network of any kind."
+msgstr ""
+"Sigue las reglas que se usan en competición. Juegas contra el ordenador en "
+"tu propia máquina, sin red de ningún tipo."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:25
+msgid "Features:"
+msgstr "Características:"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:27
+msgid "Three difficulty levels, which can be changed in the middle of a game"
+msgstr ""
+"Tres niveles de dificultad, que se pueden cambiar en mitad de la partida"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:28
+msgid "A learning mode that stars the best move and explains it"
+msgstr "Un modo de aprendizaje que marca la mejor jugada con una estrella y la explica"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:29
+msgid "Full keyboard play, with every house reachable and described aloud"
+msgstr ""
+"Juego completo con el teclado, con cada casa accesible y descrita en voz alta"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:30
+msgid ""
+"Your game is kept when you close the window and restored when you return"
+msgstr "Tu partida se guarda al cerrar la ventana y se restaura cuando vuelves"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:35
+msgid "Benjamin Bellamy"
+msgstr "Benjamin Bellamy"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:46
+msgid "The board at the start of a game"
+msgstr "El tablero al comienzo de una partida"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:50
+msgid "Learning mode stars the best move and explains it"
+msgstr "El modo de aprendizaje marca la mejor jugada con una estrella y la explica"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:54
+msgid "A game in progress in the dark style"
+msgstr "Una partida en curso con el estilo oscuro"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:58
+msgid "In a narrow window the board turns a quarter turn"
+msgstr "En una ventana estrecha el tablero gira un cuarto de vuelta"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:69
+msgid "oware"
+msgstr "oware"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:70
+msgid "awale"
+msgstr "awale"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:71
+msgid "wari"
+msgstr "wari"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:72
+msgid "mancala"
+msgstr "mancala"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:73
+msgid "board game"
+msgstr "juego de tablero"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:92
+msgid "First release."
+msgstr "Primera versión."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:94
+msgid "Complete Awalé rules, including the grand slam and both cycle guards"
+msgstr ""
+"Reglas completas del awalé, incluido el gran slam y los dos límites contra "
+"los ciclos"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:95
+msgid "Computer opponent at three strengths"
+msgstr "Oponente informático con tres niveles de fuerza"
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:96
+msgid "Learning mode marking the best move, with the reason for it"
+msgstr "Modo de aprendizaje que marca la mejor jugada, con su razón"
+"Modo de aprendizaje con jugadas clasificadas y una explicación de la mejor"
+
+#. / Short description shown in the About window.
+#: src/ui/application.vala:90
+msgid "Play Awalé, a game of the mancala family, against the computer."
+msgstr ""
+"Juega al awalé, un juego de la familia del mancala, contra el ordenador."
+
+#. / Name under the player's own store, and under the computer's.
+#: src/ui/board-view.vala:34
+msgid "You"
+msgstr "Tú"
+
+#: src/ui/board-view.vala:34
+msgid "Computer"
+msgstr "Ordenador"
+
+#. / Accessibility label for the player's own store.
+#. / %d is how many seeds they have captured.
+#: src/ui/board-view.vala:82
+#, c-format
+msgid "Your store, %d seed captured"
+msgid_plural "Your store, %d seeds captured"
+msgstr[0] "Tu granero, %d semilla capturada"
+msgstr[1] "Tu granero, %d semillas capturadas"
+
+#. / Accessibility label for the computer's store.
+#. / %d is how many seeds it has captured.
+#: src/ui/board-view.vala:87
+#, c-format
+msgid "The computer's store, %d seed captured"
+msgid_plural "The computer's store, %d seeds captured"
+msgstr[0] "Granero del ordenador, %d semilla capturada"
+msgstr[1] "Granero del ordenador, %d semillas capturadas"
+
+#. / Spoken description of a house the advisor recommends.
+#: src/ui/board-view.vala:375
+msgid "Recommended move."
+msgstr "Jugada recomendada."
+
+#. / Title of the window that explains the rules.
+#: src/ui/help-dialog.vala:26
+msgid "How to Play"
+msgstr "Cómo jugar"
+
+#. / Shown when the help page is missing, which should not happen.
+#: src/ui/help-dialog.vala:82
+msgid "The help page could not be loaded."
+msgstr "No se pudo cargar la página de ayuda."
+
+#. / Accessibility label. %1$d is the house number 1 to 6,
+#. / %2$d is how many seeds it holds.
+#: src/ui/house-button.vala:205
+#, c-format
+msgid "Your house %1$d, %2$d seed, legal move"
+msgid_plural "Your house %1$d, %2$d seeds, legal move"
+msgstr[0] "Tu casa %1$d, %2$d semilla, jugada válida"
+msgstr[1] "Tu casa %1$d, %2$d semillas, jugada válida"
+
+#. / Accessibility label for a house the player cannot play.
+#: src/ui/house-button.vala:210
+#, c-format
+msgid "Your house %1$d, %2$d seed"
+msgid_plural "Your house %1$d, %2$d seeds"
+msgstr[0] "Tu casa %1$d, %2$d semilla"
+msgstr[1] "Tu casa %1$d, %2$d semillas"
+
+#. / Accessibility label for one of the computer's houses.
+#: src/ui/house-button.vala:215
+#, c-format
+msgid "Computer's house %1$d, %2$d seed"
+msgid_plural "Computer's house %1$d, %2$d seeds"
+msgstr[0] "Casa %1$d del ordenador, %2$d semilla"
+msgstr[1] "Casa %1$d del ordenador, %2$d semillas"
+
+#: src/ui/window.blp:21
+msgid "Take back your last move"
+msgstr "Deshacer tu última jugada"
+
+#: src/ui/window.blp:28
+msgid "Start a new game"
+msgstr "Empezar una partida nueva"
+
+#: src/ui/window.blp:36
+msgid "Main menu"
+msgstr "Menú principal"
+
+#: src/ui/window.blp:94
+msgid "_New Game"
+msgstr "_Nueva partida"
+
+#: src/ui/window.blp:101
+msgid "_Learning Mode"
+msgstr "Modo de _aprendizaje"
+
+#: src/ui/window.blp:106
+msgid "Show Seed _Counts"
+msgstr "Mostrar el _número de semillas"
+
+#: src/ui/window.blp:111
+msgid "_Difficulty"
+msgstr "_Dificultad"
+
+#: src/ui/window.blp:114
+msgid "_Easy"
+msgstr "_Fácil"
+
+#: src/ui/window.blp:120
+msgid "_Medium"
+msgstr "_Media"
+
+#: src/ui/window.blp:126
+msgid "_Hard"
+msgstr "_Difícil"
+
+#: src/ui/window.blp:133
+msgid "_Language"
+msgstr "_Idioma"
+
+#: src/ui/window.blp:136
+msgid "Use _System Language"
+msgstr "Usar el idioma del _sistema"
+
+#: src/ui/window.blp:142
+msgid "_English"
+msgstr "_Inglés"
+
+#: src/ui/window.blp:148
+msgid "_French"
+msgstr "_Francés"
+
+#: src/ui/window.blp:154
+msgid "_German"
+msgstr "_Alemán"
+
+#: src/ui/window.blp:160
+msgid "_Italian"
+msgstr "_Italiano"
+
+#: src/ui/window.blp:166
+msgid "_Spanish"
+msgstr "_Español"
+
+#: src/ui/window.blp:172
+msgid "_Dutch"
+msgstr "_Neerlandés"
+
+#: src/ui/window.blp:181
+msgid "_How to Play"
+msgstr "_Cómo jugar"
+
+#: src/ui/window.blp:186
+msgid "_About Awalé"
+msgstr "_Acerca de Awalé"
+
+#. gettext picks its catalogue up once, before any of this
+#. window exists, so a new language has to wait for a restart.
+#: src/ui/window.vala:146
+msgid "The new language will be used the next time Awalé is started."
+msgstr "El nuevo idioma se usará la próxima vez que se inicie Awalé."
+
+#: src/ui/window.vala:358
+msgid "That house belongs to the computer."
+msgstr "Esa casa pertenece al ordenador."
+
+#: src/ui/window.vala:361
+msgid "That house is empty."
+msgstr "Esa casa está vacía."
+
+#: src/ui/window.vala:364
+msgid ""
+"The computer has no seeds left, so you must play a house whose seeds reach "
+"their row."
+msgstr ""
+"Al ordenador no le quedan semillas, así que debes jugar una casa cuyas "
+"semillas alcancen su fila."
+
+#: src/ui/window.vala:367
+msgid ""
+"That move would capture every seed the computer has left, which the rules do "
+"not allow."
+msgstr ""
+"Esa jugada capturaría todas las semillas que le quedan al ordenador, algo "
+"que las reglas no permiten."
+
+#: src/ui/window.vala:412 src/ui/window.vala:552
+msgid "The computer is thinking…"
+msgstr "El ordenador está pensando…"
+
+#. / Said when the computer has chosen its move and is about to play
+#. / it. %d is the computer's house, numbered 1 to 6 along its row.
+#: src/ui/window.vala:427
+#, c-format
+msgid "The computer plays house %d."
+msgstr "El ordenador juega la casa %d."
+
+#: src/ui/window.vala:550
+msgid "Your turn."
+msgstr "Te toca."
+
+#. / Learning mode hint. %1$d is the recommended house, 1 to 6.
+#. / %2$d is how many seeds it captures.
+#: src/ui/window.vala:593
+#, c-format
+msgid "Play house %1$d: it captures %2$d seed."
+msgid_plural "Play house %1$d: it captures %2$d seeds."
+msgstr[0] "Juega la casa %1$d: captura %2$d semilla."
+msgstr[1] "Juega la casa %1$d: captura %2$d semillas."
+
+#. / Learning mode hint. %1$d is the recommended house and
+#. / %2$d one of your own houses, both numbered 1 to 6.
+#. / %3$d is how many seeds it keeps out of reach.
+#: src/ui/window.vala:600
+#, c-format
+msgid ""
+"Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
+"seed."
+msgid_plural ""
+"Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
+"seeds."
+msgstr[0] ""
+"Juega la casa %1$d: evita dejar tu casa %2$d expuesta a una captura de %3$d "
+"semilla."
+msgstr[1] ""
+"Juega la casa %1$d: evita dejar tu casa %2$d expuesta a una captura de %3$d "
+"semillas."
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:605
+#, c-format
+msgid ""
+"Play house %d: the computer is out of seeds and this feeds them, which the "
+"rules require."
+msgstr ""
+"Juega la casa %d: el ordenador se ha quedado sin semillas y esta jugada lo "
+"alimenta, como exigen las reglas."
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:608
+#, c-format
+msgid "Play house %d: it is your only legal move."
+msgstr "Juega la casa %d: es tu única jugada válida."
+
+#. / Learning mode hint. %d is the recommended house, 1 to 6.
+#: src/ui/window.vala:611
+#, c-format
+msgid "Play house %d: it leaves you the strongest position."
+msgstr "Juega la casa %d: te deja en la mejor posición."
+
+#. / Shown once the player has reached 25 seeds while the round
+#. / is still being played. %1$d is their seeds, %2$d the computer's.
+#: src/ui/window.vala:644
+#, c-format
+msgid "You have won, %1$d seeds to %2$d. You can still finish the round."
+msgstr "Has ganado, %1$d semillas a %2$d. Aún puedes terminar la ronda."
+
+#. / Shown once the computer has reached 25 seeds while the round is
+#. / still being played. %1$d is the computer's seeds, %2$d the player's.
+#: src/ui/window.vala:648
+#, c-format
+msgid ""
+"The computer has won, %1$d seeds to %2$d. You can still finish the round."
+msgstr ""
+"Ha ganado el ordenador, %1$d semillas a %2$d. Aún puedes terminar la ronda."
+
+#. / Final result. %d is the number of seeds each player collected.
+#: src/ui/window.vala:659
+#, c-format
+msgid "A draw, %d seeds each."
+msgstr "Empate, %d semillas cada uno."
+
+#. / Final result. %1$d is the player's seeds, %2$d the computer's.
+#: src/ui/window.vala:664
+#, c-format
+msgid "You win, %1$d seeds to %2$d."
+msgstr "Ganas, %1$d semillas a %2$d."
+
+#. / Final result. %1$d is the computer's seeds, %2$d the player's.
+#: src/ui/window.vala:667
+#, c-format
+msgid "The computer wins, %1$d seeds to %2$d."
+msgstr "Gana el ordenador, %1$d semillas a %2$d."
+
+#: src/ui/window.vala:676
+msgid ""
+"The same position came up three times, so each player took the seeds in "
+"their own row."
+msgstr ""
+"La misma posición apareció tres veces, así que cada jugador recogió las "
+"semillas de su fila."
+
+#: src/ui/window.vala:678
+msgid ""
+"A hundred moves went by without a capture, so each player took the seeds in "
+"their own row."
+msgstr ""
+"Pasaron cien jugadas sin captura, así que cada jugador recogió las semillas "
+"de su fila."
+
+#: src/ui/window.vala:681
+msgid ""
+"You could not feed the computer, so you took the seeds left on the board."
+msgstr ""
+"No podías alimentar al ordenador, así que recoges las semillas que quedaban "
+"en el tablero."
+
+#: src/ui/window.vala:683
+msgid ""
+"The computer could not feed you, so it took the seeds left on the board."
+msgstr ""
+"El ordenador no podía alimentarte, así que recoge las semillas que quedaban "
+"en el tablero."
+
+#: src/ui/window.vala:685
+msgid "There was no legal move left to play."
+msgstr "No quedaba ninguna jugada válida."
+
+#~ msgid "win"
+#~ msgstr "gana"
+
+#~ msgid "loss"
+#~ msgstr "pierde"
+
+#~ msgid "Worth %s seeds."
+#~ msgstr "Vale %s semillas."

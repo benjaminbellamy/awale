@@ -1,0 +1,149 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ *
+ * Every colour here is an Adwaita named colour, so the board follows the
+ * system light and dark preference, the user's accent colour and the high
+ * contrast preference without any of it being restated in code.
+ */
+
+/*
+ * The board sits on a recessed surface rather than on the plain window
+ * background, so the pale pits stand out against it: a light grey in the light
+ * style, and correspondingly dark in the dark one. Both come from the same
+ * Adwaita named colour, so the high contrast preference is honoured too.
+ */
+.game-area {
+  /* Padding rather than a margin, so the surface reaches the window edges. */
+  padding: 12px;
+  background-color: @sidebar_bg_color;
+}
+
+/* No padding: the board measures its own width to keep the houses round. */
+.board {
+  padding: 0;
+}
+
+/*
+ * A house is a round pit. The widget keeps itself square, so a 50% radius is a
+ * circle. Borders are drawn as inset shadows rather than real borders: a shadow
+ * does not take part in layout, so the pits do not shift a pixel when one of
+ * them is marked playable or focused.
+ */
+.house {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: @card_bg_color;
+  color: @card_fg_color;
+  box-shadow: inset 0 0 0 1px alpha(@card_fg_color, 0.15);
+}
+
+/*
+ * Playable and unplayable are told apart by the fill rather than by a rim:
+ * a playable house keeps the plain card colour and the ones that cannot be
+ * played this turn are greyed back into the board. Nothing here uses the
+ * accent colour, which is reserved for captures and for the recommended move.
+ */
+.house.unplayable {
+  background-color: mix(@card_bg_color, @card_fg_color, 0.10);
+}
+
+/* The one under the pointer or holding the keyboard focus: a neutral rim. */
+.house.legal:hover,
+.house.legal:focus-visible {
+  box-shadow: inset 0 0 0 2px alpha(@card_fg_color, 0.45);
+}
+
+/* Held while the capture animation empties a house. */
+.house.capturing {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+/*
+ * The counts are written inside the pit, under the seeds, and set back in grey
+ * so the seeds stay the thing you read first. Dimmed rather than given a fixed
+ * grey, so the figure follows the pit through every state it takes: it stays
+ * legible on a captured house and on the one the computer has just chosen.
+ */
+.house-count {
+  font-size: 0.85em;
+  font-weight: bold;
+  margin-bottom: 2px;
+  opacity: 0.55;
+}
+
+/*
+ * Learning mode. The recommended move wears a star in the accent colour and
+ * nothing else is marked at all, so the eye goes straight to what is worth
+ * playing instead of decoding a table of figures.
+ */
+.best-move {
+  margin: 4px;
+  color: @accent_color;
+}
+
+/* A store is a round pit as well, the same square as a house. */
+.store {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: @card_bg_color;
+  box-shadow: inset 0 0 0 1px alpha(@card_fg_color, 0.15);
+}
+
+.store-count {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 2px;
+  opacity: 0.55;
+}
+
+.store-title {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+/*
+ * The message area keeps its height whether or not there is anything to say,
+ * so the board never jumps when a tip appears or goes.
+ */
+.tips {
+  min-height: 58px;
+}
+
+.status {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.detail {
+  font-size: 0.95em;
+}
+
+/* The keyboard table in the help window: a real grid, header picked out. */
+.help-table-header {
+  font-weight: bold;
+  opacity: 0.75;
+}
+
+/* The house a seed is dropping into: the same rim, twice as thick. */
+.house.dropping {
+  box-shadow: inset 0 0 0 2px alpha(@card_fg_color, 0.45);
+}
+
+/*
+ * The house the computer has just decided to play, held for a moment. Grey,
+ * not accent: the accent colour means seeds have been won, and playing a house
+ * is not the same event as capturing from it.
+ */
+.house.chosen {
+  background-color: mix(@card_bg_color, @card_fg_color, 0.55);
+  color: @window_bg_color;
+  box-shadow: inset 0 0 0 3px alpha(@card_fg_color, 0.55);
+}

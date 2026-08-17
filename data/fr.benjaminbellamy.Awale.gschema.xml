@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+  SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<schemalist>
+  <enum id="fr.benjaminbellamy.Awale.Difficulty">
+    <value nick="easy" value="0"/>
+    <value nick="medium" value="1"/>
+    <value nick="hard" value="2"/>
+  </enum>
+
+  <schema id="fr.benjaminbellamy.Awale" path="/fr/benjaminbellamy/Awale/">
+    <key name="difficulty" enum="fr.benjaminbellamy.Awale.Difficulty">
+      <default>'easy'</default>
+      <summary>How hard the computer plays</summary>
+      <description>
+        Search depth and time budget used by the computer opponent.
+      </description>
+    </key>
+
+    <key name="learning-mode" type="b">
+      <default>true</default>
+      <summary>Show move hints</summary>
+      <description>
+        Rank the player's moves before each turn and explain the best one.
+      </description>
+    </key>
+
+    <key name="show-seed-counts" type="b">
+      <default>false</default>
+      <summary>Write the seed counts out</summary>
+      <description>
+        Show the number of seeds under each house and above each store, as well
+        as drawing the seeds themselves. The counts are always available to a
+        screen reader whatever this is set to.
+      </description>
+    </key>
+
+    <key name="language" type="s">
+      <choices>
+        <choice value="system"/>
+        <choice value="en"/>
+        <choice value="fr"/>
+        <choice value="de"/>
+        <choice value="it"/>
+        <choice value="es"/>
+        <choice value="nl"/>
+      </choices>
+      <default>'system'</default>
+      <summary>Interface language</summary>
+      <description>
+        Language to show the interface in, or "system" to follow the desktop.
+        Applied when the application starts.
+      </description>
+    </key>
+
+    <key name="window-width" type="i">
+      <default>880</default>
+      <summary>Window width</summary>
+      <description>Width of the main window in logical pixels.</description>
+    </key>
+
+    <key name="window-height" type="i">
+      <default>400</default>
+      <summary>Window height</summary>
+      <description>Height of the main window in logical pixels.</description>
+    </key>
+
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Window maximized</summary>
+      <description>Whether the main window was maximized when it was closed.</description>
+    </key>
+
+    <key name="saved-start" type="s">
+      <default>''</default>
+      <summary>Starting position of the game in progress</summary>
+      <description>
+        Position the saved game began from, written in the notation of
+        docs/RULES.md section 8. Empty when there is no game to restore.
+      </description>
+    </key>
+
+    <key name="saved-moves" type="ai">
+      <default>[]</default>
+      <summary>Moves played in the game in progress</summary>
+      <description>
+        Houses played since the starting position, in order. Replaying these
+        over the starting position restores the game exactly, including its
+        undo history and its repetition count.
+      </description>
+    </key>
+  </schema>
+</schemalist>

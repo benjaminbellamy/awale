@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+  SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<component type="desktop-application">
+  <id>@app_id@</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>AGPL-3.0-or-later</project_license>
+
+  <name>Awalé</name>
+  <summary>Play Awalé against the computer</summary>
+
+  <description>
+    <p>
+      Awalé is a board game of the mancala family, played across West Africa and
+      the Caribbean. Two players face each other over twelve houses holding forty
+      eight seeds, sowing them one at a time around the board and capturing the
+      ones that fall the right way.
+    </p>
+    <p>
+      It follows the rules used in competition. You play against the computer on
+      your own machine, with no network of any kind.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Three difficulty levels, which can be changed in the middle of a game</li>
+      <li>A learning mode that stars the best move and explains it</li>
+      <li>Full keyboard play, with every house reachable and described aloud</li>
+      <li>Your game is kept when you close the window and restored when you return</li>
+    </ul>
+  </description>
+
+  <developer id="fr.benjaminbellamy">
+    <name>Benjamin Bellamy</name>
+  </developer>
+
+  <launchable type="desktop-id">@app_id@.desktop</launchable>
+
+  <url type="homepage">https://github.com/benjaminbellamy/awale</url>
+  <url type="bugtracker">https://github.com/benjaminbellamy/awale/issues</url>
+  <url type="vcs-browser">https://github.com/benjaminbellamy/awale</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The board at the start of a game</caption>
+      <image>https://raw.githubusercontent.com/benjaminbellamy/awale/main/data/screenshots/board-light.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Learning mode stars the best move and explains it</caption>
+      <image>https://raw.githubusercontent.com/benjaminbellamy/awale/main/data/screenshots/learning-mode.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>A game in progress in the dark style</caption>
+      <image>https://raw.githubusercontent.com/benjaminbellamy/awale/main/data/screenshots/board-dark.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>In a narrow window the board turns a quarter turn</caption>
+      <image>https://raw.githubusercontent.com/benjaminbellamy/awale/main/data/screenshots/board-narrow.png</image>
+    </screenshot>
+  </screenshots>
+
+  <categories>
+    <category>Game</category>
+    <category>BoardGame</category>
+  </categories>
+
+  <keywords>
+    <keyword>oware</keyword>
+    <keyword>awale</keyword>
+    <keyword>wari</keyword>
+    <keyword>mancala</keyword>
+    <keyword>board game</keyword>
+  </keywords>
+
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
+
+  <!--
+    Nothing in this game is objectionable: no violence, no chance played for
+    money, no chat, no accounts and no network at all. Every OARS category is
+    therefore left at none, which is what an empty content_rating block means.
+  -->
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.1.0" date="2026-08-16">
+      <description>
+        <p>First release.</p>
+        <ul>
+          <li>Complete Awalé rules, including the grand slam and both cycle guards</li>
+          <li>Computer opponent at three strengths</li>
+          <li>Learning mode marking the best move, with the reason for it</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

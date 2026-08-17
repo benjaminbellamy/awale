@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+data/fr.benjaminbellamy.Awale.desktop.in.in
+data/fr.benjaminbellamy.Awale.metainfo.xml.in.in
+src/ui/application.vala
+src/ui/board-view.vala
+src/ui/help-dialog.vala
+src/ui/house-button.vala
+src/ui/window.blp
+src/ui/window.vala

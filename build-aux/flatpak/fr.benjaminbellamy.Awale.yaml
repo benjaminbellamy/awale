@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# The source is the working tree, which is what a local build wants. A build
+# for a repository should replace it with a git source pinned to a signed tag
+# once the project has a published repository.
+#
+#   flatpak-builder --user --install --force-clean build-aux/flatpak \
+#       build-aux/flatpak/fr.benjaminbellamy.Awale.yaml
+
+id: fr.benjaminbellamy.Awale
+runtime: org.gnome.Platform
+runtime-version: '50'
+sdk: org.gnome.Sdk
+command: awale
+
+# The minimum a windowed game needs, and nothing else. There is deliberately
+# no network permission of any kind: the game is entirely offline and must
+# stay that way.
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /share/vala
+  - '*.a'
+  - '*.la'
+
+modules:
+  - name: awale
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: ../..

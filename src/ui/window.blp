@@ -1,0 +1,190 @@
+// SPDX-FileCopyrightText: 2026 Benjamin Bellamy <benjamin@castopod.org>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+using Gtk 4.0;
+using Adw 1;
+
+template $AwaleWindow: Adw.ApplicationWindow {
+  title: _("Awalé");
+  default-width: 880;
+  default-height: 400;
+  width-request: 360;
+  height-request: 320;
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Button {
+        icon-name: "edit-undo-symbolic";
+        action-name: "win.undo";
+        tooltip-text: _("Take back your last move");
+      }
+
+      [start]
+      Button {
+        icon-name: "document-new-symbolic";
+        action-name: "win.new-game";
+        tooltip-text: _("Start a new game");
+      }
+
+      [end]
+      MenuButton {
+        icon-name: "open-menu-symbolic";
+        menu-model: primary_menu;
+        primary: true;
+        tooltip-text: _("Main menu");
+      }
+    }
+
+    content: Box {
+      orientation: vertical;
+      spacing: 18;
+      valign: fill;
+
+      styles [
+        "game-area",
+      ]
+
+      Box board_container {
+        orientation: vertical;
+        vexpand: true;
+        valign: center;
+      }
+
+      // Fixed height, so the board never shifts when a message comes or goes.
+      Box tips_area {
+        orientation: vertical;
+        spacing: 2;
+        valign: center;
+
+        styles [
+          "tips",
+        ]
+
+        Label status_label {
+          accessible-role: status;
+          wrap: true;
+          justify: center;
+
+          styles [
+            "status",
+          ]
+        }
+
+        Label detail_label {
+          accessible-role: status;
+          wrap: true;
+          justify: center;
+          lines: 2;
+
+          styles [
+            "detail",
+            "dim-label",
+          ]
+        }
+      }
+    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_New Game");
+      action: "win.new-game";
+    }
+  }
+
+  section {
+    item {
+      label: _("_Learning Mode");
+      action: "win.learning-mode";
+    }
+
+    item {
+      label: _("Show Seed _Counts");
+      action: "win.show-seed-counts";
+    }
+
+    submenu {
+      label: _("_Difficulty");
+
+      item {
+        label: _("_Easy");
+        action: "win.difficulty";
+        target: "easy";
+      }
+
+      item {
+        label: _("_Medium");
+        action: "win.difficulty";
+        target: "medium";
+      }
+
+      item {
+        label: _("_Hard");
+        action: "win.difficulty";
+        target: "hard";
+      }
+    }
+
+    submenu {
+      label: _("_Language");
+
+      item {
+        label: _("Use _System Language");
+        action: "win.language";
+        target: "system";
+      }
+
+      item {
+        label: _("_English");
+        action: "win.language";
+        target: "en";
+      }
+
+      item {
+        label: _("_French");
+        action: "win.language";
+        target: "fr";
+      }
+
+      item {
+        label: _("_German");
+        action: "win.language";
+        target: "de";
+      }
+
+      item {
+        label: _("_Italian");
+        action: "win.language";
+        target: "it";
+      }
+
+      item {
+        label: _("_Spanish");
+        action: "win.language";
+        target: "es";
+      }
+
+      item {
+        label: _("_Dutch");
+        action: "win.language";
+        target: "nl";
+      }
+    }
+  }
+
+  section {
+    item {
+      label: _("_How to Play");
+      action: "win.help";
+    }
+
+    item {
+      label: _("_About Awalé");
+      action: "app.about";
+    }
+  }
+}
