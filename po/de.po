@@ -126,12 +126,16 @@ msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
+"Der Hinweis steht jetzt über dem Brett, und die beiden Muldenreihen bleiben "
+"in der Mitte des Fensters, ob eine Meldung da ist oder nicht."
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
 msgstr ""
+"Behebt die Sprache der Oberfläche im Flatpak-Build, die auf Englisch blieb, "
+"welche Sprache auch gewählt war."
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:109
 msgid "First release."
