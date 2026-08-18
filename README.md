@@ -60,6 +60,17 @@ Houses are numbered 1 to 6 along your row, left to right.
 
 The number keys work on the number pad as well as on the top row.
 
+## Learning
+
+Learning mode stars the move the engine would play and says why in a line above
+the board. It also draws an arrow from every house that would win seeds to the
+house its last seed lands in, with the total at its mouth, on both rows: what
+the computer could take from you next is as plain as what you could take now.
+
+![Learning mode, with a star on the best move and an arrow on every capture](data/screenshots/learning-mode.png)
+
+Press `L` to turn it on and off. It never forces your hand.
+
 ## Building
 
 The build needs Meson 1.0 or later, Vala, blueprint-compiler, gettext, and the
