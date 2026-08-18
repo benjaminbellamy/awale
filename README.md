@@ -19,6 +19,7 @@ The first install also pulls the GNOME 50 runtime if you do not already have it,
 which needs Flathub set up as a remote. To build from source instead, see
 [Building](#building).
 
+
 [![The board](data/screenshots/board-light.png)](data/screenshots/awale.mp4)
 
 Awalé is a sowing game of the mancala family, played across West Africa and the
@@ -67,7 +68,8 @@ the board. It also draws an arrow from every house that would win seeds to the
 house its last seed lands in, with the total at its mouth, on both rows: what
 the computer could take from you next is as plain as what you could take now.
 
-![Learning mode, with a star on the best move and an arrow on every capture](data/screenshots/learning-mode.png)
+[![Learning mode](data/screenshots/awale.webp)](data/screenshots/awale.mp4)
+
 
 Press `L` to turn it on and off. It never forces your hand.
 
