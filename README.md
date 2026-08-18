@@ -19,7 +19,7 @@ The first install also pulls the GNOME 50 runtime if you do not already have it,
 which needs Flathub set up as a remote. To build from source instead, see
 [Building](#building).
 
-![The board at the start of a game](data/screenshots/board-light.png)
+[![The board](data/screenshots/board-light.png)](data/screenshots/awale.mp4)
 
 Awalé is a sowing game of the mancala family, played across West Africa and the
 Caribbean, and known elsewhere as oware, awélé or wari. Two players face each
