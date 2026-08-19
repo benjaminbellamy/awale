@@ -420,8 +420,7 @@ namespace Awale {
             advice_generation++;
             refresh_controls ();
             board_view.clear_legal_moves ();
-            board_view.clear_captures ();
-            set_advice (null);
+            clear_learning_aids ();
 
             if (human_house != null) {
                 yield apply_move (human_house);
@@ -563,8 +562,7 @@ namespace Awale {
 
             if (game.outcome != Outcome.IN_PROGRESS) {
                 board_view.clear_legal_moves ();
-                board_view.clear_captures ();
-                board_view.clear_advice ();
+                refresh_learning_aids ();
                 status_label.label = describe_outcome ();
                 show_detail (describe_end_reason ());
                 refresh_controls ();
@@ -581,26 +579,48 @@ namespace Awale {
                 status_label.label = _("The computer is thinking…");
             }
 
-            // Both rows, whoever is to move: what the computer could take from
-            // you next is worth seeing while you still have a move to choose.
-            if (learning_mode) {
-                board_view.show_captures (board.capture_previews (game.grand_slam_policy));
-            } else {
-                board_view.clear_captures ();
-            }
-
             if (board.to_move == human) {
                 board_view.set_legal_moves (game.legal_moves ());
-                if (learning_mode && !busy) {
-                    offer_advice.begin ();
-                } else {
-                    set_advice (null);
-                }
             } else {
                 board_view.clear_legal_moves ();
             }
 
+            refresh_learning_aids ();
             refresh_controls ();
+        }
+
+        /**
+         * Puts up everything learning mode shows, or takes it all down: an
+         * arrow over every house that would win seeds, and a star on the move
+         * the engine would play with the sentence explaining it.
+         *
+         * One place decides all of it. Turning the mode off, finishing a game
+         * or starting a move can then never leave one half of it up and the
+         * other down.
+         */
+        private void refresh_learning_aids () {
+            if (!learning_mode || game.outcome != Outcome.IN_PROGRESS) {
+                clear_learning_aids ();
+                return;
+            }
+
+            // Both rows, whoever is to move: what the computer could take from
+            // you next is worth seeing while you still have a move to choose.
+            board_view.show_captures (
+                game.board.capture_previews (game.grand_slam_policy));
+
+            // The star costs a search, so it is only asked for when there is a
+            // move to choose and nothing is moving on the board.
+            if (game.board.to_move == human && !busy) {
+                offer_advice.begin ();
+            } else {
+                set_advice (null);
+            }
+        }
+
+        private void clear_learning_aids () {
+            board_view.clear_captures ();
+            set_advice (null);
         }
 
         /**
@@ -633,26 +653,25 @@ namespace Awale {
                 show_detail (null);
                 return;
             }
-            board_view.show_advice (advice);
-            show_detail (describe_advice (advice));
+            string reason = describe_advice (advice);
+            board_view.show_advice (advice, reason);
+            show_detail (reason);
+
+            // The recommendation is showing nothing for itself while another
+            // move captures or shuts a threat down, so that other house is
+            // told what it really costs.
+            if (advice.tempting_house >= 0) {
+                board_view.caution (advice.tempting_house, describe_temptation (advice));
+            }
         }
 
         private string describe_advice (Advice advice) {
             int best = house_number (advice.best_house);
             switch (advice.kind) {
                 case AdviceKind.CAPTURES:
-                    /// Learning mode hint. %1$d is the recommended house, 1 to 6.
-                    /// %2$d is how many seeds it captures.
-                    return ngettext ("Play house %1$d: it captures %2$d seed.",
-                                     "Play house %1$d: it captures %2$d seeds.",
-                                     advice.seeds).printf (best, advice.seeds);
+                    return describe_capture (advice, best);
                 case AdviceKind.PROTECTS:
-                    /// Learning mode hint. %1$d is the recommended house and
-                    /// %2$d one of your own houses, both numbered 1 to 6.
-                    /// %3$d is how many seeds it keeps out of reach.
-                    return ngettext ("Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d seed.",
-                                     "Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d seeds.",
-                                     advice.seeds).printf (best, house_number (advice.house), advice.seeds);
+                    return describe_protection (advice, best);
                 case AdviceKind.FEEDS:
                     /// Learning mode hint. %d is the recommended house, 1 to 6.
                     return _("Play house %d: the computer is out of seeds and this feeds them, which the rules require.").printf (best);
@@ -663,6 +682,113 @@ namespace Awale {
                     /// Learning mode hint. %d is the recommended house, 1 to 6.
                     return _("Play house %d: it leaves you the strongest position.").printf (best);
             }
+        }
+
+        /**
+         * A capture, and what comes straight back for it.
+         *
+         * Said as two sentences rather than one so that each number carries its
+         * own plural, which one sentence with two counts could not do in every
+         * language. The reply is only mentioned when there is one: a capture
+         * that gives nothing back should read as the plain gain it is.
+         */
+        private string describe_capture (Advice advice, int best) {
+            /// Learning mode hint. %1$d is the recommended house, 1 to 6.
+            /// %2$d is how many seeds it captures.
+            string gain = ngettext ("Play house %1$d: it captures %2$d seed.",
+                                    "Play house %1$d: it captures %2$d seeds.",
+                                    advice.seeds).printf (best, advice.seeds);
+            if (advice.reply <= 0) {
+                return gain;
+            }
+
+            /// Added to the hint above when the computer can capture straight
+            /// back. %d is how many seeds it would take.
+            string back = ngettext ("The computer takes %d seed back.",
+                                    "The computer takes %d seeds back.",
+                                    advice.reply).printf (advice.reply);
+            return "%s %s".printf (gain, back);
+        }
+
+        /**
+         * What the recommendation keeps out of reach.
+         *
+         * A capture takes a run of houses, not one, so every house it would
+         * empty is named: a player told that four seeds are at risk while
+         * looking at a house holding two has been given a figure they cannot
+         * check. The seeds named are the ones in the houses named, and they
+         * add up.
+         */
+        private string describe_protection (Advice advice, int best) {
+            if (advice.exposed_houses.length == 1) {
+                /// Learning mode hint. %1$d is the recommended house and
+                /// %2$d one of your own houses, both numbered 1 to 6.
+                /// %3$d is how many seeds the capture would take.
+                return ngettext ("Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d seed.",
+                                 "Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d seeds.",
+                                 advice.seeds).printf (best,
+                                                       house_number (advice.exposed_houses[0]),
+                                                       advice.seeds);
+            }
+
+            var listed = new StringBuilder ();
+            foreach (int house in advice.exposed_houses) {
+                if (listed.len > 0) {
+                    listed.append (", ");
+                }
+                listed.append_printf ("%d", house_number (house));
+            }
+
+            /// Learning mode hint when a capture would take several houses at
+            /// once. %1$d is the recommended house, 1 to 6. %2$s is a list of
+            /// the player's own houses, such as "4, 5". %3$d is how many seeds
+            /// the capture would take from them altogether.
+            return ngettext ("Play house %1$d: it avoids leaving your houses %2$s open to a capture of %3$d seed.",
+                             "Play house %1$d: it avoids leaving your houses %2$s open to a capture of %3$d seeds.",
+                             advice.seeds).printf (best, listed.str, advice.seeds);
+        }
+
+        /**
+         * Why the house that looks better than the recommendation is not.
+         *
+         * Built up a sentence at a time so each count carries its own plural,
+         * as the capture hint is. What the move shows for itself comes first,
+         * because that is what drew the eye to it, and what it costs after.
+         *
+         * What it shows for itself is only ever one move deep: a capture now,
+         * or the computer having no capture in reply. Neither is said as
+         * though it settled anything, because the recommendation is precisely
+         * the move that is worth more once the game runs on past that.
+         */
+        private string describe_temptation (Advice advice) {
+            var reason = new StringBuilder ();
+            if (advice.tempting_captures > 0) {
+                /// Tooltip on a house that captures but is not the recommended
+                /// move. %d is how many seeds it would capture.
+                reason.append (ngettext ("This captures %d seed.",
+                                         "This captures %d seeds.",
+                                         advice.tempting_captures)
+                               .printf (advice.tempting_captures));
+            } else {
+                /// Tooltip on a house that leaves the computer no capture next
+                /// move, but is still not the recommended move. Only the one
+                /// move ahead is claimed, which is all that was looked at.
+                reason.append (_("The computer cannot capture on its next move."));
+            }
+
+            if (advice.tempting_reply > 0) {
+                reason.append (" ");
+                reason.append (ngettext ("The computer takes %d seed back.",
+                                         "The computer takes %d seeds back.",
+                                         advice.tempting_reply)
+                               .printf (advice.tempting_reply));
+            }
+
+            reason.append (" ");
+            /// Closes the tooltip above. %d is the recommended house, 1 to 6.
+            reason.append (_("House %d is worth more over the next few moves.")
+                           .printf (house_number (advice.best_house)));
+            return reason.str;
         }
 
         /** A house as the player counts it, 1 to 6 within their own row. */

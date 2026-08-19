@@ -14,7 +14,10 @@ void test_advice_ranks_every_legal_move () {
     Advice advice = new Advisor ().advise (board);
 
     assert_cmpint (advice.moves.length, CompareOperator.EQ, legal.length);
-    assert_cmpint (advice.best_house, CompareOperator.EQ, advice.moves[0].house);
+    // Not necessarily the first of them: moves that tie for best are chosen
+    // between by the position. It has to be one of the moves that tie.
+    assert_cmpint (advice.moves[0].score, CompareOperator.EQ,
+                   score_of (advice.moves, advice.best_house));
     for (int i = 1; i < advice.moves.length; i++) {
         assert_cmpint (advice.moves[i - 1].score, CompareOperator.GE, advice.moves[i].score);
     }
@@ -77,8 +80,18 @@ void test_protecting_advice_names_a_house_that_is_really_at_risk () {
         }
         checked++;
 
-        assert_true (board.to_move.owns (advice.house));
-        assert_cmpint (advice.seeds, CompareOperator.GT, 0);
+        // Every house the capture would empty is named, and they are the
+        // player's own. The seeds are counted as the houses stand when the
+        // capture lands, not as they stand now, and RULES.md 3 only lets a
+        // house be taken holding two or three, so the figure has to fall
+        // between two and three times the number of houses named.
+        int taken = advice.exposed_houses.length;
+        assert_cmpint (taken, CompareOperator.GT, 0);
+        foreach (int house in advice.exposed_houses) {
+            assert_true (board.to_move.owns (house));
+        }
+        assert_cmpint (advice.seeds, CompareOperator.GE, 2 * taken);
+        assert_cmpint (advice.seeds, CompareOperator.LE, 3 * taken);
 
         bool alternative_gives_seeds_away = false;
         foreach (int move in board.legal_moves ()) {
@@ -94,8 +107,8 @@ void test_protecting_advice_names_a_house_that_is_really_at_risk () {
             }
         }
         if (!alternative_gives_seeds_away) {
-            error ("claimed to protect house %d in %s, but no other move gives anything away",
-                   advice.house, Notation.format (board));
+            error ("claimed to protect %d house(s) in %s, but no other move gives anything away",
+                   advice.exposed_houses.length, Notation.format (board));
         }
         if (checked >= 5) {
             return;
@@ -166,6 +179,96 @@ void test_advice_on_a_won_game_still_prefers_the_capture () {
 
     assert_cmpint (advice.best_house, CompareOperator.EQ, 5);
 }
+
+/** The score the ranking gave one house. */
+private static int score_of (MoveScore[] moves, int house) {
+    foreach (MoveScore scored in moves) {
+        if (scored.house == house) {
+            return scored.score;
+        }
+    }
+    error ("house %d was not ranked", house);
+}
+
+/**
+ * Moves the search cannot tell apart are chosen between by the position, so a
+ * player looking at the same board is always told the same move. Here two
+ * moves share the top score, which is the case the choice exists for.
+ *
+ * That the choice is spread across the tied moves rather than always landing
+ * on one of them is a property of many positions at once, so it is measured by
+ * playing games rather than asserted here.
+ */
+void test_equal_moves_are_chosen_between_by_the_position () {
+    Board board = position ("1,2,2,1,1,0 | 1,0,0,0,0,0 | S:20 N:20 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    int top = advice.moves[0].score;
+    assert_cmpint (advice.moves[1].score, CompareOperator.EQ, top);
+    assert_cmpint (score_of (advice.moves, advice.best_house), CompareOperator.EQ, top);
+
+    for (int again = 0; again < 4; again++) {
+        assert_cmpint (new Advisor ().advise (board).best_house,
+                       CompareOperator.EQ, advice.best_house);
+    }
+}
+
+/**
+ * A capture that hands more back is still the best move on the board, but
+ * calling it "captures 4 seeds" and stopping there reads as a gain when it is
+ * not one. The reply has to travel with the advice so the hint can say it.
+ */
+void test_advice_reports_what_comes_straight_back () {
+    Board board = position ("0,0,4,0,3,1 | 0,0,0,10,0,13 | S:9 N:8 | to_move=N");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_true (advice.kind == AdviceKind.CAPTURES);
+    assert_cmpint (advice.seeds, CompareOperator.GT, 0);
+    assert_cmpint (advice.reply, CompareOperator.GT, advice.seeds);
+}
+
+/**
+ * A capture that gives nothing back reports no reply, so the hint reads as the
+ * plain gain it is. Here house 6 is taken and nothing North holds can reach
+ * South's row in one sowing.
+ */
+void test_advice_reports_no_reply_when_there_is_none () {
+    Board board = position ("0,0,0,2,1,1 | 1,2,2,1,1,0 | S:19 N:18 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_true (advice.kind == AdviceKind.CAPTURES);
+    assert_cmpint (advice.reply, CompareOperator.EQ, 0);
+}
+
+/**
+ * When the starred move shows nothing for itself and another move takes seeds,
+ * the board can say what that other move really costs. Here the capture is
+ * answered by a bigger one.
+ */
+void test_a_tempting_capture_is_named_with_its_cost () {
+    Board board = position ("1,1,1,2,0,2 | 0,1,3,1,2,3 | S:15 N:16 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_cmpint (advice.tempting_house, CompareOperator.NE, -1);
+    assert_cmpint (advice.tempting_house, CompareOperator.NE, advice.best_house);
+    assert_cmpint (advice.tempting_captures, CompareOperator.GT, 0);
+    assert_cmpint (advice.tempting_reply, CompareOperator.GT, advice.tempting_captures);
+}
+
+/** A recommendation that speaks for itself needs nothing defending against. */
+void test_nothing_is_tempting_when_the_advice_captures () {
+    Board board = position ("0,0,0,2,1,1 | 1,2,2,1,1,0 | S:19 N:18 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_true (advice.kind == AdviceKind.CAPTURES);
+    assert_cmpint (advice.tempting_house, CompareOperator.EQ, -1);
+}
+
 public static int main (string[] args) {
     Test.init (ref args);
     Test.add_func ("/advisor/ranks-every-legal-move", test_advice_ranks_every_legal_move);
@@ -177,5 +280,10 @@ public static int main (string[] args) {
     Test.add_func ("/advisor/async-matches", test_advice_async_matches_and_keeps_the_loop_running);
     Test.add_func ("/advisor/refuses-a-losing-capture", test_advice_refuses_a_capture_that_hands_over_the_game);
     Test.add_func ("/advisor/won-game-still-ranks", test_advice_on_a_won_game_still_prefers_the_capture);
+    Test.add_func ("/advisor/equal-moves-chosen-by-position", test_equal_moves_are_chosen_between_by_the_position);
+    Test.add_func ("/advisor/reports-the-reply", test_advice_reports_what_comes_straight_back);
+    Test.add_func ("/advisor/no-reply-to-report", test_advice_reports_no_reply_when_there_is_none);
+    Test.add_func ("/advisor/tempting-capture-named", test_a_tempting_capture_is_named_with_its_cost);
+    Test.add_func ("/advisor/nothing-tempting", test_nothing_is_tempting_when_the_advice_captures);
     return Test.run ();
 }

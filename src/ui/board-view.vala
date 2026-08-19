@@ -389,7 +389,16 @@ namespace Awale {
          * not shown: a player wants to know what to play, not to read a table
          * of figures over the board.
          */
-        public void show_advice (Advice advice) {
+        /**
+         * Stars the moves the advisor rates highest and says why.
+         *
+         * {@link reason} is the sentence the window has already written about
+         * the recommendation, handed over rather than rebuilt here: a house
+         * that carries the star should be able to give its reason on its own,
+         * without the player having to look away from it to read the line
+         * above the board.
+         */
+        public void show_advice (Advice advice, string reason) {
             clear_advice ();
             if (advice.moves.length == 0) {
                 return;
@@ -401,9 +410,20 @@ namespace Awale {
             int best_score = advice.moves[0].score;
 
             foreach (MoveScore scored in advice.moves) {
-                if (scored.score == best_score) {
-                    /// Spoken description of a house the advisor recommends.
-                    houses[scored.house].set_best (true, _("Recommended move."));
+                if (scored.score != best_score) {
+                    continue;
+                }
+                if (scored.house == advice.best_house) {
+                    houses[scored.house].set_best (true, reason);
+                } else {
+                    // Starred too, and worth exactly as much: the reason sits
+                    // on the one the sentence above the board names, and this
+                    // one says how it stands to it rather than repeating it.
+                    /// Spoken on a house the advisor rates level with the one
+                    /// it recommends. %d is that house, 1 to 6.
+                    houses[scored.house].set_best (true,
+                        _("As good as house %d.").printf (
+                            houses[advice.best_house].display_number));
                 }
             }
         }
@@ -412,6 +432,14 @@ namespace Awale {
             foreach (HouseButton button in houses) {
                 button.set_best (false, null);
             }
+        }
+
+        /**
+         * Says something about a house without recommending it, for the move
+         * that looks better than the starred one and is not.
+         */
+        public void caution (int house, string? reason) {
+            houses[house].set_hint (reason);
         }
 
         /**
@@ -425,7 +453,5 @@ namespace Awale {
         public void clear_captures () {
             arrows.set_previews (new CapturePreview[0]);
         }
-
-
     }
 }

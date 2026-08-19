@@ -147,8 +147,17 @@ namespace Awale {
          * ranked, so the eye goes straight to what is worth playing.
          */
         public void set_best (bool best, string? description) {
-            hint_description = description;
             star.visible = best;
+            set_hint (description);
+        }
+
+        /**
+         * What learning mode has to say about this house, starred or not: the
+         * reason the recommendation is the recommendation, or the reason a
+         * house that looks better than it is not.
+         */
+        public void set_hint (string? description) {
+            hint_description = description;
             update_accessible_label ();
         }
 
@@ -204,7 +213,12 @@ namespace Awale {
                                   seed_count).printf (display_number, seed_count);
             }
             pit.update_property (Gtk.AccessibleProperty.LABEL, label, -1);
-            pit.tooltip_text = label;
+
+            // The tooltip carries only what learning mode has to say. Which
+            // house this is and how many seeds it holds are on the board
+            // already and in the spoken label above, so a tooltip repeating
+            // them would only be in the way of the part worth reading.
+            pit.tooltip_text = hint_description;
 
             // The hint goes in the description rather than being glued onto the
             // label, so neither sentence is built out of pieces.
