@@ -61,18 +61,12 @@ namespace Awale {
         private Player next_opening_player = Player.SOUTH;
 
         private SimpleAction undo_action;
+        private SimpleAction redo_action;
         private Settings settings;
         private Advisor advisor;
 
         /** True while a move is being applied or animated, when input is ignored. */
         private bool busy = false;
-
-        /**
-         * Outside learning mode the brief allows a single step undo, so this is
-         * raised when a move completes and lowered as soon as it is used. In
-         * learning mode undo is unlimited and this is ignored.
-         */
-        private bool undo_offered = false;
 
         /**
          * Bumped whenever the position changes, so that advice arriving from a
@@ -256,6 +250,10 @@ namespace Awale {
             undo_action.activate.connect (() => take_back ());
             add_action (undo_action);
 
+            redo_action = new SimpleAction ("redo", null);
+            redo_action.activate.connect (() => play_again ());
+            add_action (redo_action);
+
             var play_house = new SimpleAction ("play-house", VariantType.INT32);
             play_house.activate.connect ((parameter) => {
                 on_house_activated (human.row_start () + parameter.get_int32 ());
@@ -303,10 +301,7 @@ namespace Awale {
             game.reset (take_opening_player ());
             opponent.reset ();
             advisor.reset ();
-            undo_offered = false;
-            show_detail (null);
-            save_game ();
-            refresh ();
+            settle ();
 
             if (game.board.to_move != human) {
                 let_the_computer_move.begin ();
@@ -314,8 +309,42 @@ namespace Awale {
         }
 
         private bool undo_available {
-            // Unlimited in learning mode, a single step otherwise.
-            get { return game.can_undo && (learning_mode || undo_offered); }
+            /*
+             * Unlimited in learning mode, a single step otherwise. A move
+             * waiting to be played again is exactly a step that has already
+             * been taken back, so the game's own history says whether the one
+             * step has been spent and nothing here has to keep count.
+             */
+            get { return game.can_undo && (learning_mode || !game.can_redo); }
+        }
+
+        /**
+         * Plays the exchange that was last taken back, the player's move and
+         * the computer's reply together, so the board comes back to the moment
+         * it was the player's turn. The mirror of {@link take_back}.
+         */
+        private void play_again () {
+            if (busy || !game.can_redo) {
+                return;
+            }
+
+            game.redo ();
+            if (game.can_redo && game.board.to_move != human) {
+                game.redo ();
+            }
+            settle ();
+        }
+
+        /**
+         * What every change made outside a turn has to do afterwards: drop the
+         * message on screen, keep the game where it can be found again, and
+         * redraw. A move played during a turn settles at the end of
+         * {@link play_out} instead, which has an animation to finish first.
+         */
+        private void settle () {
+            show_detail (null);
+            save_game ();
+            refresh ();
         }
 
         private void take_back () {
@@ -328,9 +357,7 @@ namespace Awale {
             if (game.can_undo && game.board.to_move != human) {
                 game.undo ();
             }
-            undo_offered = false;
-            show_detail (null);
-            refresh ();
+            settle ();
         }
 
         private void on_house_activated (int house) {
@@ -405,7 +432,6 @@ namespace Awale {
             }
 
             busy = false;
-            undo_offered = game.can_undo;
             save_game ();
             refresh ();
         }
@@ -646,6 +672,10 @@ namespace Awale {
 
         private void refresh_controls () {
             undo_action.set_enabled (!busy && undo_available);
+            // Redo is not gated the way undo is: whatever was allowed to be
+            // taken back is allowed back on, since it only ever returns the
+            // game to a position it has already been in.
+            redo_action.set_enabled (!busy && game.can_redo);
         }
 
         /**

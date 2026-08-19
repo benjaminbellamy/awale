@@ -44,6 +44,7 @@ namespace Awale {
             set_action_accels (this, "app.quit", { "<Control>q" });
             set_action_accels (this, "win.new-game", { "<Control>n" });
             set_action_accels (this, "win.undo", { "<Control>z" });
+            set_action_accels (this, "win.redo", { "<Control><Shift>z", "<Control>y" });
             set_action_accels (this, "win.cancel", { "Escape" });
 
             // The two things a player turns on and off mid-game, on bare

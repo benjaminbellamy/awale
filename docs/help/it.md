@@ -148,6 +148,7 @@ dopo, che sia il suo turno o no.
 | `1` a `6` | Gioca quella buca della tua fila, da sinistra a destra |
 | `Tab` | Spostarsi tra le buche, comprese quelle del computer |
 | `Ctrl+Z` | Annulla la tua ultima mossa |
+| `Ctrl+Maiusc+Z` | Rigiocare la tua ultima mossa |
 | `Ctrl+N` | Inizia una nuova partita |
 | `L` | Attivare o disattivare la modalità apprendimento |
 | `S` | Mostrare o nascondere il numero di semi |

@@ -153,6 +153,7 @@ nehmen könnte, ob er nun am Zug ist oder nicht.
 | `1` bis `6` | Diese Mulde deiner Reihe spielen, von links nach rechts |
 | `Tab` | Zwischen den Mulden wechseln, auch denen des Computers |
 | `Strg+Z` | Deinen letzten Zug zurücknehmen |
+| `Strg+Umschalt+Z` | Deinen letzten Zug erneut spielen |
 | `Strg+N` | Neue Partie beginnen |
 | `L` | Lernmodus ein- oder ausschalten |
 | `S` | Samenanzahl ein- oder ausblenden |

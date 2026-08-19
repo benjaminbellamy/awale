@@ -149,6 +149,7 @@ sea su turno o no.
 | `1` a `6` | Jugar ese hoyo de tu fila, de izquierda a derecha |
 | `Tab` | Moverse entre hoyos, incluidos los del ordenador |
 | `Ctrl+Z` | Deshacer tu última jugada |
+| `Ctrl+Mayús+Z` | Volver a jugar tu última jugada |
 | `Ctrl+N` | Empezar una partida nueva |
 | `L` | Activar o desactivar el modo de aprendizaje |
 | `S` | Mostrar u ocultar el número de semillas |

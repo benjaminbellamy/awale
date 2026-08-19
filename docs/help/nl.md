@@ -152,6 +152,7 @@ aan zet is of niet.
 | `1` tot `6` | Dat kuiltje van je rij spelen, van links naar rechts |
 | `Tab` | Tussen kuiltjes bewegen, ook die van de computer |
 | `Ctrl+Z` | Je laatste zet ongedaan maken |
+| `Ctrl+Shift+Z` | Je laatste zet opnieuw spelen |
 | `Ctrl+N` | Een nieuw spel beginnen |
 | `L` | Leermodus aan- of uitzetten |
 | `S` | Aantal zaadjes tonen of verbergen |

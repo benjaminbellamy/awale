@@ -56,6 +56,10 @@ namespace Awale {
             get { return moves.length > 0; }
         }
 
+        public bool can_redo {
+            get { return taken_back.length > 0; }
+        }
+
         /** Emitted after a move has been applied to the board. */
         public signal void moved (int house, MoveResult result);
 
@@ -71,6 +75,13 @@ namespace Awale {
         private Board[] positions;
         private int[] moves;
         private int[] no_capture_runs;
+
+        /**
+         * Moves taken back, the most recent last, waiting to be played again.
+         * Emptied by any move played on top of them, since from that point
+         * they describe a game that is no longer the one on the board.
+         */
+        private int[] taken_back;
 
         public Game (Player first_to_move = Player.SOUTH,
                      GrandSlamPolicy policy = GrandSlamPolicy.LEGAL_NO_CAPTURE) {
@@ -94,6 +105,7 @@ namespace Awale {
             positions = new Board[] { current.copy () };
             moves = new int[0];
             no_capture_runs = new int[] { 0 };
+            taken_back = new int[0];
             outcome = Outcome.IN_PROGRESS;
             end_reason = EndReason.NONE;
             evaluate_termination ();
@@ -124,8 +136,20 @@ namespace Awale {
             return current.legal_moves (grand_slam_policy);
         }
 
-        /** Plays {@link house}. Returns false when the move is not available. */
+        /**
+         * Plays {@link house}, forgetting anything taken back. Returns false
+         * when the move is not available.
+         */
         public bool play (int house) {
+            if (!make_move (house)) {
+                return false;
+            }
+            taken_back = new int[0];
+            return true;
+        }
+
+        /** Plays {@link house} without disturbing what was taken back. */
+        private bool make_move (int house) {
             if (outcome != Outcome.IN_PROGRESS) {
                 return false;
             }
@@ -150,6 +174,7 @@ namespace Awale {
                 return false;
             }
 
+            taken_back += moves[moves.length - 1];
             positions.resize (positions.length - 1);
             moves.resize (moves.length - 1);
             no_capture_runs.resize (no_capture_runs.length - 1);
@@ -159,6 +184,17 @@ namespace Awale {
 
             undone ();
             return true;
+        }
+
+        /** Plays the last move taken back again. Returns false when there is none. */
+        public bool redo () {
+            if (taken_back.length == 0) {
+                return false;
+            }
+
+            int house = taken_back[taken_back.length - 1];
+            taken_back.resize (taken_back.length - 1);
+            return make_move (house);
         }
 
         private void evaluate_termination () {

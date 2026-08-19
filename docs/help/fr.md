@@ -153,6 +153,7 @@ pourrait vous prendre ensuite, que ce soit son tour ou non.
 | `1` à `6` | Jouer cette case de votre rangée, de gauche à droite |
 | `Tab` | Passer d’une case à l’autre, y compris celles de l’ordinateur |
 | `Ctrl+Z` | Annuler votre dernier coup |
+| `Ctrl+Maj+Z` | Rejouer votre dernier coup |
 | `Ctrl+N` | Nouvelle partie |
 | `L` | Activer ou désactiver le mode apprentissage |
 | `S` | Afficher ou masquer le nombre de graines |

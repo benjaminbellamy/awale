@@ -19,7 +19,6 @@ The first install also pulls the GNOME 50 runtime if you do not already have it,
 which needs Flathub set up as a remote. To build from source instead, see
 [Building](#building).
 
-
 [![The board](data/screenshots/board-light.png)](data/screenshots/awale.mp4)
 
 Awalé is a sowing game of the mancala family, played across West Africa and the
@@ -54,6 +53,7 @@ Houses are numbered 1 to 6 along your row, left to right.
 | `1` to `6` | Play that house of your row |
 | `Tab` | Move between houses, including the computer's |
 | `Ctrl+Z` | Undo your last move |
+| `Ctrl+Shift+Z` | Play your last move again |
 | `Ctrl+N` | Start a new game |
 | `L` | Turn learning mode on or off |
 | `S` | Show or hide the seed counts |

@@ -183,6 +183,54 @@ private static void test_undo_restores_the_previous_position () {
     assert_false (game.undo ());
 }
 
+private static void test_redo_puts_a_taken_back_move_back () {
+    var game = new Game ();
+
+    assert_true (game.play (2));
+    string after_move = Notation.format (game.board);
+
+    assert_false (game.can_redo);
+    assert_true (game.undo ());
+    assert_true (game.can_redo);
+
+    assert_true (game.redo ());
+    assert_cmpstr (Notation.format (game.board), CompareOperator.EQ, after_move);
+    assert_false (game.can_redo);
+    assert_false (game.redo ());
+}
+
+/** Taken back moves belong to a game that is no longer the one being played. */
+private static void test_playing_on_abandons_what_was_taken_back () {
+    var game = new Game ();
+
+    assert_true (game.play (2));
+    assert_true (game.undo ());
+    assert_true (game.can_redo);
+
+    assert_true (game.play (3));
+
+    assert_false (game.can_redo);
+    assert_false (game.redo ());
+}
+
+/** Redo replays the whole run that was taken back, most recent move first. */
+private static void test_redo_walks_back_through_several_moves () {
+    var game = new Game ();
+
+    assert_true (game.play (2));
+    assert_true (game.play (7));
+    string after_two = Notation.format (game.board);
+
+    assert_true (game.undo ());
+    assert_true (game.undo ());
+    assert_cmpint (game.ply_count, CompareOperator.EQ, 0);
+
+    assert_true (game.redo ());
+    assert_true (game.redo ());
+    assert_cmpstr (Notation.format (game.board), CompareOperator.EQ, after_two);
+    assert_cmpint (game.ply_count, CompareOperator.EQ, 2);
+}
+
 private static void test_undo_reopens_a_finished_game () {
     var game = new Game.from_board (position ("0,0,0,0,3,1 | 2,1,4,0,0,0 | S:20 N:17 | to_move=S"));
 
@@ -252,5 +300,8 @@ public static int main (string[] args) {
     Test.add_func ("/termination/winning-score-ends-by-default", test_winning_score_ends_the_game_by_default);
     Test.add_func ("/termination/undo-restores-position", test_undo_restores_the_previous_position);
     Test.add_func ("/termination/undo-reopens-finished-game", test_undo_reopens_a_finished_game);
+    Test.add_func ("/termination/redo-restores-a-taken-back-move", test_redo_puts_a_taken_back_move_back);
+    Test.add_func ("/termination/playing-on-abandons-redo", test_playing_on_abandons_what_was_taken_back);
+    Test.add_func ("/termination/redo-walks-several-moves", test_redo_walks_back_through_several_moves);
     return Test.run ();
 }

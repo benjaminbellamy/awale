@@ -16,6 +16,13 @@ template $AwaleWindow: Adw.ApplicationWindow {
     Adw.HeaderBar {
       [start]
       Button {
+        icon-name: "document-new-symbolic";
+        action-name: "win.new-game";
+        tooltip-text: _("Start a new game");
+      }
+
+      [start]
+      Button {
         icon-name: "edit-undo-symbolic";
         action-name: "win.undo";
         tooltip-text: _("Take back your last move");
@@ -23,9 +30,9 @@ template $AwaleWindow: Adw.ApplicationWindow {
 
       [start]
       Button {
-        icon-name: "document-new-symbolic";
-        action-name: "win.new-game";
-        tooltip-text: _("Start a new game");
+        icon-name: "edit-redo-symbolic";
+        action-name: "win.redo";
+        tooltip-text: _("Play your last move again");
       }
 
       [end]

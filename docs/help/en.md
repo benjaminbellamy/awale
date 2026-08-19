@@ -148,6 +148,7 @@ or not.
 | `1` to `6` | Play that house of your row, left to right |
 | `Tab` | Move between houses, including the computer's |
 | `Ctrl+Z` | Take back your last move |
+| `Ctrl+Shift+Z` | Play your last move again |
 | `Ctrl+N` | Start a new game |
 | `L` | Turn learning mode on or off |
 | `S` | Show or hide the seed counts |
