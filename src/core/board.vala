@@ -230,8 +230,7 @@ namespace Awale {
 
                     CapturePreview preview = CapturePreview ();
                     preview.house = house;
-                    preview.last_house = trace.sown_houses[trace.sown_houses.length - 1];
-                    preview.seeds_sown = trace.sown_houses.length;
+                    preview.steps = ring_steps (house, trace.sown_houses);
                     preview.captured = trace.captured;
                     previews += preview;
                 }
@@ -289,6 +288,24 @@ namespace Awale {
             outcome.grand_slam = outcome.captured > 0
                 && outcome.captured == seeds_in_row (mover.opponent ());
             return outcome;
+        }
+
+        /**
+         * How far round the board a sowing travels, counted in houses from the
+         * one it started in.
+         *
+         * Longer than the sowing has seeds whenever it comes back round to its
+         * own house, because stepping over that house (RULES.md 2.1) covers a
+         * house that no seed lands in.
+         */
+        private int ring_steps (int house, int[] sown) {
+            int steps = 0;
+            int at = house;
+            foreach (int landed in sown) {
+                steps += (landed - at + HOUSE_COUNT) % HOUSE_COUNT;
+                at = landed;
+            }
+            return steps;
         }
 
         /**

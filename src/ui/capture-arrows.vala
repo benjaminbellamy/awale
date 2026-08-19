@@ -13,8 +13,14 @@ namespace Awale {
      * lines sit on top of every pit and so that their colour comes from the
      * stylesheet like every other colour in this game.
      *
-     * Nothing here knows the rules. It is handed what each move would take and
-     * draws that.
+     * Nothing here knows the rules. It is told which house each sowing starts
+     * from and how far round the board it travels, and draws that.
+     *
+     * It does know the shape the board is laid out in: the six houses of a row
+     * stand in a line, the two rows face each other, and the ring bends only
+     * between houses 5 and 6 and between 11 and 0. {@link BoardView} arranges
+     * both of its layouts that way, flat and turned alike. A third arrangement
+     * would have to keep that or teach this class the new one.
      */
     internal class CaptureArrows : Gtk.Widget {
 
@@ -30,12 +36,14 @@ namespace Awale {
         private const double INNER_REACH = 0.05;
         private const double LEVEL_STEP = 0.08;
 
-        /** A sowing this long has been all the way round and closes its loop. */
-        private const int FULL_CIRCLE = HOUSE_COUNT;
+        /** One line: what it would win, how deep it is drawn, and its bubble. */
+        private struct Arrow {
+            public CapturePreview preview;
+            public int level;
+            public unowned Gtk.Label total;
+        }
 
-        private CapturePreview[] previews = {};
-        private int[] levels = {};
-        private Gtk.Label[] totals = {};
+        private Arrow[] arrows = {};
         private Graphene.Point[] centres = {};
         private Graphene.Point middle;
         private int side = 0;
@@ -50,10 +58,7 @@ namespace Awale {
         }
 
         public override void dispose () {
-            foreach (Gtk.Label total in totals) {
-                total.unparent ();
-            }
-            totals = {};
+            drop_arrows ();
             base.dispose ();
         }
 
@@ -81,22 +86,30 @@ namespace Awale {
         }
 
         public void set_previews (CapturePreview[] shown) {
-            previews = shown;
-            // Shortest line innermost. Any distinct reaches would keep the
-            // lines apart, but nesting them by length keeps each one near the
-            // pits it is about instead of wandering off across the board.
-            sort_by_span ();
+            drop_arrows ();
+
+            foreach (CapturePreview preview in shown) {
+                var total = new Gtk.Label (preview.captured.to_string ());
+                total.add_css_class ("capture-total");
+                total.set_parent (this);
+                arrows += Arrow () { preview = preview, level = 0, total = total };
+            }
+
+            // Shortest line innermost. Any distinct depths would keep the lines
+            // apart, but nesting them by length keeps each one near the pits it
+            // is about instead of wandering off across the board.
+            sort_by_length ();
             assign_levels ();
-            rebuild_totals ();
+
             queue_allocate ();
             queue_draw ();
         }
 
-        public void clear () {
-            previews = {};
-            levels = {};
-            rebuild_totals ();
-            queue_draw ();
+        private void drop_arrows () {
+            foreach (Arrow arrow in arrows) {
+                arrow.total.unparent ();
+            }
+            arrows = {};
         }
 
         /**
@@ -111,30 +124,24 @@ namespace Awale {
         private void assign_levels () {
             int ceiling = 2 * HOUSE_COUNT;
             bool[,] taken = new bool[ceiling, HOUSE_COUNT];
-            levels = new int[previews.length];
 
-            for (int i = 0; i < previews.length; i++) {
-                bool[] covered = houses_covered (previews[i]);
+            for (int i = 0; i < arrows.length; i++) {
+                CapturePreview preview = arrows[i].preview;
                 // A winding line is one depth further out on every lap, so it
                 // stands in every depth it has wound through, and in the one
                 // beyond the last of them: another line there would come closer
                 // to its end than a whole depth.
-                int depth = winding_depth (previews[i]);
+                int depth = winding_depth (preview);
 
+                int span = covered_span (preview);
                 int level = 0;
                 while (level + depth < ceiling
-                       && !room_at (taken, covered, level, depth)) {
+                       && !room_at (taken, preview.house, span, level, depth)) {
                     level++;
                 }
 
-                levels[i] = level;
-                for (int step = 0; step < depth; step++) {
-                    for (int house = 0; house < HOUSE_COUNT; house++) {
-                        if (covered[house]) {
-                            taken[level + step, house] = true;
-                        }
-                    }
-                }
+                arrows[i].level = level;
+                claim (taken, preview.house, span, level, depth);
             }
         }
 
@@ -143,14 +150,19 @@ namespace Awale {
             if (!wraps (preview)) {
                 return 1;
             }
-            int laps = (drawn_steps (preview) + HOUSE_COUNT - 1) / HOUSE_COUNT;
+            int laps = (preview.steps + HOUSE_COUNT - 1) / HOUSE_COUNT;
             return laps + 1;
         }
 
-        private bool room_at (bool[,] taken, bool[] covered, int level, int depth) {
+        /** True when the line goes right round the board and lies beside itself. */
+        private bool wraps (CapturePreview preview) {
+            return preview.steps >= HOUSE_COUNT;
+        }
+
+        private bool room_at (bool[,] taken, int from, int span, int level, int depth) {
             for (int step = 0; step < depth; step++) {
-                for (int house = 0; house < HOUSE_COUNT; house++) {
-                    if (covered[house] && taken[level + step, house]) {
+                for (int i = 0; i <= span; i++) {
+                    if (taken[level + step, (from + i) % HOUSE_COUNT]) {
                         return false;
                     }
                 }
@@ -158,63 +170,34 @@ namespace Awale {
             return true;
         }
 
-        private bool[] houses_covered (CapturePreview preview) {
-            var covered = new bool[HOUSE_COUNT];
-            int steps = drawn_steps (preview);
-            for (int i = 0; i <= steps; i++) {
-                covered[(preview.house + i) % HOUSE_COUNT] = true;
+        private void claim (bool[,] taken, int from, int span, int level, int depth) {
+            for (int step = 0; step < depth; step++) {
+                for (int i = 0; i <= span; i++) {
+                    taken[level + step, (from + i) % HOUSE_COUNT] = true;
+                }
             }
-            return covered;
-        }
-
-        private bool wraps (CapturePreview preview) {
-            return preview.seeds_sown >= FULL_CIRCLE;
         }
 
         /**
-         * Houses the line passes on its way from the house played to the house
-         * the last seed lands in. A sowing that has been round the whole board
-         * is drawn the whole way round and then on to where it stops.
+         * How far to walk to name every house a line covers. A line that has
+         * been right round the board covers all of them, and walking further
+         * only names them again.
          */
-        private int drawn_steps (CapturePreview preview) {
-            int round_trip = (preview.last_house - preview.house + HOUSE_COUNT) % HOUSE_COUNT;
-            return wraps (preview) ? HOUSE_COUNT + round_trip : round_trip;
-        }
-
-        /** One bubble per line, so the stylesheet decides how it looks. */
-        private void rebuild_totals () {
-            foreach (Gtk.Label total in totals) {
-                total.unparent ();
-            }
-            totals = {};
-
-            foreach (CapturePreview preview in previews) {
-                var total = new Gtk.Label (preview.captured.to_string ());
-                total.add_css_class ("capture-total");
-                total.set_parent (this);
-                totals += total;
-            }
+        private int covered_span (CapturePreview preview) {
+            return int.min (preview.steps, HOUSE_COUNT - 1);
         }
 
         /** Insertion sort: there are never more than twelve of these. */
-        private void sort_by_span () {
-            for (int i = 1; i < previews.length; i++) {
-                CapturePreview moving = previews[i];
+        private void sort_by_length () {
+            for (int i = 1; i < arrows.length; i++) {
+                Arrow moving = arrows[i];
                 int j = i - 1;
-                while (j >= 0 && span (previews[j]) > span (moving)) {
-                    previews[j + 1] = previews[j];
+                while (j >= 0 && arrows[j].preview.steps > moving.preview.steps) {
+                    arrows[j + 1] = arrows[j];
                     j--;
                 }
-                previews[j + 1] = moving;
+                arrows[j + 1] = moving;
             }
-        }
-
-        /** How many houses the sowing covers, counted the way it travels. */
-        private int span (CapturePreview preview) {
-            if (preview.seeds_sown >= FULL_CIRCLE) {
-                return HOUSE_COUNT;
-            }
-            return (preview.last_house - preview.house + HOUSE_COUNT) % HOUSE_COUNT;
         }
 
         /** Every bubble sits on the mouth of its own line. */
@@ -223,22 +206,22 @@ namespace Awale {
                 return;
             }
 
-            for (int i = 0; i < totals.length && i < levels.length; i++) {
+            foreach (Arrow arrow in arrows) {
                 Gtk.Requisition natural;
-                totals[i].get_preferred_size (null, out natural);
+                arrow.total.get_preferred_size (null, out natural);
 
-                Graphene.Point at = ring_point (previews[i].house, reach (levels[i]));
+                Graphene.Point at = ring_point (arrow.preview.house, reach (arrow.level));
                 var offset = Graphene.Point () {
                     x = at.x - natural.width / 2.0f,
                     y = at.y - natural.height / 2.0f,
                 };
-                totals[i].allocate (natural.width, natural.height, -1,
-                                    new Gsk.Transform ().translate (offset));
+                arrow.total.allocate (natural.width, natural.height, -1,
+                                      new Gsk.Transform ().translate (offset));
             }
         }
 
         public override void snapshot (Gtk.Snapshot snapshot) {
-            if (previews.length > 0 && board_is_known ()) {
+            if (arrows.length > 0 && board_is_known ()) {
                 Gdk.RGBA colour = get_color ();
                 var bounds = Graphene.Rect ().init (0, 0, get_width (), get_height ());
                 Cairo.Context cr = snapshot.append_cairo (bounds);
@@ -248,8 +231,8 @@ namespace Awale {
                 cr.set_line_cap (Cairo.LineCap.ROUND);
                 cr.set_line_join (Cairo.LineJoin.ROUND);
 
-                for (int i = 0; i < previews.length && i < levels.length; i++) {
-                    draw_arrow (cr, previews[i], levels[i]);
+                foreach (Arrow arrow in arrows) {
+                    draw_arrow (cr, arrow);
                 }
             }
 
@@ -331,31 +314,32 @@ namespace Awale {
          * half circle around the end where the seeds cross to the other row,
          * and a straight run back. Nothing else.
          *
-         * A sowing long enough to pass its own house has been round the whole
-         * board and out the other side. Its line winds out by one depth as it
-         * goes, so the second half circle is wider than the first and the line
-         * finishes beside where it began rather than back on top of it.
+         * A sowing that goes right round the board comes out the other side of
+         * where it began. Its line winds out by one depth a lap as it goes, so
+         * the second half circle is wider than the first and the line finishes
+         * beside where it started rather than back on top of it.
          */
-        private void draw_arrow (Cairo.Context cr, CapturePreview preview, int level) {
-            int steps = drawn_steps (preview);
+        private void draw_arrow (Cairo.Context cr, Arrow arrow) {
+            int steps = arrow.preview.steps;
             if (steps < 1) {
                 return;
             }
 
-            double from_reach = reach (level);
+            double from_reach = reach (arrow.level);
             // One lap of the board takes a winding line out by one whole depth,
             // which is the distance that separates two different lines running
             // beside each other. A line lying beside itself and two lines lying
             // beside each other are then the same distance apart.
-            double per_house = wraps (preview)
+            double per_house = wraps (arrow.preview)
                 ? (LEVEL_STEP * side) / HOUSE_COUNT
                 : 0;
 
-            Graphene.Point start = ring_point (preview.house, from_reach);
+            int first = arrow.preview.house;
+            Graphene.Point start = ring_point (first, from_reach);
             cr.move_to (start.x, start.y);
 
             for (int i = 0; i < steps; i++) {
-                int here = (preview.house + i) % HOUSE_COUNT;
+                int here = (first + i) % HOUSE_COUNT;
                 int next = (here + 1) % HOUSE_COUNT;
 
                 if (here == ROW_SIZE - 1 || here == HOUSE_COUNT - 1) {
@@ -369,7 +353,8 @@ namespace Awale {
             }
             cr.stroke ();
 
-            draw_head (cr, preview.last_house, from_reach + per_house * steps);
+            draw_head (cr, (first + steps) % HOUSE_COUNT,
+                       from_reach + per_house * steps);
         }
 
         /**

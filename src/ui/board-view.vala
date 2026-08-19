@@ -423,7 +423,7 @@ namespace Awale {
         }
 
         public void clear_captures () {
-            arrows.clear ();
+            arrows.set_previews (new CapturePreview[0]);
         }
 
 

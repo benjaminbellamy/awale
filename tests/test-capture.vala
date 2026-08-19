@@ -180,14 +180,13 @@ private static void test_previews_cover_both_rows () {
 
     CapturePreview mine = preview_for (previews, 5);
     assert_cmpint (mine.captured, CompareOperator.EQ, 2);
-    assert_cmpint (mine.last_house, CompareOperator.EQ, 6);
-    assert_cmpint (mine.seeds_sown, CompareOperator.EQ, 1);
+    // One seed, one house travelled: house 5 to house 6.
+    assert_cmpint (mine.steps, CompareOperator.EQ, 1);
 
     // North is not to move, and this is still what North would take.
     CapturePreview theirs = preview_for (previews, 11);
     assert_cmpint (theirs.captured, CompareOperator.EQ, 4);
-    assert_cmpint (theirs.last_house, CompareOperator.EQ, 2);
-    assert_cmpint (theirs.seeds_sown, CompareOperator.EQ, 3);
+    assert_cmpint (theirs.steps, CompareOperator.EQ, 3);
 }
 
 /** Nothing is previewed from the opening position: no move there captures. */
@@ -213,9 +212,10 @@ private static void test_preview_of_a_sowing_that_wraps () {
     assert_cmpint (previews.length, CompareOperator.EQ, 1);
     CapturePreview preview = previews[0];
     assert_cmpint (preview.house, CompareOperator.EQ, 0);
-    // Seventeen seeds go round the eleven other houses and on into the sixth.
-    assert_cmpint (preview.seeds_sown, CompareOperator.EQ, 17);
-    assert_cmpint (preview.last_house, CompareOperator.EQ, 6);
+    // Seventeen seeds, but eighteen houses travelled: coming back round to its
+    // own house, the sowing steps over it, and that house is travelled without
+    // being sown. The last seed lands in house 0 + 18, which is house 6.
+    assert_cmpint (preview.steps, CompareOperator.EQ, 18);
     assert_cmpint (preview.captured, CompareOperator.EQ, 2);
 }
 

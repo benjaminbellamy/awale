@@ -140,10 +140,16 @@ namespace Awale {
     public struct CapturePreview {
         /** House that would be played. */
         public int house;
-        /** House the last seed would land in. */
-        public int last_house;
-        /** Seeds the house holds, which is how many houses the sowing visits. */
-        public int seeds_sown;
+        /**
+         * How far round the board the sowing travels, counted in houses from
+         * the one played, so the last seed lands in house + steps.
+         *
+         * This is not the number of seeds. A sowing steps over its own house
+         * every time it comes back round to it (RULES.md 2.1), and each of
+         * those is a house travelled that no seed landed in. Twelve or more
+         * means the sowing went right round the board at least once.
+         */
+        public int steps;
         /** Seeds the move would win. Never zero. */
         public int captured;
     }
