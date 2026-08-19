@@ -80,6 +80,14 @@ namespace Awale {
             return total;
         }
 
+        /**
+         * True once a store holds enough to settle the game (RULES.md 6.1).
+         * Whose win it is depends on the stores; that a win exists does not.
+         */
+        public bool is_decided () {
+            return south_store >= WINNING_SEEDS || north_store >= WINNING_SEEDS;
+        }
+
         public bool row_is_empty (Player player) {
             return seeds_in_row (player) == 0;
         }
@@ -90,6 +98,23 @@ namespace Awale {
                 total += houses[i];
             }
             return total;
+        }
+
+        /**
+         * A number standing for this position, for callers that need to index
+         * or choose by it. FNV-1a over the houses, the stores and the side to
+         * move. Not a substitute for {@link equals}: two positions can land on
+         * the same number, so anything that must be exact still compares.
+         */
+        public uint64 fingerprint () {
+            uint64 hash = 14695981039346656037U;
+            for (int house = 0; house < HOUSE_COUNT; house++) {
+                hash = (hash ^ (uint64) houses[house]) * 1099511628211U;
+            }
+            hash = (hash ^ (uint64) south_store) * 1099511628211U;
+            hash = (hash ^ (uint64) north_store) * 1099511628211U;
+            hash = (hash ^ (uint64) to_move) * 1099511628211U;
+            return hash;
         }
 
         /** The 48 seed invariant of RULES.md 1. */

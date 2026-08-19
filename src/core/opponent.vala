@@ -84,9 +84,6 @@ namespace Awale {
             get; set; default = GrandSlamPolicy.LEGAL_NO_CAPTURE;
         }
 
-        /** Matches {@link Game.end_at_winning_score} of the game being played. */
-        public bool end_at_winning_score { get; set; default = true; }
-
         private Search engine = new Search ();
         private Rand random;
 
@@ -112,7 +109,6 @@ namespace Awale {
 
             engine.grand_slam_policy = grand_slam_policy;
             engine.use_transposition_table = difficulty.uses_transposition_table ();
-            engine.end_at_winning_score = end_at_winning_score;
             SearchResult result = engine.search (board,
                                                  difficulty.max_depth (),
                                                  difficulty.time_budget_ms ());

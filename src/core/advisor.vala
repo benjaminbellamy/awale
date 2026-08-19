@@ -45,9 +45,6 @@ namespace Awale {
             get; set; default = GrandSlamPolicy.LEGAL_NO_CAPTURE;
         }
 
-        /** Matches {@link Game.end_at_winning_score} of the game being advised. */
-        public bool end_at_winning_score { get; set; default = true; }
-
         private Search engine = new Search ();
 
         public Advice advise (Board board) {
@@ -58,7 +55,6 @@ namespace Awale {
 
             engine.grand_slam_policy = grand_slam_policy;
             engine.use_transposition_table = true;
-            engine.end_at_winning_score = end_at_winning_score;
 
             SearchResult result = engine.search (board,
                                                  Difficulty.HARD.max_depth (),

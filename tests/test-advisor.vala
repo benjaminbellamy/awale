@@ -135,6 +135,37 @@ void test_advice_async_matches_and_keeps_the_loop_running () {
     assert_cmpint (best, CompareOperator.EQ, expected.best_house);
 }
 
+/**
+ * RULES.md 6.1: reaching 25 seeds settles the game, so a move that hands the
+ * opponent their 25th seed loses however many seeds it wins on the way.
+ *
+ * North sits on 23 with nineteen seeds still on the board, so crossing 25
+ * decides the game without ending it. Every move except house 0 lets North
+ * answer with house 11 into house 0, take two and reach 25. House 0 empties
+ * the house North is aiming at and takes nothing, which is the only move that
+ * keeps the game alive.
+ */
+void test_advice_refuses_a_capture_that_hands_over_the_game () {
+    Board board = position ("1,3,3,3,0,1 | 1,3,3,0,0,1 | S:6 N:23 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_cmpint (advice.best_house, CompareOperator.EQ, 0);
+}
+
+/**
+ * Once the game is decided every line is a loss, and scoring them all as one
+ * would leave the advice picking a move at random. A round being played out is
+ * ranked on what it can still win instead.
+ */
+void test_advice_on_a_won_game_still_prefers_the_capture () {
+    // North is already past 25, so nothing South plays can save the game.
+    Board board = position ("0,1,0,0,0,1 | 1,1,0,0,0,0 | S:19 N:25 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_cmpint (advice.best_house, CompareOperator.EQ, 5);
+}
 public static int main (string[] args) {
     Test.init (ref args);
     Test.add_func ("/advisor/ranks-every-legal-move", test_advice_ranks_every_legal_move);
@@ -144,5 +175,7 @@ public static int main (string[] args) {
     Test.add_func ("/advisor/protects-a-real-house", test_protecting_advice_names_a_house_that_is_really_at_risk);
     Test.add_func ("/advisor/dead-position", test_advice_on_a_dead_position);
     Test.add_func ("/advisor/async-matches", test_advice_async_matches_and_keeps_the_loop_running);
+    Test.add_func ("/advisor/refuses-a-losing-capture", test_advice_refuses_a_capture_that_hands_over_the_game);
+    Test.add_func ("/advisor/won-game-still-ranks", test_advice_on_a_won_game_still_prefers_the_capture);
     return Test.run ();
 }

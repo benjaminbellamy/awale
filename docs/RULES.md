@@ -181,6 +181,8 @@ The engine is not done until all of these pass.
 27. Hard level search at depth 12 completes inside its time budget.
 28. Search never returns an illegal move.
 29. Search is deterministic when the random tie-break seed is fixed.
+30. Reaching 25 seeds settles the game, so a move that lets the opponent reach
+    it is never chosen while a move that prevents it exists.
 
 ## 8. Notation for tests and the CLI
 

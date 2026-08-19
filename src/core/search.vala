@@ -20,6 +20,14 @@ namespace Awale {
         public int score;
         public int best_move;
         public TranspositionBound bound;
+        /**
+         * What the score was worked out under. A position is worth different
+         * things in a round still to be decided and in one already won, and
+         * under either grand slam rule, so an entry has to say which it means
+         * or it will be read back in a search it does not answer.
+         */
+        public bool playing_out;
+        public GrandSlamPolicy policy;
     }
 
     /** One move available at the root, with the score the search gave it. */
@@ -71,18 +79,26 @@ namespace Awale {
         /** Off for the shallow difficulty levels, which cannot profit from it. */
         public bool use_transposition_table { get; set; default = true; }
 
-        /**
-         * Whether reaching {@link WINNING_SEEDS} settles the game, as RULES.md
-         * 6.1 says. With it off, a decided position is scored on material like
-         * any other, which is what a caller playing a won game out needs: every
-         * line being a win tells the player nothing.
-         */
-        public bool end_at_winning_score { get; set; default = true; }
-
         private TranspositionEntry[] table = new TranspositionEntry[TABLE_SIZE];
         private int64 deadline;
         private int64 node_count;
         private bool aborted;
+
+        /**
+         * True when the round handed to this search has already been won, as
+         * RULES.md 6.1 counts it.
+         *
+         * Reaching {@link WINNING_SEEDS} settles the game, so a line that gets
+         * there is scored as decisive. That cannot be how an already won round
+         * is scored, though: every line in it is a win, and saying so ranks
+         * none of them. Such a round is played out on material instead, which
+         * still tells a player which move is worth the most.
+         *
+         * The search works this out from the position it is given rather than
+         * being told, so that no caller can leave the rule switched off during
+         * a game that is still to be decided.
+         */
+        private bool playing_out;
 
         /** Forgets everything learned about previous positions. */
         public void clear () {
@@ -100,6 +116,8 @@ namespace Awale {
             deadline = started + time_budget_ms * 1000;
             node_count = 0;
             aborted = false;
+
+            playing_out = board.is_decided ();
 
             SearchResult result = SearchResult ();
             result.best_move = -1;
@@ -168,9 +186,7 @@ namespace Awale {
             }
 
             // RULES.md 6.1, decided before anything else is worth computing.
-            bool decided = board.south_store >= WINNING_SEEDS
-                || board.north_store >= WINNING_SEEDS;
-            if ((end_at_winning_score && decided) || board.seeds_on_board () == 0) {
+            if ((board.is_decided () && !playing_out) || board.seeds_on_board () == 0) {
                 return decisive_score (board, ply);
             }
             if (!board.has_legal_move (grand_slam_policy)) {
@@ -183,9 +199,11 @@ namespace Awale {
             int table_move = -1;
             int index = 0;
             if (use_transposition_table) {
-                index = (int) (position_hash (board) % TABLE_SIZE);
+                index = (int) (board.fingerprint () % TABLE_SIZE);
                 TranspositionEntry entry = table[index];
-                if (entry.occupied && entry.position.equals (board)) {
+                if (entry.occupied && entry.position.equals (board)
+                    && entry.playing_out == playing_out
+                    && entry.policy == grand_slam_policy) {
                     table_move = entry.best_move;
                     if (entry.depth >= depth) {
                         int stored = score_from_table (entry.score, ply);
@@ -237,6 +255,8 @@ namespace Awale {
                 entry.depth = depth;
                 entry.score = score_to_table (best_score, ply);
                 entry.best_move = best_move;
+                entry.playing_out = playing_out;
+                entry.policy = grand_slam_policy;
                 if (best_score >= beta) {
                     entry.bound = TranspositionBound.LOWER;
                 } else if (best_score <= original_alpha) {
@@ -298,18 +318,6 @@ namespace Awale {
                 return score + ply;
             }
             return score;
-        }
-
-        /** FNV-1a over the whole position. Collisions are caught by comparing boards. */
-        private uint64 position_hash (Board board) {
-            uint64 hash = 14695981039346656037U;
-            for (int house = 0; house < HOUSE_COUNT; house++) {
-                hash = (hash ^ (uint64) board.houses[house]) * 1099511628211U;
-            }
-            hash = (hash ^ (uint64) board.south_store) * 1099511628211U;
-            hash = (hash ^ (uint64) board.north_store) * 1099511628211U;
-            hash = (hash ^ (uint64) board.to_move) * 1099511628211U;
-            return hash;
         }
 
         /** Sorts moves and their boards together, highest order value first. */

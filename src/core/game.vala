@@ -34,13 +34,7 @@ namespace Awale {
          */
         public Outcome decided_outcome {
             get {
-                if (current.south_store >= WINNING_SEEDS) {
-                    return Outcome.SOUTH_WINS;
-                }
-                if (current.north_store >= WINNING_SEEDS) {
-                    return Outcome.NORTH_WINS;
-                }
-                return Outcome.IN_PROGRESS;
+                return current.is_decided () ? outcome_from_stores () : Outcome.IN_PROGRESS;
             }
         }
 

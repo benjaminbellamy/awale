@@ -88,13 +88,14 @@ namespace Awale {
             settings = new Settings ("fr.benjaminbellamy.Awale");
             game = new Game ();
             // The winner is announced as soon as they reach 25, but the round
-            // can be played out. See RULES.md 6.1.1.
+            // can be played out. That is a choice about what to show, so it
+            // stops here: the engine always counts 25 seeds as the game won,
+            // or it would advise a player into handing the game away.
             game.end_at_winning_score = false;
-            advisor = new Advisor () { end_at_winning_score = false };
+            advisor = new Advisor ();
             opponent = new Opponent (
                 difficulty_from_keyword (settings.get_string ("difficulty")),
                 Random.next_int ());
-            opponent.end_at_winning_score = false;
 
             board_view = new BoardView ();
             board_view.house_activated.connect (on_house_activated);
