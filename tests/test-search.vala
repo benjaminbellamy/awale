@@ -256,7 +256,8 @@ private static void test_async_search_agrees_with_the_direct_search () {
 
 /**
  * The whole point of the async search: the caller's main loop has to keep
- * running while a Hard search spends its second, or the window would freeze.
+ * running while the engine thinks, or the window would freeze. The tick is
+ * finer than the search is long, so it fires whatever the search costs.
  */
 private static void test_async_search_leaves_the_main_loop_running () {
     var loop = new MainLoop ();
@@ -264,7 +265,7 @@ private static void test_async_search_leaves_the_main_loop_running () {
     Board board = Board.initial ();
 
     int ticks = 0;
-    uint ticker = Timeout.add (10, () => {
+    uint ticker = Timeout.add (1, () => {
         ticks++;
         return Source.CONTINUE;
     });
