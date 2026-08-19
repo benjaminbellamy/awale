@@ -88,6 +88,21 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="1.2.0" date="2026-08-19">
+      <description>
+        <p>
+          The computer no longer overlooks that 25 seeds wins the game, which
+          cured advice that took a couple of seeds and lost on the move after.
+          Learning mode now says why it recommends a move: what the computer
+          takes back for a capture, which of your houses a threat would empty,
+          and why the house that looks better is not.
+        </p>
+        <p>
+          A move that has been taken back can be played again with
+          Ctrl+Shift+Z.
+        </p>
+      </description>
+    </release>
     <release version="1.1.0" date="2026-08-18">
       <description>
         <p>
