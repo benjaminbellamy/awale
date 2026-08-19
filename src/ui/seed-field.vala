@@ -8,7 +8,6 @@ namespace Awale {
         public double x;
         public double y;
         public double distance;
-        public double angle;
     }
 
     /**
@@ -38,27 +37,12 @@ namespace Awale {
         private int seed_count = 0;
 
         /**
-         * Which of the twelve equivalent ways round this pit lays its seeds
-         * out. The hexagonal lattice maps onto itself under a sixth of a turn
-         * and under a reflection, so picking one at random changes which points
-         * of a part filled ring get used, without tilting the rows: five seeds
-         * come out as 2+2+1 in one pit and 1+2+2 in the next. Fixed for the
-         * life of the pit, so seeds do not jump about on every redraw.
-         */
-        private double angle_offset;
-        private bool mirrored;
-
-        /**
-         * The lattice at unit pitch, nearest the centre first. Where the points
-         * fall depends only on this pit's orientation, and their order only on
-         * their distance from the centre, so neither changes when the pit is
-         * resized: it is laid out once here and scaled to the pit when drawn.
+         * Where this pit puts its seeds, nearest first. Worked out once and
+         * kept, so the seeds do not jump about on every redraw.
          */
         private SeedSpot[] spots;
 
         public SeedField () {
-            angle_offset = Random.int_range (0, 6) * Math.PI / 3.0;
-            mirrored = Random.boolean ();
             spots = lattice ();
             set_draw_func (draw);
         }
@@ -92,21 +76,20 @@ namespace Awale {
 
             int drawn = int.min (seed_count, spots.length);
 
-            // A count that does not fill a ring leaves the chosen points
-            // lopsided about the lattice origin, so the cluster is centred on
-            // its own extent rather than on that origin.
-            double left = spots[0].x;
-            double right = spots[0].x;
-            double top = spots[0].y;
-            double bottom = spots[0].y;
-            for (int i = 1; i < drawn; i++) {
-                left = double.min (left, spots[i].x);
-                right = double.max (right, spots[i].x);
-                top = double.min (top, spots[i].y);
-                bottom = double.max (bottom, spots[i].y);
+            // The chosen points sit wherever the anchor left them, so the
+            // cluster is centred on itself rather than on the lattice. On its
+            // mean, not on the middle of a box around it: turning the cluster
+            // turns its mean with it, where the box around it changes shape, so
+            // a box would make both the placing and the size below depend on
+            // the angle this pit happens to have been given.
+            double offset_x = 0.0;
+            double offset_y = 0.0;
+            for (int i = 0; i < drawn; i++) {
+                offset_x += spots[i].x;
+                offset_y += spots[i].y;
             }
-            double offset_x = (left + right) / 2.0;
-            double offset_y = (top + bottom) / 2.0;
+            offset_x /= drawn;
+            offset_y /= drawn;
 
             // A pit holding more than the field was sized for is scaled down
             // rather than allowed to spill over the rim.
@@ -128,25 +111,40 @@ namespace Awale {
         }
 
         /**
-         * The lattice points nearest the centre, closest first and then by
-         * angle, which grows the cluster outwards ring by ring and keeps it
-         * symmetric however many seeds there are. Unit pitch: the caller
-         * scales it to the pit it is drawing.
+         * The lattice points this pit draws its seeds on, nearest first. Unit
+         * pitch: the caller scales them to the pit it is drawing.
+         *
+         * Nearest to an anchor taken anywhere in one cell of the lattice, not
+         * to a lattice point. That is what varies the shape rather than only
+         * the angle: grown from a lattice point, thirteen seeds fill three
+         * whole rings and a full ring leaves no choice, so every pit would draw
+         * the same figure. One cell covers every relation a cluster can have to
+         * the lattice, on a seed, between two, between three.
+         *
+         * Then turned by a free angle, which has to be free because the lattice
+         * maps onto itself under a sixth of a turn.
          */
         private SeedSpot[] lattice () {
-            // Five rings is 91 points, more than the 48 seeds in the game.
-            const int RINGS = 5;
-            int side = 2 * RINGS + 1;
+            double row_height = Math.sqrt (3.0) / 2.0;
+            double along = Random.next_double ();
+            double across = Random.next_double ();
+            double anchor_x = along + across / 2.0;
+            double anchor_y = row_height * across;
+            double rotation = Random.next_double () * 2.0 * Math.PI;
+
+            // Eleven by eleven, comfortably more than the 48 seeds in the game
+            // even measured from a corner of the cell.
+            const int REACH = 5;
+            int side = 2 * REACH + 1;
             var points = new SeedSpot[side * side];
 
             int next = 0;
-            for (int q = -RINGS; q <= RINGS; q++) {
-                for (int r = -RINGS; r <= RINGS; r++) {
+            for (int q = -REACH; q <= REACH; q++) {
+                for (int r = -REACH; r <= REACH; r++) {
                     SeedSpot spot = SeedSpot ();
                     spot.x = q + r / 2.0;
-                    spot.y = (Math.sqrt (3.0) / 2.0) * r;
-                    spot.distance = Math.hypot (spot.x, spot.y);
-                    spot.angle = turned (Math.atan2 (spot.y, spot.x));
+                    spot.y = row_height * r;
+                    spot.distance = Math.hypot (spot.x - anchor_x, spot.y - anchor_y);
                     points[next++] = spot;
                 }
             }
@@ -163,32 +161,22 @@ namespace Awale {
                 points[i] = points[best];
                 points[best] = swap;
             }
+
+            // Turned once the order is settled: the order goes by distance from
+            // the anchor, which turning does not change.
+            double cosine = Math.cos (rotation);
+            double sine = Math.sin (rotation);
+            for (int i = 0; i < points.length; i++) {
+                double x = points[i].x;
+                double y = points[i].y;
+                points[i].x = x * cosine - y * sine;
+                points[i].y = x * sine + y * cosine;
+            }
             return points;
         }
 
-        /** An angle in this pit's own frame, from zero up to a full turn. */
-        private double turned (double angle) {
-            double turn = 2 * Math.PI;
-            double result = (mirrored ? -angle : angle) - angle_offset;
-            while (result < 0) {
-                result += turn;
-            }
-            while (result >= turn) {
-                result -= turn;
-            }
-            return result;
-        }
-
         private bool closer (SeedSpot a, SeedSpot b) {
-            // A hair of tolerance, so that points on the same ring compare by
-            // angle rather than by floating point noise.
-            if (a.distance < b.distance - 0.0001) {
-                return true;
-            }
-            if (a.distance > b.distance + 0.0001) {
-                return false;
-            }
-            return a.angle < b.angle;
+            return a.distance < b.distance;
         }
     }
 }
