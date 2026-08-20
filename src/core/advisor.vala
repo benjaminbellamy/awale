@@ -22,15 +22,21 @@ namespace Awale {
         /** House to recommend, or -1 when there is nothing to play. */
         public int best_house;
         public AdviceKind kind;
-        /** Seeds captured, or seeds kept out of the opponent's reach. */
+        /**
+         * The number the reason is about: seeds captured, or seeds the
+         * computer is threatening to take.
+         */
         public int seeds;
         /**
-         * The houses a capture would take, when {@link kind} is PROTECTS.
+         * The houses the threatened capture would take, when {@link kind} is
+         * PROTECTS.
          *
-         * A capture runs backwards through the houses it was sown into for as
-         * long as they qualify (RULES.md 3.1), so it is usually more than one
-         * and their seeds add up to {@link seeds}. Naming only the last one
-         * leaves a player counting two seeds against a total of four.
+         * Read off the position as it stands, so a player can look at every
+         * house named. A capture runs backwards through the houses it was sown
+         * into for as long as they qualify (RULES.md 3.1), so it is usually
+         * more than one, and the computer drops one of its own seeds in each
+         * of them on the way past, which is why they hold fewer seeds between
+         * them than {@link seeds} says would be taken.
          */
         public int[] exposed_houses;
         /**
@@ -177,38 +183,112 @@ namespace Awale {
                 advice.kind = AdviceKind.FEEDS;
                 return;
             }
-
-            // Compare what the opponent could take in reply to the recommended
-            // move against what they could take in reply to anything else. If
-            // the recommendation gives away less, that is the reason for it.
-            int recommended_threat = worst_reply (board, advice.best_house, null);
-
-            int alternative_threat = 0;
-            int[] at_risk = new int[0];
-            foreach (int move in legal) {
-                if (move == advice.best_house) {
-                    continue;
-                }
-                int[] houses;
-                int threat = worst_reply (board, move, out houses);
-                if (threat > alternative_threat) {
-                    alternative_threat = threat;
-                    at_risk = houses;
-                }
-            }
-
-            if (alternative_threat > recommended_threat && at_risk.length > 0) {
-                advice.kind = AdviceKind.PROTECTS;
-                // What the capture would take, not what playing elsewhere saves
-                // over it: the figure has to be the one a player can count in
-                // the houses named beside it.
-                advice.seeds = alternative_threat;
-                advice.exposed_houses = in_row_order (at_risk);
+            if (explains_protection (board, legal, ref advice)) {
                 return;
             }
-
             advice.kind = AdviceKind.BUILDS;
             advice.seeds = 0;
+        }
+
+        /**
+         * True when the recommendation puts a capture the computer is set up
+         * to make out of reach, and some other move would leave it there.
+         *
+         * The threat is read off the position the player is looking at, so
+         * every house named still holds the seeds it is named for. Working it
+         * out on the board that follows some other move instead, as this once
+         * did, names houses whose seeds cannot be counted anywhere: it would
+         * point at an empty house and say two seeds were about to be lost from
+         * it.
+         */
+        private bool explains_protection (Board board, int[] legal, ref Advice advice) {
+            int[] threatened;
+            int threat = standing_threat (board, out threatened);
+            if (threat == 0) {
+                return false;
+            }
+            // The claim is that these houses come to no harm, so it is only
+            // made when nothing the computer can reply with touches them.
+            if (!houses_survive (board, advice.best_house, threatened)) {
+                return false;
+            }
+
+            bool another_leaves_them = false;
+            foreach (int move in legal) {
+                if (move != advice.best_house
+                    && !houses_survive (board, move, threatened)) {
+                    another_leaves_them = true;
+                    break;
+                }
+            }
+            if (!another_leaves_them) {
+                // Every move saves them, so saving them is not why this one
+                // was chosen.
+                return false;
+            }
+
+            advice.kind = AdviceKind.PROTECTS;
+            advice.seeds = threat;
+            advice.exposed_houses = in_row_order (threatened);
+            return true;
+        }
+
+        /**
+         * The most the computer could capture if it were to move on the
+         * position as it stands, and the houses it would empty.
+         *
+         * Only captures whose houses all hold a seed already are counted. A
+         * chain running through an empty house is taking seeds the computer
+         * is about to sow there itself, and pointing at an empty house to say
+         * two seeds are about to be lost from it is precisely the advice a
+         * player cannot check against the board.
+         */
+        private int standing_threat (Board board, out int[] threatened) {
+            threatened = new int[0];
+
+            Board turned = board.copy ();
+            turned.to_move = board.to_move.opponent ();
+
+            int most = 0;
+            foreach (int move in turned.legal_moves (grand_slam_policy)) {
+                MoveTrace trace = turned.trace_move (move, grand_slam_policy);
+                if (trace.captured <= most || !all_occupied (board, trace.captured_houses)) {
+                    continue;
+                }
+                most = trace.captured;
+                threatened = trace.captured_houses;
+            }
+            return most;
+        }
+
+        /** True when every one of {@link houses} holds a seed already. */
+        private bool all_occupied (Board board, int[] houses) {
+            if (houses.length == 0) {
+                return false;
+            }
+            foreach (int house in houses) {
+                if (board.houses[house] == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /** True when no reply to {@link move} can take any of {@link houses}. */
+        private bool houses_survive (Board board, int move, int[] houses) {
+            Board after = board.copy ();
+            after.apply_move (move, grand_slam_policy);
+            foreach (int reply in after.legal_moves (grand_slam_policy)) {
+                MoveTrace trace = after.trace_move (reply, grand_slam_policy);
+                foreach (int taken in trace.captured_houses) {
+                    foreach (int house in houses) {
+                        if (taken == house) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         /**
@@ -276,23 +356,27 @@ namespace Awale {
 
         /**
          * The most the opponent could capture immediately after {@link move},
-         * and the house they would take it from.
+         * and the houses they would take it from.
          */
         private int worst_reply (Board board, int move, out int[] exposed_houses) {
-            exposed_houses = new int[0];
-
             Board after = board.copy ();
             after.apply_move (move, grand_slam_policy);
+            return best_capture (after, out exposed_houses);
+        }
 
-            int worst = 0;
-            foreach (int reply in after.legal_moves (grand_slam_policy)) {
-                MoveTrace trace = after.trace_move (reply, grand_slam_policy);
-                if (trace.captured > worst) {
-                    worst = trace.captured;
-                    exposed_houses = trace.captured_houses;
+        /** The biggest capture open to whoever is to move, and where from. */
+        private int best_capture (Board board, out int[] taken_from) {
+            taken_from = new int[0];
+
+            int most = 0;
+            foreach (int move in board.legal_moves (grand_slam_policy)) {
+                MoveTrace trace = board.trace_move (move, grand_slam_policy);
+                if (trace.captured > most) {
+                    most = trace.captured;
+                    taken_from = trace.captured_houses;
                 }
             }
-            return worst;
+            return most;
         }
     }
 }

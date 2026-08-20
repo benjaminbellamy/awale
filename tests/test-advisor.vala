@@ -62,11 +62,14 @@ void test_advice_explains_feeding () {
 }
 
 /**
- * The reason names a house that really is at risk: the house the advisor says
- * it is protecting must belong to the player, and some other move must really
- * let the opponent take seeds from it.
+ * The reason describes the board the player is looking at.
+ *
+ * Every house it names is the player's own and holds seeds right now, so they
+ * can be counted where they are named; nothing the opponent can reply with
+ * takes any of them; and some other move really would leave one there to be
+ * taken, or protecting them is not why this move was chosen.
  */
-void test_protecting_advice_names_a_house_that_is_really_at_risk () {
+void test_protecting_advice_describes_the_board_in_front_of_the_player () {
     var advisor = new Advisor ();
     int checked = 0;
 
@@ -80,35 +83,38 @@ void test_protecting_advice_names_a_house_that_is_really_at_risk () {
         }
         checked++;
 
-        // Every house the capture would empty is named, and they are the
-        // player's own. The seeds are counted as the houses stand when the
-        // capture lands, not as they stand now, and RULES.md 3 only lets a
-        // house be taken holding two or three, so the figure has to fall
-        // between two and three times the number of houses named.
+        // Every house the capture would empty is named, they are the player's
+        // own, and they hold seeds already. The seeds are counted as those
+        // houses stand when the capture lands rather than as they stand now,
+        // and RULES.md 3 only lets a house be taken holding two or three, so
+        // the figure falls between two and three times the number named.
         int taken = advice.exposed_houses.length;
         assert_cmpint (taken, CompareOperator.GT, 0);
         foreach (int house in advice.exposed_houses) {
             assert_true (board.to_move.owns (house));
+            if (board.houses[house] == 0) {
+                error ("named house %d in %s, which holds nothing",
+                       house, Notation.format (board));
+            }
         }
         assert_cmpint (advice.seeds, CompareOperator.GE, 2 * taken);
         assert_cmpint (advice.seeds, CompareOperator.LE, 3 * taken);
 
-        bool alternative_gives_seeds_away = false;
+        if (!houses_survive (board, advice.best_house, advice.exposed_houses)) {
+            error ("claimed to protect houses in %s that house %d does not save",
+                   Notation.format (board), advice.best_house);
+        }
+
+        bool another_leaves_them = false;
         foreach (int move in board.legal_moves ()) {
-            if (move == advice.best_house) {
-                continue;
-            }
-            Board after = board.copy ();
-            after.apply_move (move);
-            foreach (int reply in after.legal_moves ()) {
-                if (after.trace_move (reply).captured > 0) {
-                    alternative_gives_seeds_away = true;
-                }
+            if (move != advice.best_house
+                && !houses_survive (board, move, advice.exposed_houses)) {
+                another_leaves_them = true;
             }
         }
-        if (!alternative_gives_seeds_away) {
-            error ("claimed to protect %d house(s) in %s, but no other move gives anything away",
-                   advice.exposed_houses.length, Notation.format (board));
+        if (!another_leaves_them) {
+            error ("claimed to protect houses in %s that no move leaves open",
+                   Notation.format (board));
         }
         if (checked >= 5) {
             return;
@@ -118,6 +124,57 @@ void test_protecting_advice_names_a_house_that_is_really_at_risk () {
     if (checked == 0) {
         error ("no protecting advice turned up in the sample, nothing was verified");
     }
+}
+
+/** True when no reply to {@link move} takes any of {@link houses}. */
+bool houses_survive (Board board, int move, int[] houses) {
+    Board after = board.copy ();
+    after.apply_move (move);
+    foreach (int reply in after.legal_moves ()) {
+        MoveTrace trace = after.trace_move (reply);
+        foreach (int emptied in trace.captured_houses) {
+            foreach (int house in houses) {
+                if (emptied == house) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+/**
+ * The threat named is the one standing on the board, counted in a house the
+ * player can look at.
+ *
+ * The first position is one the advisor used to get wrong: it pointed at
+ * house 6, which holds nothing, and said two seeds were about to be lost from
+ * it. The capture was real, but the seeds in it were the computer's own,
+ * dropped there on the way past, so there was nothing on the board to count.
+ */
+void test_protecting_advice_counts_seeds_where_they_are () {
+    Board nothing_to_count = position ("0,7,0,8,7,0 | 6,0,1,8,8,0 | S:3 N:0 | to_move=S");
+
+    Advice advice = new Advisor ().advise (nothing_to_count);
+
+    foreach (int house in advice.exposed_houses) {
+        if (nothing_to_count.houses[house] == 0) {
+            error ("named house %d, which holds nothing", house);
+        }
+    }
+
+    // Where there is something to name it is named, with the count the capture
+    // really takes: house 1 holds two seeds and the computer's own seed lands
+    // there on top of them.
+    Board real_threat = position ("2,4,2,10,0,2 | 0,3,4,2,11,3 | S:5 N:0 | to_move=S");
+
+    advice = new Advisor ().advise (real_threat);
+
+    assert_true (advice.kind == AdviceKind.PROTECTS);
+    assert_cmpint (advice.exposed_houses.length, CompareOperator.EQ, 1);
+    assert_cmpint (advice.exposed_houses[0], CompareOperator.EQ, 0);
+    assert_cmpint (real_threat.houses[0], CompareOperator.EQ, 2);
+    assert_cmpint (advice.seeds, CompareOperator.EQ, 3);
 }
 
 /** A position with nothing playable gets no recommendation rather than a wrong one. */
@@ -275,7 +332,8 @@ public static int main (string[] args) {
     Test.add_func ("/advisor/explains-a-capture", test_advice_explains_a_capture);
     Test.add_func ("/advisor/reports-a-forced-move", test_advice_reports_a_forced_move);
     Test.add_func ("/advisor/explains-feeding", test_advice_explains_feeding);
-    Test.add_func ("/advisor/protects-a-real-house", test_protecting_advice_names_a_house_that_is_really_at_risk);
+    Test.add_func ("/advisor/protects-a-real-house", test_protecting_advice_describes_the_board_in_front_of_the_player);
+    Test.add_func ("/advisor/counts-seeds-where-they-are", test_protecting_advice_counts_seeds_where_they_are);
     Test.add_func ("/advisor/dead-position", test_advice_on_a_dead_position);
     Test.add_func ("/advisor/async-matches", test_advice_async_matches_and_keeps_the_loop_running);
     Test.add_func ("/advisor/refuses-a-losing-capture", test_advice_refuses_a_capture_that_hands_over_the_game);
