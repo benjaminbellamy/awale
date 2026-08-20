@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-19 12:55+0200\n"
+"POT-Creation-Date: 2026-08-20 13:21+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: Italian\n"
@@ -403,21 +403,40 @@ msgstr ""
 "Gioca la buca %d: il computer è rimasto senza semi e questa mossa lo nutre, "
 "come richiedono le regole."
 
+#. / Learning mode hint given when the player's own row is
+#. / nearly empty, which loses a game with no capture in it.
+#. / %1$d is the recommended house, 1 to 6. %2$d is how many
+#. / seeds are left in the player's row.
+#: src/ui/window.vala:683
+#, c-format
+msgid ""
+"Play house %1$d: your row is down to %2$d seed, and this move keeps the most "
+"on your side."
+msgid_plural ""
+"Play house %1$d: your row is down to %2$d seeds, and this move keeps the "
+"most on your side."
+msgstr[0] ""
+"Gioca la buca %1$d: nella tua fila è rimasto solo %2$d seme, e questa mossa "
+"è quella che ne lascia di più dalla tua parte."
+msgstr[1] ""
+"Gioca la buca %1$d: nella tua fila sono rimasti solo %2$d semi, e questa "
+"mossa è quella che ne lascia di più dalla tua parte."
+
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:680
+#: src/ui/window.vala:688
 #, c-format
 msgid "Play house %d: it is your only legal move."
 msgstr "Gioca la buca %d: è la tua unica mossa valida."
 
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:683
+#: src/ui/window.vala:691
 #, c-format
 msgid "Play house %d: it leaves you the strongest position."
 msgstr "Gioca la buca %d: ti lascia nella posizione migliore."
 
 #. / Learning mode hint. %1$d is the recommended house, 1 to 6.
 #. / %2$d is how many seeds it captures.
-#: src/ui/window.vala:698
+#: src/ui/window.vala:706
 #, c-format
 msgid "Play house %1$d: it captures %2$d seed."
 msgid_plural "Play house %1$d: it captures %2$d seeds."
@@ -426,7 +445,7 @@ msgstr[1] "Gioca la buca %1$d: cattura %2$d semi."
 
 #. / Added to the hint above when the computer can capture straight
 #. / back. %d is how many seeds it would take.
-#: src/ui/window.vala:707 src/ui/window.vala:781
+#: src/ui/window.vala:715 src/ui/window.vala:789
 #, c-format
 msgid "The computer takes %d seed back."
 msgid_plural "The computer takes %d seeds back."
@@ -436,7 +455,7 @@ msgstr[1] "Il computer se ne riprende %d subito."
 #. / Learning mode hint. %1$d is the recommended house and
 #. / %2$d one of your own houses, both numbered 1 to 6.
 #. / %3$d is how many seeds the capture would take.
-#: src/ui/window.vala:727
+#: src/ui/window.vala:735
 #, c-format
 msgid ""
 "Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
@@ -455,7 +474,7 @@ msgstr[1] ""
 #. / once. %1$d is the recommended house, 1 to 6. %2$s is a list of
 #. / the player's own houses, such as "4, 5". %3$d is how many seeds
 #. / the capture would take from them altogether.
-#: src/ui/window.vala:746
+#: src/ui/window.vala:754
 #, c-format
 msgid ""
 "Play house %1$d: it avoids leaving your houses %2$s open to a capture of "
@@ -472,7 +491,7 @@ msgstr[1] ""
 
 #. / Tooltip on a house that captures but is not the recommended
 #. / move. %d is how many seeds it would capture.
-#: src/ui/window.vala:768
+#: src/ui/window.vala:776
 #, c-format
 msgid "This captures %d seed."
 msgid_plural "This captures %d seeds."
@@ -482,50 +501,50 @@ msgstr[1] "Questa mossa prende %d semi."
 #. / Tooltip on a house that leaves the computer no capture next
 #. / move, but is still not the recommended move. Only the one
 #. / move ahead is claimed, which is all that was looked at.
-#: src/ui/window.vala:776
+#: src/ui/window.vala:784
 msgid "The computer cannot capture on its next move."
 msgstr "Il computer non può catturare nulla alla mossa successiva."
 
 #. / Closes the tooltip above. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:789
+#: src/ui/window.vala:797
 #, c-format
 msgid "House %d is worth more over the next few moves."
 msgstr "La buca %d rende di più nelle mosse successive."
 
 #. / Shown once the player has reached 25 seeds while the round
 #. / is still being played. %1$d is their seeds, %2$d the computer's.
-#: src/ui/window.vala:827
+#: src/ui/window.vala:835
 #, c-format
 msgid "You have won, %1$d seeds to %2$d. You can still finish the round."
 msgstr "Hai vinto, %1$d semi a %2$d. Puoi comunque finire la mano."
 
 #. / Shown once the computer has reached 25 seeds while the round is
 #. / still being played. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:831
+#: src/ui/window.vala:839
 #, c-format
 msgid ""
 "The computer has won, %1$d seeds to %2$d. You can still finish the round."
 msgstr "Ha vinto il computer, %1$d semi a %2$d. Puoi comunque finire la mano."
 
 #. / Final result. %d is the number of seeds each player collected.
-#: src/ui/window.vala:842
+#: src/ui/window.vala:850
 #, c-format
 msgid "A draw, %d seeds each."
 msgstr "Pareggio, %d semi a testa."
 
 #. / Final result. %1$d is the player's seeds, %2$d the computer's.
-#: src/ui/window.vala:847
+#: src/ui/window.vala:855
 #, c-format
 msgid "You win, %1$d seeds to %2$d."
 msgstr "Vinci tu, %1$d semi a %2$d."
 
 #. / Final result. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:850
+#: src/ui/window.vala:858
 #, c-format
 msgid "The computer wins, %1$d seeds to %2$d."
 msgstr "Vince il computer, %1$d semi a %2$d."
 
-#: src/ui/window.vala:859
+#: src/ui/window.vala:867
 msgid ""
 "The same position came up three times, so each player took the seeds in "
 "their own row."
@@ -533,7 +552,7 @@ msgstr ""
 "La stessa posizione si è ripetuta tre volte, quindi ogni giocatore ha "
 "raccolto i semi della propria fila."
 
-#: src/ui/window.vala:861
+#: src/ui/window.vala:869
 msgid ""
 "A hundred moves went by without a capture, so each player took the seeds in "
 "their own row."
@@ -541,20 +560,20 @@ msgstr ""
 "Sono passate cento mosse senza catture, quindi ogni giocatore ha raccolto i "
 "semi della propria fila."
 
-#: src/ui/window.vala:864
+#: src/ui/window.vala:872
 msgid ""
 "You could not feed the computer, so you took the seeds left on the board."
 msgstr ""
 "Non potevi nutrire il computer, quindi raccogli i semi rimasti sul tavoliere."
 
-#: src/ui/window.vala:866
+#: src/ui/window.vala:874
 msgid ""
 "The computer could not feed you, so it took the seeds left on the board."
 msgstr ""
 "Il computer non poteva nutrirti, quindi raccoglie i semi rimasti sul "
 "tavoliere."
 
-#: src/ui/window.vala:868
+#: src/ui/window.vala:876
 msgid "There was no legal move left to play."
 msgstr "Non restava nessuna mossa valida."
 

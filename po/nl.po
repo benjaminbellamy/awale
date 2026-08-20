@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-19 12:55+0200\n"
+"POT-Creation-Date: 2026-08-20 13:21+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: Dutch\n"
@@ -398,21 +398,40 @@ msgstr ""
 "Speel kuiltje %d: de computer heeft geen zaadjes meer en deze zet voedt hem, "
 "zoals de regels vereisen."
 
+#. / Learning mode hint given when the player's own row is
+#. / nearly empty, which loses a game with no capture in it.
+#. / %1$d is the recommended house, 1 to 6. %2$d is how many
+#. / seeds are left in the player's row.
+#: src/ui/window.vala:683
+#, c-format
+msgid ""
+"Play house %1$d: your row is down to %2$d seed, and this move keeps the most "
+"on your side."
+msgid_plural ""
+"Play house %1$d: your row is down to %2$d seeds, and this move keeps the "
+"most on your side."
+msgstr[0] ""
+"Speel kuiltje %1$d: in je rij ligt nog maar %2$d zaadje, en deze zet houdt "
+"er de meeste aan jouw kant."
+msgstr[1] ""
+"Speel kuiltje %1$d: in je rij liggen nog maar %2$d zaadjes, en deze zet "
+"houdt er de meeste aan jouw kant."
+
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:680
+#: src/ui/window.vala:688
 #, c-format
 msgid "Play house %d: it is your only legal move."
 msgstr "Speel kuiltje %d: het is je enige geldige zet."
 
 #. / Learning mode hint. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:683
+#: src/ui/window.vala:691
 #, c-format
 msgid "Play house %d: it leaves you the strongest position."
 msgstr "Speel kuiltje %d: het laat je de sterkste stelling."
 
 #. / Learning mode hint. %1$d is the recommended house, 1 to 6.
 #. / %2$d is how many seeds it captures.
-#: src/ui/window.vala:698
+#: src/ui/window.vala:706
 #, c-format
 msgid "Play house %1$d: it captures %2$d seed."
 msgid_plural "Play house %1$d: it captures %2$d seeds."
@@ -421,7 +440,7 @@ msgstr[1] "Speel kuiltje %1$d: het verovert %2$d zaadjes."
 
 #. / Added to the hint above when the computer can capture straight
 #. / back. %d is how many seeds it would take.
-#: src/ui/window.vala:707 src/ui/window.vala:781
+#: src/ui/window.vala:715 src/ui/window.vala:789
 #, c-format
 msgid "The computer takes %d seed back."
 msgid_plural "The computer takes %d seeds back."
@@ -431,7 +450,7 @@ msgstr[1] "De computer pakt er %d meteen terug."
 #. / Learning mode hint. %1$d is the recommended house and
 #. / %2$d one of your own houses, both numbered 1 to 6.
 #. / %3$d is how many seeds the capture would take.
-#: src/ui/window.vala:727
+#: src/ui/window.vala:735
 #, c-format
 msgid ""
 "Play house %1$d: it avoids leaving your house %2$d open to a capture of %3$d "
@@ -450,7 +469,7 @@ msgstr[1] ""
 #. / once. %1$d is the recommended house, 1 to 6. %2$s is a list of
 #. / the player's own houses, such as "4, 5". %3$d is how many seeds
 #. / the capture would take from them altogether.
-#: src/ui/window.vala:746
+#: src/ui/window.vala:754
 #, c-format
 msgid ""
 "Play house %1$d: it avoids leaving your houses %2$s open to a capture of "
@@ -467,7 +486,7 @@ msgstr[1] ""
 
 #. / Tooltip on a house that captures but is not the recommended
 #. / move. %d is how many seeds it would capture.
-#: src/ui/window.vala:768
+#: src/ui/window.vala:776
 #, c-format
 msgid "This captures %d seed."
 msgid_plural "This captures %d seeds."
@@ -477,19 +496,19 @@ msgstr[1] "Deze zet pakt %d zaadjes."
 #. / Tooltip on a house that leaves the computer no capture next
 #. / move, but is still not the recommended move. Only the one
 #. / move ahead is claimed, which is all that was looked at.
-#: src/ui/window.vala:776
+#: src/ui/window.vala:784
 msgid "The computer cannot capture on its next move."
 msgstr "De computer kan bij zijn volgende zet niets pakken."
 
 #. / Closes the tooltip above. %d is the recommended house, 1 to 6.
-#: src/ui/window.vala:789
+#: src/ui/window.vala:797
 #, c-format
 msgid "House %d is worth more over the next few moves."
 msgstr "Huisje %d levert de komende zetten meer op."
 
 #. / Shown once the player has reached 25 seeds while the round
 #. / is still being played. %1$d is their seeds, %2$d the computer's.
-#: src/ui/window.vala:827
+#: src/ui/window.vala:835
 #, c-format
 msgid "You have won, %1$d seeds to %2$d. You can still finish the round."
 msgstr ""
@@ -497,7 +516,7 @@ msgstr ""
 
 #. / Shown once the computer has reached 25 seeds while the round is
 #. / still being played. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:831
+#: src/ui/window.vala:839
 #, c-format
 msgid ""
 "The computer has won, %1$d seeds to %2$d. You can still finish the round."
@@ -506,24 +525,24 @@ msgstr ""
 "uitspelen."
 
 #. / Final result. %d is the number of seeds each player collected.
-#: src/ui/window.vala:842
+#: src/ui/window.vala:850
 #, c-format
 msgid "A draw, %d seeds each."
 msgstr "Gelijkspel, %d zaadjes elk."
 
 #. / Final result. %1$d is the player's seeds, %2$d the computer's.
-#: src/ui/window.vala:847
+#: src/ui/window.vala:855
 #, c-format
 msgid "You win, %1$d seeds to %2$d."
 msgstr "Jij wint, %1$d zaadjes tegen %2$d."
 
 #. / Final result. %1$d is the computer's seeds, %2$d the player's.
-#: src/ui/window.vala:850
+#: src/ui/window.vala:858
 #, c-format
 msgid "The computer wins, %1$d seeds to %2$d."
 msgstr "De computer wint, %1$d zaadjes tegen %2$d."
 
-#: src/ui/window.vala:859
+#: src/ui/window.vala:867
 msgid ""
 "The same position came up three times, so each player took the seeds in "
 "their own row."
@@ -531,7 +550,7 @@ msgstr ""
 "Dezelfde stelling kwam drie keer voor, dus elke speler nam de zaadjes in "
 "zijn eigen rij."
 
-#: src/ui/window.vala:861
+#: src/ui/window.vala:869
 msgid ""
 "A hundred moves went by without a capture, so each player took the seeds in "
 "their own row."
@@ -539,21 +558,21 @@ msgstr ""
 "Er gingen honderd zetten voorbij zonder verovering, dus elke speler nam de "
 "zaadjes in zijn eigen rij."
 
-#: src/ui/window.vala:864
+#: src/ui/window.vala:872
 msgid ""
 "You could not feed the computer, so you took the seeds left on the board."
 msgstr ""
 "Je kon de computer niet voeden, dus jij krijgt de zaadjes die op het bord "
 "lagen."
 
-#: src/ui/window.vala:866
+#: src/ui/window.vala:874
 msgid ""
 "The computer could not feed you, so it took the seeds left on the board."
 msgstr ""
 "De computer kon jou niet voeden, dus hij krijgt de zaadjes die op het bord "
 "lagen."
 
-#: src/ui/window.vala:868
+#: src/ui/window.vala:876
 msgid "There was no legal move left to play."
 msgstr "Er was geen geldige zet meer over."
 
