@@ -69,6 +69,28 @@ namespace Awale {
     public const int EASY_SCORE_TOLERANCE = 2 * WEIGHT_STORE_DIFFERENTIAL;
 
     /**
+     * Plies over which the computer chooses freely among its best openings.
+     *
+     * Without this, every game started from the opening position is the same
+     * game: at the deeper levels the search almost never rates two moves
+     * exactly equal, so the tie break below never has a tie to break and the
+     * seed it was given changes nothing.
+     */
+    public const int OPENING_PLIES = 6;
+
+    /**
+     * How far below the best score an opening move may be and still be picked,
+     * in evaluation units. A fifth of a banked seed.
+     *
+     * Measured rather than chosen: at this width thirty games from the opening
+     * position came out as twenty three different games, and the side playing
+     * its opening loosely scored 12 to 14 with 4 drawn against the same engine
+     * playing its one best line, which is level. Half a banked seed varied the
+     * games a little more and cost real ground, 8 to 19.
+     */
+    public const int OPENING_SCORE_TOLERANCE = WEIGHT_STORE_DIFFERENTIAL / 5;
+
+    /**
      * Chooses the computer's move. This is where difficulty lives, so that
      * {@link Search} stays deterministic and the levels differ only in how far
      * they look and how faithfully they follow what they found.
@@ -95,8 +117,14 @@ namespace Awale {
         /**
          * Picks a house to play, or -1 when the position has no legal move.
          * Never returns a move the rules do not allow.
+         *
+         * {@link ply} is how many plies the game has run for. It decides
+         * whether the position is still an opening the computer is free to
+         * vary, and it is asked for rather than defaulted because a bare
+         * position with no game behind it is not an opening and must not be
+         * treated as one.
          */
-        public int choose_move (Board board) {
+        public int choose_move (Board board, int ply) {
             int[] legal = board.legal_moves (grand_slam_policy);
             if (legal.length == 0) {
                 return -1;
@@ -117,6 +145,9 @@ namespace Awale {
             }
 
             int tolerance = difficulty == Difficulty.EASY ? EASY_SCORE_TOLERANCE : 0;
+            if (ply < OPENING_PLIES) {
+                tolerance = int.max (tolerance, OPENING_SCORE_TOLERANCE);
+            }
             int cutoff = result.moves[0].score - tolerance;
             int candidates = 0;
             while (candidates < result.moves.length
@@ -132,12 +163,12 @@ namespace Awale {
          * interface depends on this: a Hard search can take a full second and
          * the window must stay responsive throughout.
          */
-        public async int choose_move_async (Board board) {
+        public async int choose_move_async (Board board, int ply) {
             SourceFunc resume = choose_move_async.callback;
             int chosen = -1;
 
             var worker = new Thread<void> ("awale-search", () => {
-                chosen = choose_move (board);
+                chosen = choose_move (board, ply);
                 Idle.add ((owned) resume);
             });
 

@@ -68,7 +68,8 @@ private static void test_medium_and_hard_play_the_forced_capture () {
     foreach (Difficulty level in new Difficulty[] { Difficulty.MEDIUM, Difficulty.HARD }) {
         var opponent = new Opponent (level, 12345);
         for (int attempt = 0; attempt < 20; attempt++) {
-            assert_cmpint (opponent.choose_move (board), CompareOperator.EQ, 4);
+            assert_cmpint (opponent.choose_move (board, OPENING_PLIES),
+                           CompareOperator.EQ, 4);
         }
     }
 }
@@ -121,7 +122,7 @@ private static void test_no_level_ever_returns_an_illegal_move () {
     foreach (Difficulty level in all_levels ()) {
         var opponent = new Opponent (level, 4321);
         foreach (Board board in positions) {
-            int house = opponent.choose_move (board);
+            int house = opponent.choose_move (board, OPENING_PLIES);
             if (!board.is_legal (house)) {
                 error ("%s returned illegal house %d for %s",
                        level.to_keyword (), house, Notation.format (board));
@@ -192,7 +193,7 @@ private static int[] play_out (uint32 seed) {
     int[] played = {};
 
     while (game.outcome == Outcome.IN_PROGRESS && played.length < 150) {
-        int house = opponent.choose_move (game.board);
+        int house = opponent.choose_move (game.board, game.ply_count);
         assert_true (game.play (house));
         played += house;
     }
@@ -211,7 +212,7 @@ private static void test_easy_strays_from_the_best_move () {
     int samples = 2000;
     int strayed = 0;
     for (int i = 0; i < samples; i++) {
-        if (opponent.choose_move (board) != 4) {
+        if (opponent.choose_move (board, OPENING_PLIES) != 4) {
             strayed++;
         }
     }
@@ -226,26 +227,53 @@ private static void test_easy_strays_from_the_best_move () {
     }
 }
 
+/**
+ * Every game from the opening position used to be the same game, whatever
+ * seed the computer was given: at these depths the search rates no two moves
+ * exactly equal, so the tie break never had a tie to break. The opening is
+ * now played loosely enough that two computers diverge.
+ */
+private static void test_the_opening_varies_between_games () {
+    var openings = new GenericSet<string> (str_hash, str_equal);
+
+    for (uint32 seed = 1; seed <= 4; seed++) {
+        var opponent = new Opponent (Difficulty.HARD, seed);
+        var game = new Game ();
+        var line = new StringBuilder ();
+        for (int ply = 0; ply < OPENING_PLIES; ply++) {
+            int house = opponent.choose_move (game.board, game.ply_count);
+            line.append_printf ("%d,", house);
+            assert_true (game.play (house));
+        }
+        openings.add (line.str);
+    }
+
+    if (openings.length < 2) {
+        error ("four computers all opened the same way");
+    }
+}
+
 /** Medium follows its search every single time. */
 private static void test_medium_never_strays () {
     Board board = position (FORCED_CAPTURE);
     var opponent = new Opponent (Difficulty.MEDIUM, 2026);
 
     for (int i = 0; i < 200; i++) {
-        assert_cmpint (opponent.choose_move (board), CompareOperator.EQ, 4);
+        assert_cmpint (opponent.choose_move (board, OPENING_PLIES),
+                       CompareOperator.EQ, 4);
     }
 }
 
 /** Thinking off the main thread must not change what the opponent decides. */
 private static void test_async_search_agrees_with_the_direct_search () {
     Board board = position (FORCED_CAPTURE);
-    int expected = new Opponent (Difficulty.MEDIUM, 77).choose_move (board);
+    int expected = new Opponent (Difficulty.MEDIUM, 77).choose_move (board, OPENING_PLIES);
 
     var loop = new MainLoop ();
     var opponent = new Opponent (Difficulty.MEDIUM, 77);
     int chosen = -2;
 
-    opponent.choose_move_async.begin (board, (source, result) => {
+    opponent.choose_move_async.begin (board, OPENING_PLIES, (source, result) => {
         chosen = opponent.choose_move_async.end (result);
         loop.quit ();
     });
@@ -271,7 +299,7 @@ private static void test_async_search_leaves_the_main_loop_running () {
     });
 
     int chosen = -2;
-    opponent.choose_move_async.begin (board, (source, result) => {
+    opponent.choose_move_async.begin (board, OPENING_PLIES, (source, result) => {
         chosen = opponent.choose_move_async.end (result);
         loop.quit ();
     });
@@ -344,6 +372,7 @@ public static int main (string[] args) {
     Test.add_func ("/search/opponent-replays-same-game", test_opponent_replays_the_same_game_from_the_same_seed);
     Test.add_func ("/search/easy-strays", test_easy_strays_from_the_best_move);
     Test.add_func ("/search/medium-never-strays", test_medium_never_strays);
+    Test.add_func ("/search/opening-varies", test_the_opening_varies_between_games);
     Test.add_func ("/search/async-agrees-with-direct", test_async_search_agrees_with_the_direct_search);
     Test.add_func ("/search/async-leaves-loop-running", test_async_search_leaves_the_main_loop_running);
     Test.add_func ("/evaluation/antisymmetric", test_evaluation_is_antisymmetric);

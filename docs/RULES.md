@@ -183,6 +183,9 @@ The engine is not done until all of these pass.
 29. Search is deterministic when the random tie-break seed is fixed.
 30. Reaching 25 seeds settles the game, so a move that lets the opponent reach
     it is never chosen while a move that prevents it exists.
+31. Two games played from the opening position at the same level differ: the
+    computer chooses freely among its best openings, or every game is the
+    same game.
 
 ## 8. Notation for tests and the CLI
 

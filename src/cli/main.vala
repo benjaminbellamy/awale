@@ -208,7 +208,7 @@ Options:
 
             int house;
             if (engine != null) {
-                house = engine.choose_move (game.board);
+                house = engine.choose_move (game.board, game.ply_count);
             } else {
                 int[] moves = game.legal_moves ();
                 house = moves[random.int_range (0, moves.length)];

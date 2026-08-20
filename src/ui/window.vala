@@ -439,7 +439,7 @@ namespace Awale {
             status_label.label = _("The computer is thinking…");
 
             int64 started = get_monotonic_time ();
-            int house = yield opponent.choose_move_async (game.board);
+            int house = yield opponent.choose_move_async (game.board, game.ply_count);
             int64 spent_ms = (get_monotonic_time () - started) / 1000;
             if (spent_ms < THINKING_DELAY_MS) {
                 yield pause ((uint) (THINKING_DELAY_MS - spent_ms));
