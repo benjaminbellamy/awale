@@ -14,10 +14,17 @@ namespace Awale {
     /**
      * How much one seed sitting in your own row is worth. Positive, because
      * those seeds are yours to sow and cannot be captured until you move them
-     * across, but far below a banked seed because the opponent's next move can
+     * across, but below a banked seed because the opponent's next move can
      * still reach them.
+     *
+     * At 3 the engine was near enough indifferent to emptying its own row,
+     * and would hand the last of it across a seed at a time to be sown back
+     * and captured: a game lost with no capture in it anywhere. Raised to 15
+     * after measuring, where it beat 3 by 24 games to 13 with 3 drawn over
+     * forty games with the sides swapped every game. 10 and 20 also beat 3,
+     * by less, so the exact figure matters far less than being well above 3.
      */
-    public const int WEIGHT_SEEDS_ON_OWN_SIDE = 3;
+    public const int WEIGHT_SEEDS_ON_OWN_SIDE = 15;
 
     /**
      * How much one opponent house holding 1 or 2 seeds is worth to you. Those

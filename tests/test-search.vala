@@ -302,9 +302,13 @@ private static void test_evaluation_of_the_opening_is_level () {
 }
 
 /**
- * Banked seeds outweigh every other term put together. The other three terms
- * are bounded, so their combined contribution stays below what two banked seeds
- * are worth, whatever the position.
+ * Banked seeds still outweigh the rest, but no longer everything put together.
+ *
+ * The bound was two banked seeds while a seed in your own row was worth 3, and
+ * that is exactly what left the engine willing to hand its whole row across:
+ * twenty four seeds it could still sow were worth less to it than one capture.
+ * With the row weighted properly the soft terms reach 373 over this sample, so
+ * the bound they are held to is four banked seeds rather than two.
  */
 private static void test_banked_seeds_dominate_the_evaluation () {
     int largest = 0;
@@ -314,13 +318,13 @@ private static void test_banked_seeds_dominate_the_evaluation () {
         int size = without_store < 0 ? -without_store : without_store;
         largest = int.max (largest, size);
     }
-    assert_cmpint (largest, CompareOperator.LT, 2 * WEIGHT_STORE_DIFFERENTIAL);
+    assert_cmpint (largest, CompareOperator.LT, 4 * WEIGHT_STORE_DIFFERENTIAL);
 
-    // Concretely: South's row is all ones, all vulnerable, and the feeding
-    // obligation leaves South a single move, so every soft term is against
-    // them. One banked seed still turns the score around.
-    Board level = position ("1,1,1,1,1,1 | 0,0,0,0,0,0 | S:21 N:21 | to_move=S");
-    assert_cmpint (evaluate (level, Player.SOUTH), CompareOperator.LT, 0);
+    // Concretely: South holds every seed left on the board, North is starving,
+    // and every soft term there is favours South. Five banked seeds still turn
+    // the score around, which is what the store term dominating means.
+    Board behind = position ("4,4,4,4,4,4 | 0,0,0,0,0,0 | S:9 N:15 | to_move=S");
+    assert_cmpint (evaluate (behind, Player.SOUTH), CompareOperator.LT, 0);
 
     Board ahead = position ("1,1,1,1,1,1 | 0,0,0,0,0,0 | S:22 N:20 | to_move=S");
     assert_cmpint (evaluate (ahead, Player.SOUTH), CompareOperator.GT, 0);
