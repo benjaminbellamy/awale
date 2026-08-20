@@ -177,6 +177,29 @@ void test_protecting_advice_counts_seeds_where_they_are () {
     assert_cmpint (advice.seeds, CompareOperator.EQ, 3);
 }
 
+/**
+ * A row down to its last few seeds loses a game with no capture in it: the
+ * rest are handed across, sown back one at a time, and every reply is forced.
+ * The advisor says so, and recommends what leaves the most behind.
+ */
+void test_advice_warns_when_the_row_is_running_dry () {
+    Board board = position ("1,1,1,1,0,1 | 1,0,2,2,4,1 | S:17 N:16 | to_move=S");
+
+    Advice advice = new Advisor ().advise (board);
+
+    assert_true (advice.kind == AdviceKind.KEEPS_SEEDS);
+    assert_cmpint (advice.seeds, CompareOperator.EQ, board.seeds_in_row (Player.SOUTH));
+
+    Board after = board.copy ();
+    after.apply_move (advice.best_house);
+    int kept = after.seeds_in_row (Player.SOUTH);
+    foreach (int move in board.legal_moves ()) {
+        Board other = board.copy ();
+        other.apply_move (move);
+        assert_cmpint (other.seeds_in_row (Player.SOUTH), CompareOperator.LE, kept);
+    }
+}
+
 /** A position with nothing playable gets no recommendation rather than a wrong one. */
 void test_advice_on_a_dead_position () {
     Board board = position ("1,1,0,0,0,0 | 0,0,0,0,0,0 | S:23 N:23 | to_move=S");
@@ -334,6 +357,7 @@ public static int main (string[] args) {
     Test.add_func ("/advisor/explains-feeding", test_advice_explains_feeding);
     Test.add_func ("/advisor/protects-a-real-house", test_protecting_advice_describes_the_board_in_front_of_the_player);
     Test.add_func ("/advisor/counts-seeds-where-they-are", test_protecting_advice_counts_seeds_where_they_are);
+    Test.add_func ("/advisor/warns-about-a-dry-row", test_advice_warns_when_the_row_is_running_dry);
     Test.add_func ("/advisor/dead-position", test_advice_on_a_dead_position);
     Test.add_func ("/advisor/async-matches", test_advice_async_matches_and_keeps_the_loop_running);
     Test.add_func ("/advisor/refuses-a-losing-capture", test_advice_refuses_a_capture_that_hands_over_the_game);

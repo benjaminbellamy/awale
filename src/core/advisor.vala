@@ -11,6 +11,8 @@ namespace Awale {
         PROTECTS,
         /** The opponent is starving and this move feeds them (RULES.md 4). */
         FEEDS,
+        /** Your row is running dry and this keeps the most seeds in it. */
+        KEEPS_SEEDS,
         /** Nothing else is legal. */
         ONLY_MOVE,
         /** No tactic either way, it simply leaves the better position. */
@@ -23,8 +25,9 @@ namespace Awale {
         public int best_house;
         public AdviceKind kind;
         /**
-         * The number the reason is about: seeds captured, or seeds the
-         * computer is threatening to take.
+         * The number the reason is about: seeds captured, seeds the computer
+         * is threatening to take, or seeds left in your row when it is
+         * running dry.
          */
         public int seeds;
         /**
@@ -72,6 +75,14 @@ namespace Awale {
      * set to, because a hint that is worse than the opponent would be useless.
      */
     public class Advisor : Object {
+
+        /**
+         * How thin a row has to be before the advisor talks about the row
+         * rather than about the move. Six seeds is one to a house: below that,
+         * most moves hand the last of them across and the game is lost
+         * without a capture rather than to one.
+         */
+        private const int THIN_ROW_SEEDS = 6;
 
         public GrandSlamPolicy grand_slam_policy {
             get; set; default = GrandSlamPolicy.LEGAL_NO_CAPTURE;
@@ -186,6 +197,10 @@ namespace Awale {
             if (explains_protection (board, legal, ref advice)) {
                 return;
             }
+            if (explains_thin_row (board, legal, ref advice)) {
+                return;
+            }
+
             advice.kind = AdviceKind.BUILDS;
             advice.seeds = 0;
         }
@@ -231,6 +246,54 @@ namespace Awale {
             advice.seeds = threat;
             advice.exposed_houses = in_row_order (threatened);
             return true;
+        }
+
+        /**
+         * True when the player's row is running dry and the recommendation is
+         * what keeps the most seeds in it.
+         *
+         * This is how a game is lost with no capture in sight: the last few
+         * seeds are handed across, the computer sows them back one at a time,
+         * and every reply is forced. None of the other reasons covers it,
+         * because nothing is being taken either way.
+         */
+        private bool explains_thin_row (Board board, int[] legal, ref Advice advice) {
+            int left = board.seeds_in_row (board.to_move);
+            if (left > THIN_ROW_SEEDS) {
+                return false;
+            }
+
+            int kept = seeds_kept (board, advice.best_house);
+            bool another_keeps_fewer = false;
+            foreach (int move in legal) {
+                if (move == advice.best_house) {
+                    continue;
+                }
+                int other = seeds_kept (board, move);
+                if (other > kept) {
+                    return false;
+                }
+                if (other < kept) {
+                    another_keeps_fewer = true;
+                }
+            }
+            if (!another_keeps_fewer) {
+                // Every move leaves the same number behind, so there is
+                // nothing to recommend this one for.
+                return false;
+            }
+
+            advice.kind = AdviceKind.KEEPS_SEEDS;
+            advice.seeds = left;
+            return true;
+        }
+
+        /** Seeds left in the mover's own row once {@link move} has been played. */
+        private int seeds_kept (Board board, int move) {
+            Player mover = board.to_move;
+            Board after = board.copy ();
+            after.apply_move (move, grand_slam_policy);
+            return after.seeds_in_row (mover);
         }
 
         /**

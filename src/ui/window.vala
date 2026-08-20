@@ -675,6 +675,14 @@ namespace Awale {
                 case AdviceKind.FEEDS:
                     /// Learning mode hint. %d is the recommended house, 1 to 6.
                     return _("Play house %d: the computer is out of seeds and this feeds them, which the rules require.").printf (best);
+                case AdviceKind.KEEPS_SEEDS:
+                    /// Learning mode hint given when the player's own row is
+                    /// nearly empty, which loses a game with no capture in it.
+                    /// %1$d is the recommended house, 1 to 6. %2$d is how many
+                    /// seeds are left in the player's row.
+                    return ngettext ("Play house %1$d: your row is down to %2$d seed, and this move keeps the most on your side.",
+                                     "Play house %1$d: your row is down to %2$d seeds, and this move keeps the most on your side.",
+                                     advice.seeds).printf (best, advice.seeds);
                 case AdviceKind.ONLY_MOVE:
                     /// Learning mode hint. %d is the recommended house, 1 to 6.
                     return _("Play house %d: it is your only legal move.").printf (best);
