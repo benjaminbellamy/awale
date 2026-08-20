@@ -11,7 +11,7 @@ Play Awalé against the computer.
 
 ```sh
 curl -L -o /tmp/awale.flatpak \
-    https://github.com/benjaminbellamy/awale/releases/download/1.2.0/awale-1.2.0.flatpak \
+    https://github.com/benjaminbellamy/awale/releases/download/1.2.1/awale-1.2.1.flatpak \
     && flatpak install --user --bundle /tmp/awale.flatpak
 ```
 

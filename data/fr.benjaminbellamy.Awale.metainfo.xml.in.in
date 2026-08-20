@@ -88,6 +88,27 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="1.2.1" date="2026-08-20">
+      <description>
+        <p>
+          Learning mode told you a house was being protected when it was not.
+          The house it named and the seeds it counted came from a board that
+          was never on screen, so it would point at an empty house and say two
+          seeds were about to be lost from it. It now names only houses that
+          hold seeds in the position in front of you, and only when the move
+          it recommends really does put them out of reach.
+        </p>
+        <p>
+          The computer no longer shrugs at emptying its own row, which was how
+          it lost games with no capture in them, and learning mode says so when
+          your row is running short.
+        </p>
+        <p>
+          Every game from the opening position used to be the same game. The
+          computer now varies its opening.
+        </p>
+      </description>
+    </release>
     <release version="1.2.0" date="2026-08-19">
       <description>
         <p>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 13:21+0200\n"
+"POT-Creation-Date: 2026-08-20 13:22+0200\n"
 "PO-Revision-Date: 2026-08-16 00:00+0000\n"
 "Last-Translator: machine generated, unreviewed\n"
 "Language-Team: Italian\n"
@@ -126,6 +126,40 @@ msgstr "gioco da tavolo"
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode told you a house was being protected when it was not. The "
+"house it named and the seeds it counted came from a board that was never on "
+"screen, so it would point at an empty house and say two seeds were about to "
+"be lost from it. It now names only houses that hold seeds in the position in "
+"front of you, and only when the move it recommends really does put them out "
+"of reach."
+msgstr ""
+"La modalità apprendimento ti diceva che una buca era protetta quando non lo "
+"era. La buca che nominava e i semi che contava venivano da un tavoliere mai "
+"apparso sullo schermo: poteva indicare una buca vuota e annunciare che vi si "
+"stavano per perdere due semi. Ora nomina solo buche che contengono semi "
+"nella posizione davanti a te, e solo quando la mossa consigliata le mette "
+"davvero fuori portata."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+msgid ""
+"The computer no longer shrugs at emptying its own row, which was how it lost "
+"games with no capture in them, and learning mode says so when your row is "
+"running short."
+msgstr ""
+"Il computer non si disinteressa più di svuotare la propria fila, il che gli "
+"faceva perdere partite senza una sola cattura, e la modalità apprendimento "
+"te lo dice quando la tua fila si sta esaurendo."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:106
+msgid ""
+"Every game from the opening position used to be the same game. The computer "
+"now varies its opening."
+msgstr ""
+"Ogni partita iniziata dalla posizione di partenza era la stessa partita. Ora "
+"il computer varia la sua apertura."
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:114
+msgid ""
 "The computer no longer overlooks that 25 seeds wins the game, which cured "
 "advice that took a couple of seeds and lost on the move after. Learning mode "
 "now says why it recommends a move: what the computer takes back for a "
@@ -138,11 +172,11 @@ msgstr ""
 "quanto il computer riprende dopo una cattura, quali delle tue buche una "
 "minaccia svuoterebbe, e perché la buca che sembra migliore non lo è."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:100
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "A move that has been taken back can be played again with Ctrl+Shift+Z."
 msgstr "Una mossa annullata può essere rigiocata con Ctrl+Maiusc+Z."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:108
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:129
 msgid ""
 "Learning mode now draws an arrow from every house that would win seeds to "
 "the house its last seed lands in, on both rows, with the total beside it. "
@@ -153,7 +187,7 @@ msgstr ""
 "file, con il totale accanto. I tasti L e S attivano e disattivano la "
 "modalità apprendimento e il numero di semi."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:118
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:139
 msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
@@ -161,7 +195,7 @@ msgstr ""
 "Il suggerimento ora si legge sopra il tavoliere, e le due file di buche "
 "restano al centro della finestra, che ci sia un messaggio o no."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:126
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:147
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
@@ -169,21 +203,21 @@ msgstr ""
 "Corregge la lingua dell'interfaccia nella build Flatpak, che restava in "
 "inglese qualunque lingua fosse scelta."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:134
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:155
 msgid "First release."
 msgstr "Prima versione."
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:136
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:157
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 "Regole complete dell’awalé, compreso il grande slam e i due limiti contro i "
 "cicli"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:137
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:158
 msgid "Computer opponent at three strengths"
 msgstr "Avversario informatico con tre livelli di forza"
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:138
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:159
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr "Modalità apprendimento che segna la mossa migliore, con la sua ragione"
 

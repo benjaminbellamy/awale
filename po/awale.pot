@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: awale\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 13:21+0200\n"
+"POT-Creation-Date: 2026-08-20 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,6 +113,29 @@ msgstr ""
 
 #: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:93
 msgid ""
+"Learning mode told you a house was being protected when it was not. The "
+"house it named and the seeds it counted came from a board that was never on "
+"screen, so it would point at an empty house and say two seeds were about to "
+"be lost from it. It now names only houses that hold seeds in the position in "
+"front of you, and only when the move it recommends really does put them out "
+"of reach."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:101
+msgid ""
+"The computer no longer shrugs at emptying its own row, which was how it lost "
+"games with no capture in them, and learning mode says so when your row is "
+"running short."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:106
+msgid ""
+"Every game from the opening position used to be the same game. The computer "
+"now varies its opening."
+msgstr ""
+
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:114
+msgid ""
 "The computer no longer overlooks that 25 seeds wins the game, which cured "
 "advice that took a couple of seeds and lost on the move after. Learning mode "
 "now says why it recommends a move: what the computer takes back for a "
@@ -120,42 +143,42 @@ msgid ""
 "looks better is not."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:100
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:121
 msgid "A move that has been taken back can be played again with Ctrl+Shift+Z."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:108
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:129
 msgid ""
 "Learning mode now draws an arrow from every house that would win seeds to "
 "the house its last seed lands in, on both rows, with the total beside it. "
 "The keys L and S turn learning mode and the seed counts on and off."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:118
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:139
 msgid ""
 "The advice now reads above the board, and the two rows of houses stay in the "
 "middle of the window whether there is a message or not."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:126
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:147
 msgid ""
 "Fixes the interface language in the Flatpak build, which stayed in English "
 "whichever language was chosen."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:134
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:155
 msgid "First release."
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:136
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:157
 msgid "Complete Awalé rules, including the grand slam and both cycle guards"
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:137
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:158
 msgid "Computer opponent at three strengths"
 msgstr ""
 
-#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:138
+#: data/fr.benjaminbellamy.Awale.metainfo.xml.in.in:159
 msgid "Learning mode marking the best move, with the reason for it"
 msgstr ""
 

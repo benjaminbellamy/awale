@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 project('awale', ['c', 'vala'],
-  version: '1.2.0',
+  version: '1.2.1',
   license: 'AGPL-3.0-or-later',
   meson_version: '>= 1.0.0',
   default_options: [
